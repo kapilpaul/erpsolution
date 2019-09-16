@@ -1,0 +1,16 @@
+.error{
+    color: #ff0000;
+}
+
+.child-active-menu{
+    background: rgba(0, 0, 0, .1);
+}
+
+.text-light-black {
+    color: #333333e6 !important;
+}
+
+
+.v-select .dropdown-toggle {
+    border: 0px !important;
+}
