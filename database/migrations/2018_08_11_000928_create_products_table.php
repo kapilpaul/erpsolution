@@ -17,12 +17,13 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('code');
             $table->string('name');
-            $table->string('model');
+            $table->string('model')->nullable();
+            $table->string('barcode')->nullable();
             $table->float('price', 8, 2)->nullable();
             $table->float('sale_price', 8, 2);
-            $table->string('unit');
+            $table->string('unit')->default('pc');
             $table->text('description')->nullable();
-            $table->bigInteger('category_id');
+            $table->bigInteger('category_id')->nullable();
             $table->bigInteger('photo_id')->nullable();
             $table->timestamps();
             $table->softDeletes();

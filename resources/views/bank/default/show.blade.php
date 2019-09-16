@@ -47,13 +47,13 @@
                 </div>
             </div>
         </div>
-        
+
         <bank-transaction-show :code="'{{ $bank->code }}'"></bank-transaction-show>
     @stop
 
 @endsection
 
 @push('footer_top_js')
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ asset('assets/js/remodal.min.js') }}"></script>
 @endpush

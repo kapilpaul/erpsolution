@@ -17,8 +17,8 @@ class CreatePurchaseProductsTable extends Migration
             $table->bigInteger('purchase_id');
             $table->bigInteger('product_id');
             $table->string('quantity');
-            $table->float('price');
-            $table->float('total');
+            $table->float('price')->default(0);
+            $table->float('total')->default(0);
             $table->timestamps();
         });
     }

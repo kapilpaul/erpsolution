@@ -66,19 +66,19 @@ Route::middleware(['authcheck'])->group(function () {
         /*
          * Category Routes
          */
-        Route::group(['prefix' => 'category'], function () {
-            Route::get('/', 'CategoryController@index')->name('category.index');
-            Route::get('/create', 'CategoryController@create')->name('category.create');
-        });
+//        Route::group(['prefix' => 'category'], function () {
+//            Route::get('/', 'CategoryController@index')->name('category.index');
+//            Route::get('/create', 'CategoryController@create')->name('category.create');
+//        });
 
         /*
          * supplier Routes
          */
-        Route::group(['prefix' => 'suppliers'], function () {
-            Route::get('/', 'SupplierController@index')->name('suppliers.index');
-            Route::get('/create', 'SupplierController@create')->name('suppliers.create');
-            Route::get('/{id}/details', 'SupplierController@show')->name('suppliers.show');
-        });
+//        Route::group(['prefix' => 'suppliers'], function () {
+//            Route::get('/', 'SupplierController@index')->name('suppliers.index');
+//            Route::get('/create', 'SupplierController@create')->name('suppliers.create');
+//            Route::get('/{id}/details', 'SupplierController@show')->name('suppliers.show');
+//        });
 
         /*
          *  products Routes

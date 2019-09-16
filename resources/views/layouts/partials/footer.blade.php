@@ -1,6 +1,6 @@
 <!--/#app -->
 <!-- JavaScript -->
-{{--<script src="{{ asset('js/app.js') }}"></script>--}}
+{{--<script src="{{ mix('js/app.js') }}"></script>--}}
 @stack('footer_top_js')
 
 <script src="{{ asset('assets/js/app.js') }}"></script>

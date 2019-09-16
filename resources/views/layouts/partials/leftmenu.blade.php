@@ -76,48 +76,48 @@
                 </ul>
             </li>
 
-            <li class="treeview {{ areActiveRoutes(['category.create', 'category.index']) }}">
-                <a href="#">
-                    <i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Category</span>
-                    <i class="icon icon-angle-left s-18 pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ isActiveRoute('category.create') }}">
-                        <a href="{{ route('category.create') }}">
-                            <i class="icon icon-folder5"></i>
-                            Add
-                        </a>
-                    </li>
-                    <li class="{{ isActiveRoute('category.index') }}">
-                        <a href="{{ route('category.index') }}">
-                            <i class="icon icon-folder5"></i>
-                            View
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            {{--<li class="treeview {{ areActiveRoutes(['category.create', 'category.index']) }}">--}}
+                {{--<a href="#">--}}
+                    {{--<i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Category</span>--}}
+                    {{--<i class="icon icon-angle-left s-18 pull-right"></i>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li class="{{ isActiveRoute('category.create') }}">--}}
+                        {{--<a href="{{ route('category.create') }}">--}}
+                            {{--<i class="icon icon-folder5"></i>--}}
+                            {{--Add--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                    {{--<li class="{{ isActiveRoute('category.index') }}">--}}
+                        {{--<a href="{{ route('category.index') }}">--}}
+                            {{--<i class="icon icon-folder5"></i>--}}
+                            {{--View--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
 
-            <li class="treeview no-b {{ areActiveRoutes(['suppliers.create', 'suppliers.index']) }}">
-                <a href="#">
-                    <i class="icon icon-package light-green-text s-18"></i>
-                    <span>Suppliers</span>
-                    <i class="icon icon-angle-left s-18 pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ isActiveRoute('suppliers.create') }}">
-                        <a href="{{ route('suppliers.create') }}">
-                            <i class="icon icon-add"></i>
-                            Add
-                        </a>
-                    </li>
-                    <li class="{{ isActiveRoute('suppliers.index') }}">
-                        <a href="{{ route('suppliers.index') }}">
-                            <i class="icon icon-circle-o"></i>
-                            View
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            {{--<li class="treeview no-b {{ areActiveRoutes(['suppliers.create', 'suppliers.index']) }}">--}}
+                {{--<a href="#">--}}
+                    {{--<i class="icon icon-package light-green-text s-18"></i>--}}
+                    {{--<span>Suppliers</span>--}}
+                    {{--<i class="icon icon-angle-left s-18 pull-right"></i>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li class="{{ isActiveRoute('suppliers.create') }}">--}}
+                        {{--<a href="{{ route('suppliers.create') }}">--}}
+                            {{--<i class="icon icon-add"></i>--}}
+                            {{--Add--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                    {{--<li class="{{ isActiveRoute('suppliers.index') }}">--}}
+                        {{--<a href="{{ route('suppliers.index') }}">--}}
+                            {{--<i class="icon icon-circle-o"></i>--}}
+                            {{--View--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
 
             <li class="treeview no-b {{ areActiveRoutes(['customer.create', 'customer.index']) }}">
                 <a href="#">

@@ -91,7 +91,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <p class="p-label mb-0">Quantity</p>
-                                    <input type="number" class="form-control" name="quantity" v-model="item.quantity" step="0.01">
+                                    <input type="number" class="form-control" name="quantity" v-model="item.quantity" step="01">
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <p class="p-label mb-0">Price</p>
-                                    <input type="text" class="form-control" name="price" v-model="item.price = invoice['products'][index].product_id.sale_price">
+                                    <input type="text" class="form-control" name="price" v-model="item.price">
                                 </div>
                             </div>
                         </div>
@@ -107,8 +107,8 @@
                         <div class="col-md-1">
                             <div class="form-group form-float">
                                 <div class="form-line">
-                                    <p class="p-label mb-0">Discount%</p>
-                                    <input type="number" class="form-control" name="quantity" v-model="item.discount" step="0.01">
+                                    <p class="p-label mb-0">Discount</p>
+                                    <input type="number" class="form-control" name="quantity" v-model="item.discount" step="1">
                                 </div>
                             </div>
                         </div>
@@ -117,8 +117,7 @@
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <p class="p-label mb-0">Total</p>
-                                    <input type="text" class="form-control" name="total" v-model="item.total =
-                                    item.quantity * item.price">
+                                    <input type="text" class="form-control" name="total" v-model="item.total = item.price">
                                 </div>
                             </div>
                         </div>
@@ -275,10 +274,10 @@
                 var discount = 0;
 
                 this.invoice['products'].forEach(item => {
-                    discount += item.total * (item.discount / 100);
+                    discount += item.discount;
                 });
 
-                return discount.toFixed(2);
+                return parseInt(discount);
             }
         },
         methods: {

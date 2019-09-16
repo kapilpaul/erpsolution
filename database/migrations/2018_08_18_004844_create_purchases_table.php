@@ -18,9 +18,10 @@ class CreatePurchasesTable extends Migration
             $table->string('invoice_no');
             $table->string('purchase_no');
             $table->date('purchase_date');
+            $table->text('vehicle_no')->nullable();
             $table->text('details')->nullable();
             $table->string('total_amount')->default(0);
-            $table->bigInteger('supplier_id');
+            $table->bigInteger('supplier_id')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
