@@ -26,6 +26,7 @@ class TransactionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param $type
      * @return \Illuminate\Http\Response
      */
     public function create($type)
@@ -132,5 +133,28 @@ class TransactionController extends Controller
         if($validator->fails()){
             return response()->json(['errors'=> $validator->errors()], 500);
         }
+    }
+
+    /**
+     * @param $date
+     */
+    public function dailySummary($date)
+    {
+        $date = date('Y-m-d', strtotime($date));
+        $salesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'customer')->with('customer');
+        $receiptsQuery = Transaction::whereDate('date', $date)->where('type', 'receipt')->where('category', 'customer')->with('customer');
+
+        $expensesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'office')->with('account');
+
+        $totalSales = $salesQuery->sum('credit');
+        $totalReceived = $receiptsQuery->sum('debit');
+        $totalExpenses = $expensesQuery->sum('credit');
+
+        $sales = $salesQuery->get();
+        $receipts = $receiptsQuery->get();
+        $expenses = $expensesQuery->get();
+
+        dd($totalSales, $totalReceived, $totalExpenses);
+
     }
 }

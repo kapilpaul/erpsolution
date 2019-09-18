@@ -2,10 +2,12 @@
 
 namespace App\Models\Customer;
 
+use App\Http\Controllers\Sells\InvoiceController;
 use App\Models\Sales\Invoice;
 use App\Models\Settings\Accounts\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Customer extends Model
 {
@@ -38,10 +40,13 @@ class Customer extends Model
      */
     public static function createCustomer($input)
     {
-        $input['code'] = str_random(15);
+        $input['code'] = Str::random(15);
         $input['name'] = ucwords($input['name']);
 
-        if (Customer::create($input)) {
+
+        if ($customer = Customer::create($input)) {
+            $invoice = new InvoiceController();
+            $invoice->transactionRequest('payment', $input['balance'], $customer->code, null, false, "Previous Balance");
             return true;
         }
         return false;
@@ -68,14 +73,15 @@ class Customer extends Model
     /**
      * grand total of customer
      * @param $id
+     * @return mixed
      */
     public static function grandTotal($id)
     {
         $invoiceTotal = Invoice::whereCustomerId($id)->sum('grand_total');
-        $paymentTotal = Transaction::whereType('payment')->whereCategory('customer')->whereReceiverId($id)->sum('credit');
+        $paymentTotal = Transaction::where('type', 'payment')->where('category', 'customer')->whereReceiverId($id)->sum('credit');
 
         $grandTotal = ($invoiceTotal + $paymentTotal);
-        return $grandTotal;
+        return $paymentTotal;
     }
 
     /**

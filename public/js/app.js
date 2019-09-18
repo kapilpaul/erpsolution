@@ -12559,57 +12559,57 @@ module.exports = Vue;
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = (function (Vue) {
-    var authenticatedUser = {};
+  var authenticatedUser = {};
 
-    Vue.auth = {
-        setToken: function setToken(token, expiration) {
-            localStorage.setItem('token', token);
-            localStorage.setItem('expiration', expiration);
-        },
-        getToken: function getToken() {
-            var token = localStorage.getItem('token');
-            var expiration = localStorage.getItem('expiration');
+  Vue.auth = {
+    setToken: function setToken(token, expiration) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("expiration", expiration);
+    },
+    getToken: function getToken() {
+      var token = localStorage.getItem("token");
+      var expiration = localStorage.getItem("expiration");
 
-            if (!token || !expiration) return null;
+      if (!token || !expiration) return null;
 
-            if (Date.now() > parseInt(expiration)) {
-                this.destroyToken();
-                return null;
-            } else {
-                return token;
-            }
-        },
-        destroyToken: function destroyToken() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('expiration');
-        },
-        isAuthenticated: function isAuthenticated() {
-            if (this.getToken()) return true;else return false;
-        },
-        setAuthenticateduser: function setAuthenticateduser(data) {
-            authenticatedUser = data;
-        },
-        getAuthenticateduser: function getAuthenticateduser() {
-            return authenticatedUser;
-        },
-        getHeader: function getHeader() {
-            var tokenData = this.getToken();
-            return {
-                'headers': {
-                    'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + tokenData
-                }
-            };
+      if (Date.now() > parseInt(expiration)) {
+        this.destroyToken();
+        return null;
+      } else {
+        return token;
+      }
+    },
+    destroyToken: function destroyToken() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("expiration");
+    },
+    isAuthenticated: function isAuthenticated() {
+      if (this.getToken()) return true;else return false;
+    },
+    setAuthenticateduser: function setAuthenticateduser(data) {
+      authenticatedUser = data;
+    },
+    getAuthenticateduser: function getAuthenticateduser() {
+      return authenticatedUser;
+    },
+    getHeader: function getHeader() {
+      var tokenData = this.getToken();
+      return {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + tokenData
         }
-    };
+      };
+    }
+  };
 
-    Object.defineProperties(Vue.prototype, {
-        $auth: {
-            get: function get() {
-                return Vue.auth;
-            }
-        }
-    });
+  Object.defineProperties(Vue.prototype, {
+    $auth: {
+      get: function get() {
+        return Vue.auth;
+      }
+    }
+  });
 });
 
 /***/ }),
@@ -12647,133 +12647,133 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3__aut
 // const purchaseStore = purchaseStore;
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
-    state: {
-        categories: [],
-        validationErrors: [],
-        categoryEditData: [],
-        suppliers: [],
-        suppliersEditData: [],
-        products: [],
-        productsEditData: [],
-        submitted: false
+  state: {
+    categories: [],
+    validationErrors: [],
+    categoryEditData: [],
+    suppliers: [],
+    suppliersEditData: [],
+    products: [],
+    productsEditData: [],
+    submitted: false
+  },
+  getters: {
+    validationErrors: function validationErrors(state) {
+      return state.validationErrors;
     },
-    getters: {
-        validationErrors: function validationErrors(state) {
-            return state.validationErrors;
-        },
-        categories: function categories(state) {
-            return state.categories;
-        },
-        categoryEditData: function categoryEditData(state) {
-            return state.categoryEditData;
-        },
-        suppliers: function suppliers(state) {
-            return state.suppliers;
-        },
-        suppliersEditData: function suppliersEditData(state) {
-            return state.suppliersEditData;
-        },
-        products: function products(state) {
-            return state.products;
-        },
-        productsEditData: function productsEditData(state) {
-            return state.productsEditData;
-        },
-        submitted: function submitted(state) {
-            return state.submitted;
-        }
+    categories: function categories(state) {
+      return state.categories;
     },
-    mutations: {
-        setValidationErrors: function setValidationErrors(state, payload) {
-            state.validationErrors = payload;
-        },
-        setCategories: function setCategories(state, payload) {
-            state.categories = payload;
-        },
-        setCategoryEditData: function setCategoryEditData(state, payload) {
-            state.categoryEditData = payload;
-        },
-        setSuppliers: function setSuppliers(state, payload) {
-            state.suppliers = payload;
-        },
-        setSuppliersEditData: function setSuppliersEditData(state, payload) {
-            state.suppliersEditData = payload;
-        },
-        setProducts: function setProducts(state, payload) {
-            state.products = payload;
-        },
-        setProductsEditData: function setProductsEditData(state, payload) {
-            state.productsEditData = payload;
-        },
-        setSubmitted: function setSubmitted(state, payload) {
-            state.submitted = payload;
-        }
+    categoryEditData: function categoryEditData(state) {
+      return state.categoryEditData;
     },
-    actions: {
-        setValidationErrors: function setValidationErrors(_ref, payload) {
-            var commit = _ref.commit;
-
-            commit('setValidationErrors', payload);
-        },
-        setCategories: function setCategories(_ref2, payload) {
-            var commit = _ref2.commit;
-
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("http://producterp.localhost/api/" + 'category', __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
-                commit('setCategories', response.data.categories);
-            });
-        },
-        setCategoryEditData: function setCategoryEditData(_ref3, payload) {
-            var commit = _ref3.commit;
-
-            commit('setCategoryEditData', payload);
-        },
-        setSuppliers: function setSuppliers(_ref4, payload) {
-            var commit = _ref4.commit;
-
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("http://producterp.localhost/api/" + 'suppliers', __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
-                commit('setSuppliers', response.data.suppliers);
-            });
-        },
-        setSuppliersEditData: function setSuppliersEditData(_ref5, payload) {
-            var commit = _ref5.commit;
-
-            commit('setSuppliersEditData', payload);
-        },
-        setProducts: function setProducts(_ref6, payload) {
-            var commit = _ref6.commit;
-
-            var productUrl = "http://producterp.localhost/api/" + 'products';
-            if (payload == '') {
-                productUrl = productUrl;
-            } else if (payload.search) {
-                productUrl = productUrl + '/search/' + payload.search;
-            } else {
-                productUrl = productUrl + "?page=" + payload;
-            }
-
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(productUrl, __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
-                commit('setProducts', response.data.products);
-            });
-        },
-        setProductsEditData: function setProductsEditData(_ref7, payload) {
-            var commit = _ref7.commit;
-
-            commit('setProductsEditData', payload);
-        },
-        setSubmitted: function setSubmitted(_ref8, payload) {
-            var commit = _ref8.commit;
-
-            commit('setSubmitted', payload);
-        }
+    suppliers: function suppliers(state) {
+      return state.suppliers;
     },
-    modules: {
-        purchaseStore: __WEBPACK_IMPORTED_MODULE_4__modules_purchase__["a" /* purchaseStore */],
-        customerStore: __WEBPACK_IMPORTED_MODULE_5__modules_customer__["a" /* customerStore */],
-        stockStore: __WEBPACK_IMPORTED_MODULE_6__modules_stock__["a" /* stockStore */],
-        bankStore: __WEBPACK_IMPORTED_MODULE_7__modules_bank__["a" /* bankStore */],
-        invoiceStore: __WEBPACK_IMPORTED_MODULE_8__modules_invoice__["a" /* invoiceStore */],
-        accountStore: __WEBPACK_IMPORTED_MODULE_9__modules_account__["a" /* accountStore */]
+    suppliersEditData: function suppliersEditData(state) {
+      return state.suppliersEditData;
+    },
+    products: function products(state) {
+      return state.products;
+    },
+    productsEditData: function productsEditData(state) {
+      return state.productsEditData;
+    },
+    submitted: function submitted(state) {
+      return state.submitted;
     }
+  },
+  mutations: {
+    setValidationErrors: function setValidationErrors(state, payload) {
+      state.validationErrors = payload;
+    },
+    setCategories: function setCategories(state, payload) {
+      state.categories = payload;
+    },
+    setCategoryEditData: function setCategoryEditData(state, payload) {
+      state.categoryEditData = payload;
+    },
+    setSuppliers: function setSuppliers(state, payload) {
+      state.suppliers = payload;
+    },
+    setSuppliersEditData: function setSuppliersEditData(state, payload) {
+      state.suppliersEditData = payload;
+    },
+    setProducts: function setProducts(state, payload) {
+      state.products = payload;
+    },
+    setProductsEditData: function setProductsEditData(state, payload) {
+      state.productsEditData = payload;
+    },
+    setSubmitted: function setSubmitted(state, payload) {
+      state.submitted = payload;
+    }
+  },
+  actions: {
+    setValidationErrors: function setValidationErrors(_ref, payload) {
+      var commit = _ref.commit;
+
+      commit("setValidationErrors", payload);
+    },
+    setCategories: function setCategories(_ref2, payload) {
+      var commit = _ref2.commit;
+
+      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("http://producterp.localhost/api/" + "category", __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
+        commit("setCategories", response.data.categories);
+      });
+    },
+    setCategoryEditData: function setCategoryEditData(_ref3, payload) {
+      var commit = _ref3.commit;
+
+      commit("setCategoryEditData", payload);
+    },
+    setSuppliers: function setSuppliers(_ref4, payload) {
+      var commit = _ref4.commit;
+
+      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("http://producterp.localhost/api/" + "suppliers", __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
+        commit("setSuppliers", response.data.suppliers);
+      });
+    },
+    setSuppliersEditData: function setSuppliersEditData(_ref5, payload) {
+      var commit = _ref5.commit;
+
+      commit("setSuppliersEditData", payload);
+    },
+    setProducts: function setProducts(_ref6, payload) {
+      var commit = _ref6.commit;
+
+      var productUrl = "http://producterp.localhost/api/" + "products";
+      if (payload == "") {
+        productUrl = productUrl;
+      } else if (payload.search) {
+        productUrl = productUrl + "/search/" + payload.search;
+      } else {
+        productUrl = productUrl + "?page=" + payload;
+      }
+
+      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(productUrl, __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
+        commit("setProducts", response.data.products);
+      });
+    },
+    setProductsEditData: function setProductsEditData(_ref7, payload) {
+      var commit = _ref7.commit;
+
+      commit("setProductsEditData", payload);
+    },
+    setSubmitted: function setSubmitted(_ref8, payload) {
+      var commit = _ref8.commit;
+
+      commit("setSubmitted", payload);
+    }
+  },
+  modules: {
+    purchaseStore: __WEBPACK_IMPORTED_MODULE_4__modules_purchase__["a" /* purchaseStore */],
+    customerStore: __WEBPACK_IMPORTED_MODULE_5__modules_customer__["a" /* customerStore */],
+    stockStore: __WEBPACK_IMPORTED_MODULE_6__modules_stock__["a" /* stockStore */],
+    bankStore: __WEBPACK_IMPORTED_MODULE_7__modules_bank__["a" /* bankStore */],
+    invoiceStore: __WEBPACK_IMPORTED_MODULE_8__modules_invoice__["a" /* invoiceStore */],
+    accountStore: __WEBPACK_IMPORTED_MODULE_9__modules_account__["a" /* accountStore */]
+  }
 });
 
 /***/ }),
@@ -12948,7 +12948,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_settings_accounts_transaction_create_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__components_settings_accounts_transaction_create_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_settings_accounts_transaction_show_vue__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_settings_accounts_transaction_show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__components_settings_accounts_transaction_show_vue__);
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -12996,60 +12995,59 @@ window.Vue = __webpack_require__(19);
 
 
 
-console.log('%c Developed By Kapil Paul', 'background-color:#333;padding:20px 40px;border-radius:5px;color:#fff;');
+console.log("%c Developed By Kapil Paul", "background-color:#333;padding:20px 40px;border-radius:5px;color:#fff;");
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_2__auth_js__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.baseURL = "http://producterp.localhost/api/";
 
 Object.defineProperties(Vue.prototype, {
-    $siteurl: {
-        value: "http://producterp.localhost/api/"
-    },
-    $swal: {
-        value: __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a
-    },
-    $axios: {
-        value: __WEBPACK_IMPORTED_MODULE_0_axios___default.a
-    }
+  $siteurl: {
+    value: "http://producterp.localhost/api/"
+  },
+  $swal: {
+    value: __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a
+  },
+  $axios: {
+    value: __WEBPACK_IMPORTED_MODULE_0_axios___default.a
+  }
 });
 
 var app = new Vue({
-    el: '#app',
-    store: __WEBPACK_IMPORTED_MODULE_3__store_index__["a" /* store */],
-    components: {
-        categoryCreate: __WEBPACK_IMPORTED_MODULE_4__components_settings_category_create_vue___default.a,
-        categoryIndex: __WEBPACK_IMPORTED_MODULE_5__components_settings_category_index_vue___default.a,
-        accountCreate: __WEBPACK_IMPORTED_MODULE_6__components_settings_accounts_account_create_vue___default.a,
-        accountIndex: __WEBPACK_IMPORTED_MODULE_7__components_settings_accounts_account_index_vue___default.a,
-        supplierIndex: __WEBPACK_IMPORTED_MODULE_9__components_settings_suppliers_index_vue___default.a,
-        supplierCreate: __WEBPACK_IMPORTED_MODULE_8__components_settings_suppliers_create_vue___default.a,
-        productIndex: __WEBPACK_IMPORTED_MODULE_11__components_settings_products_index_vue___default.a,
-        productCreate: __WEBPACK_IMPORTED_MODULE_10__components_settings_products_create_vue___default.a,
-        purchaseIndex: __WEBPACK_IMPORTED_MODULE_12__components_purchase_index_vue___default.a,
-        purchaseCreate: __WEBPACK_IMPORTED_MODULE_13__components_purchase_create_vue___default.a,
-        purchaseEdit: __WEBPACK_IMPORTED_MODULE_14__components_purchase_edit_vue___default.a,
-        invoiceIndex: __WEBPACK_IMPORTED_MODULE_15__components_sells_invoice_index_vue___default.a,
-        invoiceCreate: __WEBPACK_IMPORTED_MODULE_16__components_sells_invoice_create_vue___default.a,
-        invoiceEdit: __WEBPACK_IMPORTED_MODULE_17__components_sells_invoice_edit_vue___default.a,
-        customerCreate: __WEBPACK_IMPORTED_MODULE_18__components_customer_create_vue___default.a,
-        customerIndex: __WEBPACK_IMPORTED_MODULE_19__components_customer_index_vue___default.a,
-        productInStock: __WEBPACK_IMPORTED_MODULE_20__components_reports_stock_instock_vue___default.a,
-        productOutOfStock: __WEBPACK_IMPORTED_MODULE_21__components_reports_stock_outofstock_vue___default.a,
-        productStockIndex: __WEBPACK_IMPORTED_MODULE_22__components_reports_stock_index_vue___default.a,
-        bankCreate: __WEBPACK_IMPORTED_MODULE_23__components_bank_default_create_vue___default.a,
-        bankIndex: __WEBPACK_IMPORTED_MODULE_24__components_bank_default_index_vue___default.a,
-        bankTransactionCreate: __WEBPACK_IMPORTED_MODULE_25__components_bank_transaction_create_vue___default.a,
-        bankTransactionShow: __WEBPACK_IMPORTED_MODULE_26__components_bank_transaction_show_vue___default.a,
-        transactionCreate: __WEBPACK_IMPORTED_MODULE_27__components_settings_accounts_transaction_create_vue___default.a,
-        transactionShow: __WEBPACK_IMPORTED_MODULE_28__components_settings_accounts_transaction_show_vue___default.a
-    }
+  el: "#app",
+  store: __WEBPACK_IMPORTED_MODULE_3__store_index__["a" /* store */],
+  components: {
+    categoryCreate: __WEBPACK_IMPORTED_MODULE_4__components_settings_category_create_vue___default.a,
+    categoryIndex: __WEBPACK_IMPORTED_MODULE_5__components_settings_category_index_vue___default.a,
+    accountCreate: __WEBPACK_IMPORTED_MODULE_6__components_settings_accounts_account_create_vue___default.a,
+    accountIndex: __WEBPACK_IMPORTED_MODULE_7__components_settings_accounts_account_index_vue___default.a,
+    supplierIndex: __WEBPACK_IMPORTED_MODULE_9__components_settings_suppliers_index_vue___default.a,
+    supplierCreate: __WEBPACK_IMPORTED_MODULE_8__components_settings_suppliers_create_vue___default.a,
+    productIndex: __WEBPACK_IMPORTED_MODULE_11__components_settings_products_index_vue___default.a,
+    productCreate: __WEBPACK_IMPORTED_MODULE_10__components_settings_products_create_vue___default.a,
+    purchaseIndex: __WEBPACK_IMPORTED_MODULE_12__components_purchase_index_vue___default.a,
+    purchaseCreate: __WEBPACK_IMPORTED_MODULE_13__components_purchase_create_vue___default.a,
+    purchaseEdit: __WEBPACK_IMPORTED_MODULE_14__components_purchase_edit_vue___default.a,
+    invoiceIndex: __WEBPACK_IMPORTED_MODULE_15__components_sells_invoice_index_vue___default.a,
+    invoiceCreate: __WEBPACK_IMPORTED_MODULE_16__components_sells_invoice_create_vue___default.a,
+    invoiceEdit: __WEBPACK_IMPORTED_MODULE_17__components_sells_invoice_edit_vue___default.a,
+    customerCreate: __WEBPACK_IMPORTED_MODULE_18__components_customer_create_vue___default.a,
+    customerIndex: __WEBPACK_IMPORTED_MODULE_19__components_customer_index_vue___default.a,
+    productInStock: __WEBPACK_IMPORTED_MODULE_20__components_reports_stock_instock_vue___default.a,
+    productOutOfStock: __WEBPACK_IMPORTED_MODULE_21__components_reports_stock_outofstock_vue___default.a,
+    productStockIndex: __WEBPACK_IMPORTED_MODULE_22__components_reports_stock_index_vue___default.a,
+    bankCreate: __WEBPACK_IMPORTED_MODULE_23__components_bank_default_create_vue___default.a,
+    bankIndex: __WEBPACK_IMPORTED_MODULE_24__components_bank_default_index_vue___default.a,
+    bankTransactionCreate: __WEBPACK_IMPORTED_MODULE_25__components_bank_transaction_create_vue___default.a,
+    bankTransactionShow: __WEBPACK_IMPORTED_MODULE_26__components_bank_transaction_show_vue___default.a,
+    transactionCreate: __WEBPACK_IMPORTED_MODULE_27__components_settings_accounts_transaction_create_vue___default.a,
+    transactionShow: __WEBPACK_IMPORTED_MODULE_28__components_settings_accounts_transaction_show_vue___default.a
+  }
 });
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
-
 
 window._ = __webpack_require__(27);
 window.Popper = __webpack_require__(29).default;
@@ -13074,7 +13072,7 @@ try {
 
 window.axios = __webpack_require__(11);
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -13085,9 +13083,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
 }
 
 /**
@@ -48154,52 +48152,52 @@ var index_esm = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return purchaseStore; });
 var purchaseStore = {
-    state: {
-        purchases: [],
-        purchasesEditData: []
+  state: {
+    purchases: [],
+    purchasesEditData: []
+  },
+  getters: {
+    purchases: function purchases(state) {
+      return state.purchases;
     },
-    getters: {
-        purchases: function purchases(state) {
-            return state.purchases;
-        },
-        purchasesEditData: function purchasesEditData(state) {
-            return state.purchasesEditData;
-        }
-    },
-    mutations: {
-        setPurchases: function setPurchases(state, payload) {
-            state.purchases = payload;
-        },
-        setPurchasesEditData: function setPurchasesEditData(state, payload) {
-            state.purchasesEditData = payload;
-        }
-    },
-    actions: {
-        setPurchases: function setPurchases(_ref, payload) {
-            var commit = _ref.commit;
-
-            var purchaseUrl = "http://producterp.localhost/api/" + 'purchase';
-            if (payload == '') {
-                purchaseUrl = purchaseUrl;
-            } else if (payload.search) {
-                purchaseUrl = purchaseUrl + '/search/' + payload.search;
-            } else {
-                purchaseUrl = purchaseUrl + "?page=" + payload;
-            }
-
-            axios.get(purchaseUrl, Vue.auth.getHeader()).then(function (response) {
-                commit('setPurchases', response.data.purchases);
-            });
-        },
-        setPurchasesEditData: function setPurchasesEditData(_ref2, payload) {
-            var commit = _ref2.commit;
-
-            var purchaseEditUrl = "http://producterp.localhost/api/" + 'purchase/' + payload + '/edit';
-            axios.get(purchaseEditUrl, Vue.auth.getHeader()).then(function (response) {
-                commit('setPurchasesEditData', response.data.purchase);
-            });
-        }
+    purchasesEditData: function purchasesEditData(state) {
+      return state.purchasesEditData;
     }
+  },
+  mutations: {
+    setPurchases: function setPurchases(state, payload) {
+      state.purchases = payload;
+    },
+    setPurchasesEditData: function setPurchasesEditData(state, payload) {
+      state.purchasesEditData = payload;
+    }
+  },
+  actions: {
+    setPurchases: function setPurchases(_ref, payload) {
+      var commit = _ref.commit;
+
+      var purchaseUrl = "http://producterp.localhost/api/" + "purchase";
+      if (payload == "") {
+        purchaseUrl = purchaseUrl;
+      } else if (payload.search) {
+        purchaseUrl = purchaseUrl + "/search/" + payload.search;
+      } else {
+        purchaseUrl = purchaseUrl + "?page=" + payload;
+      }
+
+      axios.get(purchaseUrl, Vue.auth.getHeader()).then(function (response) {
+        commit("setPurchases", response.data.purchases);
+      });
+    },
+    setPurchasesEditData: function setPurchasesEditData(_ref2, payload) {
+      var commit = _ref2.commit;
+
+      var purchaseEditUrl = "http://producterp.localhost/api/" + "purchase/" + payload + "/edit";
+      axios.get(purchaseEditUrl, Vue.auth.getHeader()).then(function (response) {
+        commit("setPurchasesEditData", response.data.purchase);
+      });
+    }
+  }
 };
 
 /***/ }),
@@ -48209,50 +48207,50 @@ var purchaseStore = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return customerStore; });
 var customerStore = {
-    state: {
-        customers: [],
-        customerEditData: []
+  state: {
+    customers: [],
+    customerEditData: []
+  },
+  getters: {
+    customers: function customers(state) {
+      return state.customers;
     },
-    getters: {
-        customers: function customers(state) {
-            return state.customers;
-        },
-        customerEditData: function customerEditData(state) {
-            return state.customerEditData;
-        }
-    },
-    mutations: {
-        setCustomers: function setCustomers(state, payload) {
-            state.customers = payload;
-        },
-        setCustomerEditData: function setCustomerEditData(state, payload) {
-            state.customerEditData = payload;
-        }
-    },
-    actions: {
-        setCustomers: function setCustomers(_ref, payload) {
-            var commit = _ref.commit;
-
-            var customerUrl = "http://producterp.localhost/api/" + 'customer';
-
-            if (payload == '') {
-                customerUrl = customerUrl;
-            } else if (payload.search) {
-                customerUrl = customerUrl + '/search/' + payload.search;
-            } else {
-                customerUrl = customerUrl + "?page=" + payload;
-            }
-
-            axios.get(customerUrl, Vue.auth.getHeader()).then(function (response) {
-                commit('setCustomers', response.data.customers);
-            });
-        },
-        setCustomerEditData: function setCustomerEditData(_ref2, payload) {
-            var commit = _ref2.commit;
-
-            commit('setCustomerEditData', payload);
-        }
+    customerEditData: function customerEditData(state) {
+      return state.customerEditData;
     }
+  },
+  mutations: {
+    setCustomers: function setCustomers(state, payload) {
+      state.customers = payload;
+    },
+    setCustomerEditData: function setCustomerEditData(state, payload) {
+      state.customerEditData = payload;
+    }
+  },
+  actions: {
+    setCustomers: function setCustomers(_ref, payload) {
+      var commit = _ref.commit;
+
+      var customerUrl = "http://producterp.localhost/api/" + "customer";
+
+      if (payload == "") {
+        customerUrl = customerUrl;
+      } else if (payload.search) {
+        customerUrl = customerUrl + "/search/" + payload.search;
+      } else {
+        customerUrl = customerUrl + "?page=" + payload;
+      }
+
+      axios.get(customerUrl, Vue.auth.getHeader()).then(function (response) {
+        commit("setCustomers", response.data.customers);
+      });
+    },
+    setCustomerEditData: function setCustomerEditData(_ref2, payload) {
+      var commit = _ref2.commit;
+
+      commit("setCustomerEditData", payload);
+    }
+  }
 };
 
 /***/ }),
@@ -48265,79 +48263,79 @@ var customerStore = {
 
 
 var stockStore = {
-    state: {
-        stock: [],
-        inStock: [],
-        outOfStock: []
+  state: {
+    stock: [],
+    inStock: [],
+    outOfStock: []
+  },
+  getters: {
+    stock: function stock(state) {
+      return state.stock;
     },
-    getters: {
-        stock: function stock(state) {
-            return state.stock;
-        },
-        inStock: function inStock(state) {
-            return state.inStock;
-        },
-        outOfStock: function outOfStock(state) {
-            return state.outOfStock;
-        }
+    inStock: function inStock(state) {
+      return state.inStock;
     },
-    mutations: {
-        setStocks: function setStocks(state, payload) {
-            state.stock = payload;
-        },
-        setInStocks: function setInStocks(state, payload) {
-            state.inStock = payload;
-        },
-        setOutOfStock: function setOutOfStock(state, payload) {
-            state.outOfStock = payload;
-        }
-    },
-    actions: {
-        setStocks: function setStocks(_ref, payload) {
-            var commit = _ref.commit;
-
-            __WEBPACK_IMPORTED_MODULE_0__index__["a" /* store */].dispatch('fetchData', {
-                payload: payload,
-                urlparam: 'stock',
-                setLocation: 'setInStocks'
-            });
-        },
-        setInStocks: function setInStocks(_ref2, payload) {
-            var commit = _ref2.commit;
-
-            __WEBPACK_IMPORTED_MODULE_0__index__["a" /* store */].dispatch('fetchData', {
-                payload: payload,
-                urlparam: 'instock',
-                setLocation: 'setInStocks'
-            });
-        },
-        setOutOfStock: function setOutOfStock(_ref3, payload) {
-            var commit = _ref3.commit;
-
-            __WEBPACK_IMPORTED_MODULE_0__index__["a" /* store */].dispatch('fetchData', {
-                payload: payload,
-                urlparam: 'outofstock',
-                setLocation: 'setOutOfStock'
-            });
-        },
-        fetchData: function fetchData(_ref4, payload) {
-            var commit = _ref4.commit;
-
-            var StockUrl = "http://producterp.localhost/api/" + 'reports/' + payload.urlparam;
-
-            if (payload.payload == '') {
-                StockUrl = StockUrl;
-            } else if (payload.payload.search) {
-                StockUrl = StockUrl + '/search/' + payload.payload.search;
-            } else {
-                StockUrl = StockUrl + "?page=" + payload.payload;
-            }
-
-            axios.get(StockUrl, Vue.auth.getHeader()).then(function (response) {
-                commit(payload.setLocation, response.data.stock);
-            });
-        }
+    outOfStock: function outOfStock(state) {
+      return state.outOfStock;
     }
+  },
+  mutations: {
+    setStocks: function setStocks(state, payload) {
+      state.stock = payload;
+    },
+    setInStocks: function setInStocks(state, payload) {
+      state.inStock = payload;
+    },
+    setOutOfStock: function setOutOfStock(state, payload) {
+      state.outOfStock = payload;
+    }
+  },
+  actions: {
+    setStocks: function setStocks(_ref, payload) {
+      var commit = _ref.commit;
+
+      __WEBPACK_IMPORTED_MODULE_0__index__["a" /* store */].dispatch("fetchData", {
+        payload: payload,
+        urlparam: "stock",
+        setLocation: "setInStocks"
+      });
+    },
+    setInStocks: function setInStocks(_ref2, payload) {
+      var commit = _ref2.commit;
+
+      __WEBPACK_IMPORTED_MODULE_0__index__["a" /* store */].dispatch("fetchData", {
+        payload: payload,
+        urlparam: "instock",
+        setLocation: "setInStocks"
+      });
+    },
+    setOutOfStock: function setOutOfStock(_ref3, payload) {
+      var commit = _ref3.commit;
+
+      __WEBPACK_IMPORTED_MODULE_0__index__["a" /* store */].dispatch("fetchData", {
+        payload: payload,
+        urlparam: "outofstock",
+        setLocation: "setOutOfStock"
+      });
+    },
+    fetchData: function fetchData(_ref4, payload) {
+      var commit = _ref4.commit;
+
+      var StockUrl = "http://producterp.localhost/api/" + "reports/" + payload.urlparam;
+
+      if (payload.payload == "") {
+        StockUrl = StockUrl;
+      } else if (payload.payload.search) {
+        StockUrl = StockUrl + "/search/" + payload.payload.search;
+      } else {
+        StockUrl = StockUrl + "?page=" + payload.payload;
+      }
+
+      axios.get(StockUrl, Vue.auth.getHeader()).then(function (response) {
+        commit(payload.setLocation, response.data.stock);
+      });
+    }
+  }
 };
 
 /***/ }),
@@ -48347,76 +48345,76 @@ var stockStore = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return bankStore; });
 var bankStore = {
-    state: {
-        banks: [],
-        bankEditData: [],
-        bankTransactions: [],
-        bankTransactionEditData: []
+  state: {
+    banks: [],
+    bankEditData: [],
+    bankTransactions: [],
+    bankTransactionEditData: []
+  },
+  getters: {
+    banks: function banks(state) {
+      return state.banks;
     },
-    getters: {
-        banks: function banks(state) {
-            return state.banks;
-        },
-        bankEditData: function bankEditData(state) {
-            return state.bankEditData;
-        },
-        bankTransactions: function bankTransactions(state) {
-            return state.bankTransactions;
-        },
-        bankTransactionEditData: function bankTransactionEditData(state) {
-            return state.bankTransactionEditData;
-        }
+    bankEditData: function bankEditData(state) {
+      return state.bankEditData;
     },
-    mutations: {
-        setBanks: function setBanks(state, payload) {
-            state.banks = payload;
-        },
-        setBankEditData: function setBankEditData(state, payload) {
-            state.bankEditData = payload;
-        },
-        setBankTransactions: function setBankTransactions(state, payload) {
-            state.bankTransactions = payload;
-        },
-        setBankTransactionEditData: function setBankTransactionEditData(state, payload) {
-            state.bankTransactionEditData = payload;
-        }
+    bankTransactions: function bankTransactions(state) {
+      return state.bankTransactions;
     },
-    actions: {
-        setBanks: function setBanks(_ref, payload) {
-            var commit = _ref.commit;
-
-            axios.get("http://producterp.localhost/api/" + 'banks', Vue.auth.getHeader()).then(function (response) {
-                commit('setBanks', response.data.banks);
-            });
-        },
-        setBankEditData: function setBankEditData(_ref2, payload) {
-            var commit = _ref2.commit;
-
-            commit('setBankEditData', payload);
-        },
-        setBankTransactions: function setBankTransactions(_ref3, payload) {
-            var commit = _ref3.commit;
-
-            var url = "http://producterp.localhost/api/" + 'banks/';
-
-            if (payload.code && payload.pagenum) {
-                url = url + payload.code + '/show?page=' + payload.pagenum;
-            } else if (payload.code) {
-                url = url + payload.code + '/show';
-            } else {
-                url = url + 'transactions';
-            }
-
-            axios.get(url, Vue.auth.getHeader()).then(function (response) {
-                commit('setBankTransactions', response.data.bankTransactions);
-            });
-        },
-        setBankTransactionEditData: function setBankTransactionEditData(_ref4, payload) {
-            var commit = _ref4.commit;
-
-            commit('setBankTransactionEditData', payload);
-        }
+    bankTransactionEditData: function bankTransactionEditData(state) {
+      return state.bankTransactionEditData;
     }
+  },
+  mutations: {
+    setBanks: function setBanks(state, payload) {
+      state.banks = payload;
+    },
+    setBankEditData: function setBankEditData(state, payload) {
+      state.bankEditData = payload;
+    },
+    setBankTransactions: function setBankTransactions(state, payload) {
+      state.bankTransactions = payload;
+    },
+    setBankTransactionEditData: function setBankTransactionEditData(state, payload) {
+      state.bankTransactionEditData = payload;
+    }
+  },
+  actions: {
+    setBanks: function setBanks(_ref, payload) {
+      var commit = _ref.commit;
+
+      axios.get("http://producterp.localhost/api/" + "banks", Vue.auth.getHeader()).then(function (response) {
+        commit("setBanks", response.data.banks);
+      });
+    },
+    setBankEditData: function setBankEditData(_ref2, payload) {
+      var commit = _ref2.commit;
+
+      commit("setBankEditData", payload);
+    },
+    setBankTransactions: function setBankTransactions(_ref3, payload) {
+      var commit = _ref3.commit;
+
+      var url = "http://producterp.localhost/api/" + "banks/";
+
+      if (payload.code && payload.pagenum) {
+        url = url + payload.code + "/show?page=" + payload.pagenum;
+      } else if (payload.code) {
+        url = url + payload.code + "/show";
+      } else {
+        url = url + "transactions";
+      }
+
+      axios.get(url, Vue.auth.getHeader()).then(function (response) {
+        commit("setBankTransactions", response.data.bankTransactions);
+      });
+    },
+    setBankTransactionEditData: function setBankTransactionEditData(_ref4, payload) {
+      var commit = _ref4.commit;
+
+      commit("setBankTransactionEditData", payload);
+    }
+  }
 };
 
 /***/ }),
@@ -48426,56 +48424,56 @@ var bankStore = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return invoiceStore; });
 var invoiceStore = {
-    state: {
-        invoices: [],
-        invoiceEditData: []
+  state: {
+    invoices: [],
+    invoiceEditData: []
+  },
+  getters: {
+    invoices: function invoices(state) {
+      return state.invoices;
     },
-    getters: {
-        invoices: function invoices(state) {
-            return state.invoices;
-        },
-        invoiceEditData: function invoiceEditData(state) {
-            return state.invoiceEditData;
-        }
-    },
-    mutations: {
-        setInvoices: function setInvoices(state, payload) {
-            state.invoices = payload;
-        },
-        setInvoiceEditData: function setInvoiceEditData(state, payload) {
-            state.invoiceEditData = payload;
-        }
-    },
-    actions: {
-        setInvoices: function setInvoices(_ref, payload) {
-            var commit = _ref.commit;
-
-            var url = "http://producterp.localhost/api/" + 'invoice';
-            if (payload == '') {
-                url = url;
-            } else if (payload.search) {
-                url = url + '/search/' + payload.search;
-            } else {
-                url = url + "?page=" + payload;
-            }
-
-            axios.get(url, Vue.auth.getHeader()).then(function (response) {
-                commit('setInvoices', response.data.invoices);
-            }).catch(function (error) {
-                console.log(error.response);
-            });
-        },
-        setInvoiceEditData: function setInvoiceEditData(_ref2, payload) {
-            var commit = _ref2.commit;
-
-            var invoiceEditUrl = "http://producterp.localhost/api/" + 'invoice/' + payload + '/edit';
-            axios.get(invoiceEditUrl, Vue.auth.getHeader()).then(function (response) {
-                commit('setInvoiceEditData', response.data.invoice);
-            }).catch(function (error) {
-                console.log(error.response);
-            });
-        }
+    invoiceEditData: function invoiceEditData(state) {
+      return state.invoiceEditData;
     }
+  },
+  mutations: {
+    setInvoices: function setInvoices(state, payload) {
+      state.invoices = payload;
+    },
+    setInvoiceEditData: function setInvoiceEditData(state, payload) {
+      state.invoiceEditData = payload;
+    }
+  },
+  actions: {
+    setInvoices: function setInvoices(_ref, payload) {
+      var commit = _ref.commit;
+
+      var url = "http://producterp.localhost/api/" + "invoice";
+      if (payload == "") {
+        url = url;
+      } else if (payload.search) {
+        url = url + "/search/" + payload.search;
+      } else {
+        url = url + "?page=" + payload;
+      }
+
+      axios.get(url, Vue.auth.getHeader()).then(function (response) {
+        commit("setInvoices", response.data.invoices);
+      }).catch(function (error) {
+        console.log(error.response);
+      });
+    },
+    setInvoiceEditData: function setInvoiceEditData(_ref2, payload) {
+      var commit = _ref2.commit;
+
+      var invoiceEditUrl = "http://producterp.localhost/api/" + "invoice/" + payload + "/edit";
+      axios.get(invoiceEditUrl, Vue.auth.getHeader()).then(function (response) {
+        commit("setInvoiceEditData", response.data.invoice);
+      }).catch(function (error) {
+        console.log(error.response);
+      });
+    }
+  }
 };
 
 /***/ }),
@@ -48485,40 +48483,40 @@ var invoiceStore = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return accountStore; });
 var accountStore = {
-    state: {
-        accounts: [],
-        accountEditData: []
+  state: {
+    accounts: [],
+    accountEditData: []
+  },
+  getters: {
+    accounts: function accounts(state) {
+      return state.accounts;
     },
-    getters: {
-        accounts: function accounts(state) {
-            return state.accounts;
-        },
-        accountEditData: function accountEditData(state) {
-            return state.accountEditData;
-        }
-    },
-    mutations: {
-        setAccounts: function setAccounts(state, payload) {
-            state.accounts = payload;
-        },
-        setAccountEditData: function setAccountEditData(state, payload) {
-            state.accountEditData = payload;
-        }
-    },
-    actions: {
-        setAccounts: function setAccounts(_ref, payload) {
-            var commit = _ref.commit;
-
-            axios.get("http://producterp.localhost/api/" + 'accounts', Vue.auth.getHeader()).then(function (response) {
-                commit('setAccounts', response.data.accounts);
-            });
-        },
-        setAccountEditData: function setAccountEditData(_ref2, payload) {
-            var commit = _ref2.commit;
-
-            commit('setAccountEditData', payload);
-        }
+    accountEditData: function accountEditData(state) {
+      return state.accountEditData;
     }
+  },
+  mutations: {
+    setAccounts: function setAccounts(state, payload) {
+      state.accounts = payload;
+    },
+    setAccountEditData: function setAccountEditData(state, payload) {
+      state.accountEditData = payload;
+    }
+  },
+  actions: {
+    setAccounts: function setAccounts(_ref, payload) {
+      var commit = _ref.commit;
+
+      axios.get("http://producterp.localhost/api/" + "accounts", Vue.auth.getHeader()).then(function (response) {
+        commit("setAccounts", response.data.accounts);
+      });
+    },
+    setAccountEditData: function setAccountEditData(_ref2, payload) {
+      var commit = _ref2.commit;
+
+      commit("setAccountEditData", payload);
+    }
+  }
 };
 
 /***/ }),
@@ -48752,7 +48750,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -48763,6 +48761,18 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48836,9 +48846,7 @@ var render = function() {
                                     staticClass:
                                       "icon icon-hand-stop-o text-blue"
                                   }),
-                                  _vm._v(
-                                    "\n                        " + _vm._s(item)
-                                  )
+                                  _vm._v(" " + _vm._s(item) + "\n          ")
                                 ]
                               )
                             })
@@ -48853,8 +48861,9 @@ var render = function() {
                               staticClass: "icon icon-hand-stop-o text-blue"
                             }),
                             _vm._v(
-                              "\n                        " +
-                                _vm._s(_vm.$store.getters.validationErrors)
+                              "\n            " +
+                                _vm._s(_vm.$store.getters.validationErrors) +
+                                "\n          "
                             )
                           ])
                         ])
@@ -48914,7 +48923,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -48925,6 +48934,13 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48957,7 +48973,7 @@ var render = function() {
             staticClass: "btn btn-primary waves-effect",
             attrs: { type: "submit" }
           },
-          [_vm._v("\n        SUBMIT\n    ")]
+          [_vm._v("\n    SUBMIT\n  ")]
         )
       : this.$store.getters.submitted == true
       ? _c(
@@ -48968,7 +48984,7 @@ var render = function() {
           },
           [
             _c("i", { staticClass: "fa fa-spinner fa-spin" }),
-            _vm._v("\n        Processing\n    ")
+            _vm._v("\n    Processing\n  ")
           ]
         )
       : _vm._e()
@@ -49557,7 +49573,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -49580,9 +49596,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['name', 'url']
+  props: ["name", "url"]
 });
 
 /***/ }),
@@ -49619,7 +49636,7 @@ var render = function() {
         },
         [
           _c("i", { staticClass: "icon-plus-circle mr-2 " }),
-          _vm._v("Add\n            New " + _vm._s(_vm.name))
+          _vm._v("Add New " + _vm._s(_vm.name))
         ]
       )
     ])
@@ -51904,6 +51921,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__errors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__errors_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_submit_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_submit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__common_submit_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 //
 //
 //
@@ -51954,6 +51973,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -51988,7 +52023,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.product.unit = unit;
       }
 
-      this.$axios.post("products", this.product, this.$auth.getHeader()).then(function (response) {
+      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post("products", this.product, this.$auth.getHeader()).then(function (response) {
         _this.product = {
           name: "",
           unit: "",
@@ -52275,7 +52310,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52381,6 +52416,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52388,62 +52448,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['categories'],
-    data: function data() {
-        return {
-            items: [],
-            page: 1,
-            pageCount: 2,
-            productUrl: "http://producterp.localhost/api/" + 'products/'
-        };
-    },
+  props: ["categories"],
+  data: function data() {
+    return {
+      items: [],
+      page: 1,
+      pageCount: 2,
+      productUrl: "http://producterp.localhost" + "/products/"
+    };
+  },
 
-    components: {
-        edit: __WEBPACK_IMPORTED_MODULE_1__edit_vue___default.a,
-        paginate: __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a,
-        apiSearch: __WEBPACK_IMPORTED_MODULE_2__search_apiSearch_vue___default.a,
-        noData: __WEBPACK_IMPORTED_MODULE_3__common_nodata_vue___default.a
-    },
-    computed: {
-        products: function products() {
-            this.items = this.$store.getters.products;
-            this.pageCount = this.items.last_page ? this.items.last_page : 2;
-            return this.items;
-        }
-    },
-    mounted: function mounted() {
-        this.getItems();
-    },
-
-    methods: {
-        getItems: function getItems() {
-            this.$store.dispatch('setProducts', '');
-        },
-        deleteItem: function deleteItem(index, id) {
-            var _this = this;
-
-            this.$swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.value) {
-                    _this.$axios.delete('products/' + id, _this.$auth.getHeader()).then(function (response) {
-                        _this.$store.dispatch('setProducts', '');
-                        _this.$swal('Deleted!', 'Your Data has been deleted.', 'success');
-                    });
-                }
-            });
-        },
-        fetchMore: function fetchMore(pagenum) {
-            this.page = pagenum;
-            this.$store.dispatch('setProducts', pagenum);
-        }
+  components: {
+    edit: __WEBPACK_IMPORTED_MODULE_1__edit_vue___default.a,
+    paginate: __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a,
+    apiSearch: __WEBPACK_IMPORTED_MODULE_2__search_apiSearch_vue___default.a,
+    noData: __WEBPACK_IMPORTED_MODULE_3__common_nodata_vue___default.a
+  },
+  computed: {
+    products: function products() {
+      this.items = this.$store.getters.products;
+      this.pageCount = this.items.last_page ? this.items.last_page : 2;
+      return this.items;
     }
+  },
+  mounted: function mounted() {
+    this.getItems();
+  },
+
+  methods: {
+    getItems: function getItems() {
+      this.$store.dispatch("setProducts", "");
+    },
+    deleteItem: function deleteItem(index, id) {
+      var _this = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this.$axios.delete("products/" + id, _this.$auth.getHeader()).then(function (response) {
+            _this.$store.dispatch("setProducts", "");
+            _this.$swal("Deleted!", "Your Data has been deleted.", "success");
+          });
+        }
+      });
+    },
+    fetchMore: function fetchMore(pagenum) {
+      this.page = pagenum;
+      this.$store.dispatch("setProducts", pagenum);
+    }
+  }
 });
 
 /***/ }),
@@ -53010,7 +53070,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -53027,20 +53087,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['setLocation'],
-    data: function data() {
-        return {
-            search: ""
-        };
-    },
+  props: ["setLocation"],
+  data: function data() {
+    return {
+      search: ""
+    };
+  },
 
-    methods: {
-        itemSearch: function itemSearch() {
-            this.$store.dispatch(this.setLocation, { search: this.search });
-        }
+  methods: {
+    itemSearch: function itemSearch() {
+      this.$store.dispatch(this.setLocation, { search: this.search });
     }
+  }
 });
 
 /***/ }),
@@ -53113,7 +53179,7 @@ var render = function() {
                     _c(
                       "tbody",
                       _vm._l(_vm.products.data, function(item, index) {
-                        return _c("tr", [
+                        return _c("tr", { key: item.id }, [
                           _c("td", { staticClass: "w-10" }, [
                             item.photo_id != null
                               ? _c("div", [
@@ -53158,7 +53224,7 @@ var render = function() {
                                     _vm._s(item.name) +
                                       " - " +
                                       _vm._s(item.model) +
-                                      "\n                            "
+                                      "\n                  "
                                   )
                                 ]
                               )
@@ -53174,27 +53240,25 @@ var render = function() {
                               item.category
                                 ? _c("div", [
                                     _vm._v(
-                                      "\n                                    " +
+                                      "\n                    " +
                                         _vm._s(item.category.name) +
-                                        "\n                                "
+                                        "\n                  "
                                     )
                                   ])
                                 : _vm._e()
                             ]),
                             _vm._v(" "),
                             _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(
-                                "\n                                Unit : " +
-                                  _vm._s(item.unit) +
-                                  "\n                            "
-                              )
+                              _vm._v(" Unit : " + _vm._s(item.unit) + " ")
                             ])
                           ]),
                           _vm._v(" "),
                           _c("td", [
                             _c("span", [
                               _c("i", { staticClass: "icon icon-data_usage" }),
-                              _vm._v(" " + _vm._s(item.sale_price))
+                              _vm._v(
+                                "\n                  " + _vm._s(item.sale_price)
+                              )
                             ]),
                             _c("br"),
                             _vm._v(" "),
@@ -53216,7 +53280,7 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                            Stock : " +
+                                  "\n                  Stock : " +
                                     _vm._s(item.stock)
                                 )
                               ]
@@ -55532,7 +55596,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -55549,6 +55613,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_apiSearch_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_apiSearch_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_nodata_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_nodata_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__common_nodata_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -55765,6 +55837,10 @@ var render = function() {
                                 )
                               ]),
                           _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.vehicle_no))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.destination))]),
+                          _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(item.date))]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(item.total_amount))]),
@@ -55872,6 +55948,10 @@ var staticRenderFns = [
       _c("th", [_vm._v("Invoice No")]),
       _vm._v(" "),
       _c("th", [_vm._v("Customer Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Vehicle No")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Destination")]),
       _vm._v(" "),
       _c("th", [_vm._v("Date")]),
       _vm._v(" "),
@@ -56042,8 +56122,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__customer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__customer_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_submit_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_submit_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__common_submit_vue__);
-//
-//
 //
 //
 //
@@ -57654,15 +57732,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "form-group form-float" }, [
         _c("div", { staticClass: "form-line" }, [
           _c("input", {
-            staticClass: "date-time-picker form-control",
-            attrs: {
-              type: "text",
-              "data-options": "{'timepicker':false, 'format':'d-m-Y'}",
-              id: "date"
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { staticClass: "form-label" }, [_vm._v("Date")])
+            staticClass: "form-control",
+            attrs: { type: "date", id: "date" }
+          })
         ])
       ])
     ])
@@ -58877,7 +58949,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -58949,56 +59021,93 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            name: '',
-            mobile: '',
-            email: '',
-            address: '',
-            balance: '',
-            previous_purchase_amount: '',
-            submitted: false
-        };
-    },
+  data: function data() {
+    return {
+      name: "",
+      mobile: "",
+      email: "",
+      address: "",
+      balance: "",
+      previous_purchase_amount: "",
+      submitted: false
+    };
+  },
 
-    components: {
-        errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
-    },
-    methods: {
-        add: function add() {
-            var _this = this;
+  components: {
+    errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
+  },
+  methods: {
+    add: function add() {
+      var _this = this;
 
-            this.submitted = true;
-            this.$store.dispatch('setValidationErrors', '');
+      this.submitted = true;
+      this.$store.dispatch("setValidationErrors", "");
 
-            var data = {
-                name: this.name,
-                mobile: this.mobile,
-                email: this.email,
-                address: this.address,
-                balance: this.balance,
-                previous_purchase_amount: this.previous_purchase_amount
-            };
+      var data = {
+        name: this.name,
+        mobile: this.mobile,
+        email: this.email,
+        address: this.address,
+        balance: this.balance,
+        previous_purchase_amount: this.previous_purchase_amount
+      };
 
-            this.$axios.post('customer', data, this.$auth.getHeader()).then(function (response) {
-                _this.submitted = false;
-                _this.name = _this.mobile = _this.email = _this.address = _this.previous_purchase_amount = _this.balance = '';
+      this.$axios.post("customer", data, this.$auth.getHeader()).then(function (response) {
+        _this.submitted = false;
+        _this.name = _this.mobile = _this.email = _this.address = _this.previous_purchase_amount = _this.balance = "";
 
-                _this.$swal({
-                    title: 'Success!',
-                    text: response.data.success,
-                    type: 'success',
-                    confirmButtonText: 'Cool'
-                });
-            }).catch(function (error) {
-                _this.submitted = false;
-                _this.$store.dispatch('setValidationErrors', error.response.data.errors);
-            });
-        }
+        _this.$swal({
+          title: "Success!",
+          text: response.data.success,
+          type: "success",
+          confirmButtonText: "Cool"
+        });
+      }).catch(function (error) {
+        _this.submitted = false;
+        _this.$store.dispatch("setValidationErrors", error.response.data.errors);
+      });
     }
+  }
 });
 
 /***/ }),
@@ -59205,7 +59314,7 @@ var render = function() {
                     staticClass: "btn btn-primary waves-effect",
                     attrs: { type: "submit" }
                   },
-                  [_vm._v("SUBMIT")]
+                  [_vm._v("\n        SUBMIT\n      ")]
                 )
               : _vm.submitted == true
               ? _c(
@@ -59216,7 +59325,7 @@ var render = function() {
                   },
                   [
                     _c("i", { staticClass: "fa fa-spinner fa-spin" }),
-                    _vm._v("\n                Processing\n            ")
+                    _vm._v("\n        Processing\n      ")
                   ]
                 )
               : _vm._e()
@@ -59323,7 +59432,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -59412,6 +59521,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -59419,61 +59544,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            items: [],
-            page: 1,
-            pageCount: 2,
-            url: "http://producterp.localhost/api/" + 'customer/'
-        };
-    },
+  data: function data() {
+    return {
+      items: [],
+      page: 1,
+      pageCount: 2,
+      url: "http://producterp.localhost" + "/customer/"
+    };
+  },
 
-    components: {
-        edit: __WEBPACK_IMPORTED_MODULE_0__edit_vue___default.a,
-        paginate: __WEBPACK_IMPORTED_MODULE_1_vuejs_paginate___default.a,
-        apiSearch: __WEBPACK_IMPORTED_MODULE_2__search_apiSearch_vue___default.a,
-        noData: __WEBPACK_IMPORTED_MODULE_3__common_nodata_vue___default.a
-    },
-    computed: {
-        customers: function customers() {
-            this.items = this.$store.getters.customers;
-            this.pageCount = this.items.last_page ? this.items.last_page : 2;
-            return this.items;
-        }
-    },
-    mounted: function mounted() {
-        this.getItems();
-    },
-
-    methods: {
-        getItems: function getItems() {
-            this.$store.dispatch('setCustomers', '');
-        },
-        deleteItem: function deleteItem(index, id) {
-            var _this = this;
-
-            this.$swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.value) {
-                    _this.$axios.delete('customer/' + id, _this.$auth.getHeader()).then(function (response) {
-                        _this.$store.dispatch('setCustomers', '');
-                        _this.$swal('Deleted!', 'Your Data has been deleted.', 'success');
-                    });
-                }
-            });
-        },
-        fetchMore: function fetchMore(pagenum) {
-            this.page = pagenum;
-            this.$store.dispatch('setCustomers', pagenum);
-        }
+  components: {
+    edit: __WEBPACK_IMPORTED_MODULE_0__edit_vue___default.a,
+    paginate: __WEBPACK_IMPORTED_MODULE_1_vuejs_paginate___default.a,
+    apiSearch: __WEBPACK_IMPORTED_MODULE_2__search_apiSearch_vue___default.a,
+    noData: __WEBPACK_IMPORTED_MODULE_3__common_nodata_vue___default.a
+  },
+  computed: {
+    customers: function customers() {
+      this.items = this.$store.getters.customers;
+      this.pageCount = this.items.last_page ? this.items.last_page : 2;
+      return this.items;
     }
+  },
+  mounted: function mounted() {
+    this.getItems();
+  },
+
+  methods: {
+    getItems: function getItems() {
+      this.$store.dispatch("setCustomers", "");
+    },
+    deleteItem: function deleteItem(index, id) {
+      var _this = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this.$axios.delete("customer/" + id, _this.$auth.getHeader()).then(function (response) {
+            _this.$store.dispatch("setCustomers", "");
+            _this.$swal("Deleted!", "Your Data has been deleted.", "success");
+          });
+        }
+      });
+    },
+    fetchMore: function fetchMore(pagenum) {
+      this.page = pagenum;
+      this.$store.dispatch("setCustomers", pagenum);
+    }
+  }
 });
 
 /***/ }),
@@ -60065,73 +60190,85 @@ var render = function() {
                         _vm._m(1),
                         _vm._v(" "),
                         _vm._l(_vm.customers.data, function(item, index) {
-                          return _c("tr", [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    href: _vm.url + item.code + "/details"
-                                  }
-                                },
-                                [_vm._v(_vm._s(item.name))]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.email))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                { attrs: { href: "tel:" + item.mobile } },
-                                [_vm._v(_vm._s(item.mobile))]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.address))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.balance))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "#modal" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.$store.dispatch(
-                                        "setCustomerEditData",
-                                        item
-                                      )
+                          return _c(
+                            "tr",
+                            {
+                              key: item.id,
+                              style: [
+                                item.balance > 0
+                                  ? {
+                                      background: "rgba(251, 69, 0, 0.45)",
+                                      color: "#000"
                                     }
-                                  }
-                                },
-                                [_c("i", { staticClass: "icon-edit" })]
-                              ),
-                              _vm._v(
-                                "\n                             \n                            "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteItem(index, item.id)
+                                  : ""
+                              ]
+                            },
+                            [
+                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href: _vm.url + item.code + "/details"
                                     }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "icon-close2 text-danger-o text-danger"
-                                  })
-                                ]
-                              )
-                            ])
-                          ])
+                                  },
+                                  [_vm._v(_vm._s(item.name))]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.email))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  { attrs: { href: "tel:" + item.mobile } },
+                                  [_vm._v(_vm._s(item.mobile))]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.address))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.balance))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "#modal" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.$store.dispatch(
+                                          "setCustomerEditData",
+                                          item
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "icon-edit" })]
+                                ),
+                                _vm._v("\n                 \n                "),
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.deleteItem(index, item.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass:
+                                        "icon-close2 text-danger-o text-danger"
+                                    })
+                                  ]
+                                )
+                              ])
+                            ]
+                          )
                         })
                       ],
                       2
@@ -61212,7 +61349,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -61271,51 +61408,78 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            name: '',
-            ac_name: '',
-            ac_no: '',
-            branch: '',
-            submitted: false
-        };
-    },
+  data: function data() {
+    return {
+      name: "",
+      ac_name: "",
+      ac_no: "",
+      branch: "",
+      submitted: false
+    };
+  },
 
-    components: {
-        errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
-    },
-    methods: {
-        add: function add() {
-            var _this = this;
+  components: {
+    errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
+  },
+  methods: {
+    add: function add() {
+      var _this = this;
 
-            this.submitted = true;
-            this.$store.dispatch('setValidationErrors', '');
+      this.submitted = true;
+      this.$store.dispatch("setValidationErrors", "");
 
-            var data = {
-                name: this.name,
-                ac_name: this.ac_name,
-                ac_no: this.ac_no,
-                branch: this.branch
-            };
+      var data = {
+        name: this.name,
+        ac_name: this.ac_name,
+        ac_no: this.ac_no,
+        branch: this.branch
+      };
 
-            this.$axios.post('banks', data, this.$auth.getHeader()).then(function (response) {
-                _this.submitted = false;
-                _this.name = _this.ac_name = _this.ac_no = _this.branch = '';
-                _this.$swal({
-                    title: 'Success!',
-                    text: response.data.success,
-                    type: 'success',
-                    confirmButtonText: 'Cool'
-                });
-            }).catch(function (error) {
-                _this.submitted = false;
-                _this.$store.dispatch('setValidationErrors', error.response.data.errors);
-            });
-        }
+      this.$axios.post("banks", data, this.$auth.getHeader()).then(function (response) {
+        _this.submitted = false;
+        _this.name = _this.ac_name = _this.ac_no = _this.branch = "";
+        _this.$swal({
+          title: "Success!",
+          text: response.data.success,
+          type: "success",
+          confirmButtonText: "Cool"
+        });
+      }).catch(function (error) {
+        _this.submitted = false;
+        _this.$store.dispatch("setValidationErrors", error.response.data.errors);
+      });
     }
+  }
 });
 
 /***/ }),
@@ -61470,7 +61634,7 @@ var render = function() {
                     staticClass: "btn btn-primary waves-effect",
                     attrs: { type: "submit" }
                   },
-                  [_vm._v("\n                SUBMIT\n            ")]
+                  [_vm._v("\n        SUBMIT\n      ")]
                 )
               : _vm.submitted == true
               ? _c(
@@ -61481,7 +61645,7 @@ var render = function() {
                   },
                   [
                     _c("i", { staticClass: "fa fa-spinner fa-spin" }),
-                    _vm._v("\n                Processing\n            ")
+                    _vm._v("\n        Processing\n      ")
                   ]
                 )
               : _vm._e()
@@ -61588,7 +61752,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -61668,75 +61832,86 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            items: [],
-            search: "",
-            bankDetailsUrl: "http://producterp.localhost/api/" + 'banks/'
-        };
-    },
+  data: function data() {
+    return {
+      items: [],
+      search: "",
+      bankDetailsUrl: "http://producterp.localhost/api/" + "banks/"
+    };
+  },
 
-    components: {
-        edit: __WEBPACK_IMPORTED_MODULE_0__edit_vue___default.a,
-        noData: __WEBPACK_IMPORTED_MODULE_1__common_nodata_vue___default.a
+  components: {
+    edit: __WEBPACK_IMPORTED_MODULE_0__edit_vue___default.a,
+    noData: __WEBPACK_IMPORTED_MODULE_1__common_nodata_vue___default.a
+  },
+  computed: {
+    banks: function banks() {
+      return this.$store.getters.banks;
     },
-    computed: {
-        banks: function banks() {
-            return this.$store.getters.banks;
-        },
-        fliteredItems: function fliteredItems() {
-            var search = this.search.toLowerCase();
-            return this.banks.filter(function (item) {
-                if (item.name.toLowerCase().match(search) || item.ac_name.toLowerCase().match(search) || item.ac_no.toLowerCase().match(search) || item.branch.toLowerCase().match(search)) {
-                    return item;
-                }
-            });
-        },
-        grandTotal: function grandTotal() {
-            var total = 0;
-
-            if (typeof this.banks != 'undefined') {
-                this.banks.forEach(function (item) {
-                    total += item.balance;
-                });
-            }
-            return total;
+    fliteredItems: function fliteredItems() {
+      var search = this.search.toLowerCase();
+      return this.banks.filter(function (item) {
+        if (item.name.toLowerCase().match(search) || item.ac_name.toLowerCase().match(search) || item.ac_no.toLowerCase().match(search) || item.branch.toLowerCase().match(search)) {
+          return item;
         }
+      });
     },
-    mounted: function mounted() {
-        this.getItems();
-    },
+    grandTotal: function grandTotal() {
+      var total = 0;
 
-    methods: {
-        getItems: function getItems() {
-            this.$store.dispatch('setBanks', '');
-        },
-        deleteItem: function deleteItem(index, id) {
-            var _this = this;
-
-            this.$swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.value) {
-                    _this.$axios.delete('banks/' + id, _this.$auth.getHeader()).then(function (response) {
-                        _this.$swal('Deleted!', 'Your Data has been deleted.', 'success');
-                        _this.items.splice(index, 1);
-                    });
-                }
-            });
-        }
+      if (typeof this.banks != "undefined") {
+        this.banks.forEach(function (item) {
+          total += item.balance;
+        });
+      }
+      return total;
     }
+  },
+  mounted: function mounted() {
+    this.getItems();
+  },
+
+  methods: {
+    getItems: function getItems() {
+      this.$store.dispatch("setBanks", "");
+    },
+    deleteItem: function deleteItem(index, id) {
+      var _this = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this.$axios.delete("banks/" + id, _this.$auth.getHeader()).then(function (response) {
+            _this.$swal("Deleted!", "Your Data has been deleted.", "success");
+            _this.items.splice(index, 1);
+          });
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -61825,7 +62000,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.edit-p-label{\n    text-align: left;\n    font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.edit-p-label {\n  text-align: left;\n  font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -61881,91 +62056,114 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
+  components: {
+    errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
+  },
+  computed: {
+    name: {
+      get: function get() {
+        return this.$store.getters.bankEditData.name;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankEditData", this.updateValue("name", value));
+      }
     },
-    computed: {
-        name: {
-            get: function get() {
-                return this.$store.getters.bankEditData.name;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankEditData', this.updateValue('name', value));
-            }
-        },
-        ac_name: {
-            get: function get() {
-                return this.$store.getters.bankEditData.ac_name;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankEditData', this.updateValue('ac_name', value));
-            }
-        },
-        ac_no: {
-            get: function get() {
-                return this.$store.getters.bankEditData.ac_no;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankEditData', this.updateValue('ac_no', value));
-            }
-        },
-        branch: {
-            get: function get() {
-                return this.$store.getters.bankEditData.branch;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankEditData', this.updateValue('branch', value));
-            }
-        },
-        id: function id() {
-            return this.$store.getters.bankEditData.id;
-        }
+    ac_name: {
+      get: function get() {
+        return this.$store.getters.bankEditData.ac_name;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankEditData", this.updateValue("ac_name", value));
+      }
     },
-    methods: {
-        updateValue: function updateValue(elem, value) {
-            var data = {
-                id: this.id,
-                name: this.name,
-                ac_name: this.ac_name,
-                ac_no: this.ac_no,
-                branch: this.branch
-            };
-            data[elem] = value;
-            return data;
-        },
-        update: function update() {
-            var _this = this;
-
-            this.$store.dispatch('setValidationErrors', '');
-
-            var data = {
-                name: this.name,
-                ac_name: this.ac_name,
-                ac_no: this.ac_no,
-                branch: this.branch
-            };
-            var id = this.$store.getters.bankEditData.id;
-
-            this.$axios.patch('banks/' + id, data, this.$auth.getHeader()).then(function (response) {
-                _this.$store.dispatch('setCustomers', '');
-
-                var inst = $('[data-remodal-id=modal]');
-                $('button.remodal-close', inst).click();
-
-                _this.$swal({
-                    title: 'Success!',
-                    text: response.data.success,
-                    type: 'success',
-                    confirmButtonText: 'Cool'
-                });
-            }).catch(function (error) {
-                _this.$store.dispatch('setValidationErrors', error.response.data.errors);
-            });
-        }
+    ac_no: {
+      get: function get() {
+        return this.$store.getters.bankEditData.ac_no;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankEditData", this.updateValue("ac_no", value));
+      }
+    },
+    branch: {
+      get: function get() {
+        return this.$store.getters.bankEditData.branch;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankEditData", this.updateValue("branch", value));
+      }
+    },
+    id: function id() {
+      return this.$store.getters.bankEditData.id;
     }
+  },
+  methods: {
+    updateValue: function updateValue(elem, value) {
+      var data = {
+        id: this.id,
+        name: this.name,
+        ac_name: this.ac_name,
+        ac_no: this.ac_no,
+        branch: this.branch
+      };
+      data[elem] = value;
+      return data;
+    },
+    update: function update() {
+      var _this = this;
+
+      this.$store.dispatch("setValidationErrors", "");
+
+      var data = {
+        name: this.name,
+        ac_name: this.ac_name,
+        ac_no: this.ac_no,
+        branch: this.branch
+      };
+      var id = this.$store.getters.bankEditData.id;
+
+      this.$axios.patch("banks/" + id, data, this.$auth.getHeader()).then(function (response) {
+        _this.$store.dispatch("setCustomers", "");
+
+        var inst = $("[data-remodal-id=modal]");
+        $("button.remodal-close", inst).click();
+
+        _this.$swal({
+          title: "Success!",
+          text: response.data.success,
+          type: "success",
+          confirmButtonText: "Cool"
+        });
+      }).catch(function (error) {
+        _this.$store.dispatch("setValidationErrors", error.response.data.errors);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -62157,7 +62355,7 @@ var render = function() {
               staticClass: "remodal-cancel",
               attrs: { "data-remodal-action": "cancel" }
             },
-            [_vm._v("Cancel")]
+            [_vm._v("\n        Cancel\n      ")]
           ),
           _vm._v(" "),
           _c(
@@ -62279,9 +62477,7 @@ var render = function() {
                                 },
                                 [_c("i", { staticClass: "icon-edit" })]
                               ),
-                              _vm._v(
-                                "\n                             \n                            "
-                              ),
+                              _vm._v("\n                 \n                "),
                               _c(
                                 "a",
                                 {
@@ -62461,7 +62657,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.p-label{\n    font-size:12px;\n    font-weight: 400;\n    color: #86939e;\n}\n.select2-container--default .select2-search--dropdown::before {\n    content: \"\";\n}\n.select2-container--default .select2-search--dropdown .select2-search__field {\n    padding: 5px 10px 5px 10px;\n}\n.select2-container--default .select2-selection--single {\n    border: 0px solid #e1e8ee;\n}\n.mb-10{\n    margin-bottom: 10px !important;\n}\n", ""]);
+exports.push([module.i, "\n.p-label {\n  font-size: 12px;\n  font-weight: 400;\n  color: #86939e;\n}\n.select2-container--default .select2-search--dropdown::before {\n  content: \"\";\n}\n.select2-container--default .select2-search--dropdown .select2-search__field {\n  padding: 5px 10px 5px 10px;\n}\n.select2-container--default .select2-selection--single {\n  border: 0px solid #e1e8ee;\n}\n.mb-10 {\n  margin-bottom: 10px !important;\n}\n", ""]);
 
 // exports
 
@@ -62538,64 +62734,85 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['banks'],
-    data: function data() {
-        return {
-            itemData: {
-                date: '',
-                account_type: '',
-                bank_id: '',
-                slip_id: '',
-                amount: '',
-                description: ''
-            }
+  props: ["banks"],
+  data: function data() {
+    return {
+      itemData: {
+        date: "",
+        account_type: "",
+        bank_id: "",
+        slip_id: "",
+        amount: "",
+        description: ""
+      }
+    };
+  },
+
+  components: {
+    errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a,
+    submitButton: __WEBPACK_IMPORTED_MODULE_1__common_submit_vue___default.a
+  },
+  methods: {
+    add: function add() {
+      var _this = this;
+
+      this.$store.dispatch("setSubmitted", true);
+      this.$store.dispatch("setValidationErrors", "");
+
+      //setting jquery plugins data
+      this.itemData.date = document.getElementById("date").value;
+      this.itemData.account_type = document.getElementById("account_type").value;
+      this.itemData.bank_id = document.getElementById("bank_id").value;
+
+      this.$axios.post("banks/transaction", this.itemData, this.$auth.getHeader()).then(function (response) {
+        _this.$store.dispatch("setSubmitted", false);
+        document.getElementById("date").value = "";
+        _this.itemData = {
+          date: "",
+          account_type: "",
+          bank_id: "",
+          slip_id: "",
+          amount: "",
+          description: ""
         };
-    },
-
-    components: {
-        errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a,
-        submitButton: __WEBPACK_IMPORTED_MODULE_1__common_submit_vue___default.a
-    },
-    methods: {
-        add: function add() {
-            var _this = this;
-
-            this.$store.dispatch('setSubmitted', true);
-            this.$store.dispatch('setValidationErrors', '');
-
-            //setting jquery plugins data
-            this.itemData.date = document.getElementById('date').value;
-            this.itemData.account_type = document.getElementById('account_type').value;
-            this.itemData.bank_id = document.getElementById('bank_id').value;
-
-            this.$axios.post('banks/transaction', this.itemData, this.$auth.getHeader()).then(function (response) {
-                _this.$store.dispatch('setSubmitted', false);
-                document.getElementById('date').value = '';
-                _this.itemData = {
-                    date: '',
-                    account_type: '',
-                    bank_id: '',
-                    slip_id: '',
-                    amount: '',
-                    description: ''
-                };
-                _this.$swal({
-                    title: 'Success!',
-                    text: response.data.success,
-                    type: 'success',
-                    confirmButtonText: 'Cool'
-                });
-            }).catch(function (error) {
-                _this.$store.dispatch('setSubmitted', false);
-                _this.$store.dispatch('setValidationErrors', error.response.data.errors);
-            });
-        }
+        _this.$swal({
+          title: "Success!",
+          text: response.data.success,
+          type: "success",
+          confirmButtonText: "Cool"
+        });
+      }).catch(function (error) {
+        _this.$store.dispatch("setSubmitted", false);
+        _this.$store.dispatch("setValidationErrors", error.response.data.errors);
+      });
     }
+  }
 });
 
 /***/ }),
@@ -62886,7 +63103,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -62989,99 +63206,106 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['code'],
-    data: function data() {
-        return {
-            items: [],
-            search: "",
-            page: 1,
-            pageCount: 2
-        };
+  props: ["code"],
+  data: function data() {
+    return {
+      items: [],
+      search: "",
+      page: 1,
+      pageCount: 2
+    };
+  },
+
+  components: {
+    edit: __WEBPACK_IMPORTED_MODULE_1__edit_vue___default.a,
+    paginate: __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a
+  },
+  computed: {
+    bankTransactions: function bankTransactions() {
+      this.items = this.$store.getters.bankTransactions;
+      this.pageCount = this.items.last_page ? this.items.last_page : 2;
+      return this.items;
     },
+    debit: function debit() {
+      var total = 0;
 
-    components: {
-        edit: __WEBPACK_IMPORTED_MODULE_1__edit_vue___default.a,
-        paginate: __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a
+      if (typeof this.bankTransactions.data != "undefined") {
+        var trans = this.bankTransactions.data;
+        trans.forEach(function (item) {
+          total += item.debit;
+        });
+      }
+      return total;
     },
-    computed: {
-        bankTransactions: function bankTransactions() {
-            this.items = this.$store.getters.bankTransactions;
-            this.pageCount = this.items.last_page ? this.items.last_page : 2;
-            return this.items;
-        },
-        debit: function debit() {
-            var total = 0;
+    credit: function credit() {
+      var total = 0;
 
-            if (typeof this.bankTransactions.data != 'undefined') {
-                var trans = this.bankTransactions.data;
-                trans.forEach(function (item) {
-                    total += item.debit;
-                });
-            }
-            return total;
-        },
-        credit: function credit() {
-            var total = 0;
-
-            if (typeof this.bankTransactions.data != 'undefined') {
-                var trans = this.bankTransactions.data;
-                trans.forEach(function (item) {
-                    total += item.credit;
-                });
-            }
-            return total;
-        },
-        grandTotal: function grandTotal() {
-            var total = 0;
-
-            if (typeof this.bankTransactions.data != 'undefined') {
-                total += this.debit - this.credit;
-            }
-            return total;
-        }
+      if (typeof this.bankTransactions.data != "undefined") {
+        var trans = this.bankTransactions.data;
+        trans.forEach(function (item) {
+          total += item.credit;
+        });
+      }
+      return total;
     },
-    mounted: function mounted() {
-        this.getItems();
-    },
+    grandTotal: function grandTotal() {
+      var total = 0;
 
-    methods: {
-        getItems: function getItems() {
-            if (this.code != '') {
-                this.$store.dispatch('setBankTransactions', { code: this.code });
-            } else {
-                this.$store.dispatch('setBankTransactions', '');
-            }
-        },
-        deleteItem: function deleteItem(index, id) {
-            var _this = this;
-
-            this.$swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.value) {
-                    _this.$axios.delete('banks/transaction/' + id, _this.$auth.getHeader()).then(function (response) {
-                        _this.items.data.splice(index, 1);
-                        _this.$swal('Deleted!', 'Your Data has been deleted.', 'success');
-                    });
-                }
-            });
-        },
-        fetchMore: function fetchMore(pagenum) {
-            this.page = pagenum;
-            this.$store.dispatch('setBankTransactions', { code: this.code, pagenum: pagenum });
-        }
+      if (typeof this.bankTransactions.data != "undefined") {
+        total += this.debit - this.credit;
+      }
+      return total;
     }
+  },
+  mounted: function mounted() {
+    this.getItems();
+  },
+
+  methods: {
+    getItems: function getItems() {
+      if (this.code != "") {
+        this.$store.dispatch("setBankTransactions", { code: this.code });
+      } else {
+        this.$store.dispatch("setBankTransactions", "");
+      }
+    },
+    deleteItem: function deleteItem(index, id) {
+      var _this = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this.$axios.delete("banks/transaction/" + id, _this.$auth.getHeader()).then(function (response) {
+            _this.items.data.splice(index, 1);
+            _this.$swal("Deleted!", "Your Data has been deleted.", "success");
+          });
+        }
+      });
+    },
+    fetchMore: function fetchMore(pagenum) {
+      this.page = pagenum;
+      this.$store.dispatch("setBankTransactions", {
+        code: this.code,
+        pagenum: pagenum
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -63170,7 +63394,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.edit-p-label{\n    text-align: left;\n    font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.edit-p-label {\n  text-align: left;\n  font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -63239,107 +63463,142 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['code'],
-    components: {
-        errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
+  props: ["code"],
+  components: {
+    errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
+  },
+  computed: {
+    date: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.date;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("name", value));
+      }
     },
-    computed: {
-        date: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.date;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('name', value));
-            }
-        },
-        debit: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.debit;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('debit', value));
-            }
-        },
-        credit: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.credit;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('credit', value));
-            }
-        },
-        slip_id: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.slip_id;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('slip_id', value));
-            }
-        },
-        description: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.description;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('description', value));
-            }
-        },
-        id: function id() {
-            return this.$store.getters.bankTransactionEditData.id;
-        }
+    debit: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.debit;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("debit", value));
+      }
     },
-    methods: {
-        updateValue: function updateValue(elem, value) {
-            var data = {
-                id: this.id,
-                date: this.date,
-                slip_id: this.slip_id,
-                description: this.description
-            };
-            data[elem] = value;
-            return data;
-        },
-        update: function update() {
-            var _this = this;
-
-            this.$store.dispatch('setValidationErrors', '');
-
-            //setting jquery plugins data
-            var date = document.getElementById('date').value;
-            var amount = document.getElementById('amount').value;
-            var account_type = document.getElementById('account_type').value;
-
-            var data = {
-                date: date,
-                slip_id: this.slip_id,
-                description: this.description,
-                amount: amount,
-                account_type: account_type
-            };
-            var id = this.$store.getters.bankTransactionEditData.id;
-
-            this.$axios.patch('banks/transaction/' + id, data, this.$auth.getHeader()).then(function (response) {
-                if (_this.code) {
-                    _this.$store.dispatch('setBankTransactions', { code: _this.code });
-                }
-
-                var inst = $('[data-remodal-id=modal]');
-                $('button.remodal-close', inst).click();
-
-                _this.$swal({
-                    title: 'Success!',
-                    text: response.data.success,
-                    type: 'success',
-                    confirmButtonText: 'Cool'
-                });
-            }).catch(function (error) {
-                _this.$store.dispatch('setValidationErrors', error.response.data.errors);
-            });
-        }
+    credit: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.credit;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("credit", value));
+      }
+    },
+    slip_id: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.slip_id;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("slip_id", value));
+      }
+    },
+    description: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.description;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("description", value));
+      }
+    },
+    id: function id() {
+      return this.$store.getters.bankTransactionEditData.id;
     }
+  },
+  methods: {
+    updateValue: function updateValue(elem, value) {
+      var data = {
+        id: this.id,
+        date: this.date,
+        slip_id: this.slip_id,
+        description: this.description
+      };
+      data[elem] = value;
+      return data;
+    },
+    update: function update() {
+      var _this = this;
+
+      this.$store.dispatch("setValidationErrors", "");
+
+      //setting jquery plugins data
+      var date = document.getElementById("date").value;
+      var amount = document.getElementById("amount").value;
+      var account_type = document.getElementById("account_type").value;
+
+      var data = {
+        date: date,
+        slip_id: this.slip_id,
+        description: this.description,
+        amount: amount,
+        account_type: account_type
+      };
+      var id = this.$store.getters.bankTransactionEditData.id;
+
+      this.$axios.patch("banks/transaction/" + id, data, this.$auth.getHeader()).then(function (response) {
+        if (_this.code) {
+          _this.$store.dispatch("setBankTransactions", { code: _this.code });
+        }
+
+        var inst = $("[data-remodal-id=modal]");
+        $("button.remodal-close", inst).click();
+
+        _this.$swal({
+          title: "Success!",
+          text: response.data.success,
+          type: "success",
+          confirmButtonText: "Cool"
+        });
+      }).catch(function (error) {
+        _this.$store.dispatch("setValidationErrors", error.response.data.errors);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -63573,7 +63832,7 @@ var render = function() {
               staticClass: "remodal-cancel",
               attrs: { "data-remodal-action": "cancel" }
             },
-            [_vm._v("Cancel")]
+            [_vm._v("\n        Cancel\n      ")]
           ),
           _vm._v(" "),
           _c(
@@ -63653,7 +63912,13 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(item.date))]),
                     _vm._v(" "),
                     typeof item.bank != "undefined"
-                      ? _c("td", [_vm._v(_vm._s(item.bank.name))])
+                      ? _c("td", [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(item.bank.name) +
+                              "\n            "
+                          )
+                        ])
                       : _vm._e(),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.description))]),
@@ -63668,9 +63933,9 @@ var render = function() {
                       item.debit != 0
                         ? _c("div", [
                             _vm._v(
-                              "\n                           " +
+                              "\n                " +
                                 _vm._s(item.debit) +
-                                "\n                       "
+                                "\n              "
                             )
                           ])
                         : _vm._e(),
@@ -63678,9 +63943,9 @@ var render = function() {
                       item.credit != 0
                         ? _c("div", [
                             _vm._v(
-                              "\n                           " +
+                              "\n                " +
                                 _vm._s(item.credit) +
-                                "\n                       "
+                                "\n              "
                             )
                           ])
                         : _vm._e()
@@ -63702,9 +63967,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-edit" })]
                       ),
-                      _vm._v(
-                        "\n                         \n                        "
-                      ),
+                      _vm._v("\n               \n              "),
                       _c(
                         "a",
                         {
@@ -63897,7 +64160,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.p-label{\n    font-size:12px;\n    font-weight: 400;\n    color: #86939e;\n}\n.select2-container--default .select2-search--dropdown::before {\n    content: \"\";\n}\n.select2-container--default .select2-search--dropdown .select2-search__field {\n    padding: 5px 10px 5px 10px;\n}\n.select2-container--default .select2-selection--single {\n    border: 0px solid #e1e8ee;\n}\n.mb-10{\n    margin-bottom: 10px !important;\n}\n", ""]);
+exports.push([module.i, "\n.p-label {\n  font-size: 12px;\n  font-weight: 400;\n  color: #86939e;\n}\n.select2-container--default .select2-search--dropdown::before {\n  content: \"\";\n}\n.select2-container--default .select2-search--dropdown .select2-search__field {\n  padding: 5px 10px 5px 10px;\n}\n.select2-container--default .select2-selection--single {\n  border: 0px solid #e1e8ee;\n}\n.mb-10 {\n  margin-bottom: 10px !important;\n}\n", ""]);
 
 // exports
 
@@ -64003,6 +64266,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -64013,112 +64309,115 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['banks', 'transactionType'],
-    data: function data() {
-        return {
-            itemData: {
-                type: this.transactionType,
-                date: '',
-                category: '',
-                tmode: '',
-                amount: '',
-                description: '',
-                receiver_id: ''
-            },
-            chequeDetails: {
-                slip_id: '',
-                date: '',
-                bank_id: '',
-                add_bank_transaction: 'yes'
-            },
-            receivers: [],
-            categories: [{ value: 'supplier', label: "Supplier" }, { value: 'customer', label: "Customer" }, { value: 'office', label: "Office" }, { value: 'loan', label: "Loan" }],
-            tmodes: [{ value: 'cash', label: "Cash" }, { value: 'cheque', label: "Cheque" }, { value: 'payorder', label: "Payorder" }],
-            radioOptions: [{ value: 'yes', label: "Yes", selected: true }, { value: 'no', label: "No" }]
+  props: ["banks", "transactionType"],
+  data: function data() {
+    return {
+      itemData: {
+        type: this.transactionType,
+        date: "",
+        category: "",
+        tmode: "cash",
+        amount: "",
+        description: "",
+        receiver_id: ""
+      },
+      chequeDetails: {
+        slip_id: "",
+        date: "",
+        bank_id: "",
+        add_bank_transaction: "yes"
+      },
+      receivers: [],
+      categories: [
+      // { value: "supplier", label: "Supplier" },
+      { value: "customer", label: "Customer" }, { value: "office", label: "Office"
+        // { value: "loan", label: "Loan" }
+      }],
+      tmodes: [{ value: "cash", label: "Cash" }, { value: "cheque", label: "Cheque" }, { value: "payorder", label: "Payorder" }],
+      radioOptions: [{ value: "yes", label: "Yes", selected: true }, { value: "no", label: "No" }]
+    };
+  },
+
+  components: {
+    errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a,
+    submitButton: __WEBPACK_IMPORTED_MODULE_1__common_submit_vue___default.a,
+    vSelect: __WEBPACK_IMPORTED_MODULE_6_vue_select___default.a,
+    inputSelect: __WEBPACK_IMPORTED_MODULE_2__common_form_input_select_vue___default.a,
+    inputText: __WEBPACK_IMPORTED_MODULE_3__common_form_input_text_vue___default.a,
+    inputTextArea: __WEBPACK_IMPORTED_MODULE_4__common_form_input_textarea_vue___default.a,
+    inputRadio: __WEBPACK_IMPORTED_MODULE_5__common_form_input_radio_vue___default.a
+  },
+  methods: {
+    add: function add() {
+      var _this = this;
+
+      this.$store.dispatch("setSubmitted", true);
+      this.$store.dispatch("setValidationErrors", "");
+
+      //setting jquery plugins data
+      this.itemData.date = document.getElementById("date").value;
+      var receiver = this.itemData.receiver_id;
+      this.itemData.receiver_id = receiver.code;
+
+      if (this.itemData.tmode !== "cash") {
+        var bank = this.chequeDetails.bank_id;
+        this.chequeDetails.bank_id = bank.code;
+        this.itemData["chequeDetails"] = this.chequeDetails;
+      }
+
+      this.$axios.post("transactions", this.itemData, this.$auth.getHeader()).then(function (response) {
+        _this.$store.dispatch("setSubmitted", false);
+        document.getElementById("date").value = "";
+        _this.itemData = {
+          type: _this.transactionType,
+          date: "",
+          category: "",
+          tmode: "cash",
+          amount: "",
+          description: "",
+          receiver_id: ""
         };
+
+        _this.$swal({
+          title: "Success!",
+          text: response.data.success,
+          type: "success",
+          confirmButtonText: "Cool"
+        });
+      }).catch(function (error) {
+        _this.$store.dispatch("setSubmitted", false);
+        _this.$store.dispatch("setValidationErrors", error.response.data.errors);
+        console.log(error.response);
+        _this.$swal({
+          title: error.response.status + " Error!",
+          text: error.response.statusText,
+          type: "error",
+          confirmButtonText: "Okay"
+        });
+      });
     },
+    getReceivers: function getReceivers(value) {
+      var _this2 = this;
 
-    components: {
-        errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a,
-        submitButton: __WEBPACK_IMPORTED_MODULE_1__common_submit_vue___default.a,
-        vSelect: __WEBPACK_IMPORTED_MODULE_6_vue_select___default.a,
-        inputSelect: __WEBPACK_IMPORTED_MODULE_2__common_form_input_select_vue___default.a,
-        inputText: __WEBPACK_IMPORTED_MODULE_3__common_form_input_text_vue___default.a,
-        inputTextArea: __WEBPACK_IMPORTED_MODULE_4__common_form_input_textarea_vue___default.a,
-        inputRadio: __WEBPACK_IMPORTED_MODULE_5__common_form_input_radio_vue___default.a
-    },
-    methods: {
-        add: function add() {
-            var _this = this;
+      var url = void 0;
+      this.itemData.category = value;
+      this.itemData.receiver_id = "";
 
-            this.$store.dispatch('setSubmitted', true);
-            this.$store.dispatch('setValidationErrors', '');
+      if (this.itemData.category === "customer") {
+        url = "customer/all";
+      } else if (this.itemData.category === "supplier") {
+        url = "suppliers/all";
+      } else if (this.itemData.category === "office") {
+        url = "accounts/all";
+      }
 
-            //setting jquery plugins data
-            this.itemData.date = document.getElementById('date').value;
-            var receiver = this.itemData.receiver_id;
-            this.itemData.receiver_id = receiver.code;
-
-            if (this.itemData.tmode !== 'cash') {
-                var bank = this.chequeDetails.bank_id;
-                this.chequeDetails.bank_id = bank.code;
-                this.itemData['chequeDetails'] = this.chequeDetails;
-            }
-
-            this.$axios.post('transactions', this.itemData, this.$auth.getHeader()).then(function (response) {
-                console.log(response.data);
-                _this.$store.dispatch('setSubmitted', false);
-                document.getElementById('date').value = '';
-                _this.itemData = {
-                    type: _this.transactionType,
-                    date: '',
-                    category: '',
-                    tmode: '',
-                    amount: '',
-                    description: '',
-                    receiver_id: ''
-                };
-
-                _this.$swal({
-                    title: 'Success!',
-                    text: response.data.success,
-                    type: 'success',
-                    confirmButtonText: 'Cool'
-                });
-            }).catch(function (error) {
-                _this.$store.dispatch('setSubmitted', false);
-                _this.$store.dispatch('setValidationErrors', error.response.data.errors);
-                console.log(error.response);
-                _this.$swal({
-                    title: error.response.status + ' Error!',
-                    text: error.response.statusText,
-                    type: 'error',
-                    confirmButtonText: 'Okay'
-                });
-            });
-        },
-        getReceivers: function getReceivers(value) {
-            var _this2 = this;
-
-            var url = void 0;
-            this.itemData.category = value;
-            this.itemData.receiver_id = "";
-
-            if (this.itemData.category === 'customer') {
-                url = 'customer/all';
-            } else if (this.itemData.category === 'supplier') {
-                url = 'suppliers/all';
-            } else if (this.itemData.category === 'office') {
-                url = 'accounts/all';
-            }
-
-            this.$axios.get(url, this.$auth.getHeader()).then(function (response) {
-                _this2.receivers = response.data.items;
-            }).catch(function (error) {
-                _this2.$store.dispatch('setValidationErrors', error.response.data.errors);
-            });
-        }
+      this.$axios.get(url, this.$auth.getHeader()).then(function (response) {
+        _this2.receivers = response.data.items;
+      }).catch(function (error) {
+        _this2.$store.dispatch("setValidationErrors", error.response.data.errors);
+      });
     }
+  }
 });
 
 /***/ }),
@@ -64207,7 +64506,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -64229,28 +64528,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "inputSelect",
-    props: ['name', 'label', 'options'],
-    data: function data() {
-        return {
-            selectedValue: ''
-        };
-    },
+  name: "inputSelect",
+  props: ["name", "label", "options"],
+  data: function data() {
+    return {
+      selectedValue: ""
+    };
+  },
 
-    methods: {
-        sendValue: function sendValue() {
-            this.$emit('selectedValue', this.selectedValue);
-        }
-    },
-    filters: {
-        capitalize: function capitalize(value) {
-            if (!value) return '';
-            value = value.toString();
-            return value.charAt(0).toUpperCase() + value.slice(1);
-        }
+  methods: {
+    sendValue: function sendValue() {
+      this.$emit("selectedValue", this.selectedValue);
     }
+  },
+  filters: {
+    capitalize: function capitalize(value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+  }
 });
 
 /***/ }),
@@ -65010,7 +65318,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65113,99 +65421,106 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['code'],
-    data: function data() {
-        return {
-            items: [],
-            search: "",
-            page: 1,
-            pageCount: 2
-        };
+  props: ["code"],
+  data: function data() {
+    return {
+      items: [],
+      search: "",
+      page: 1,
+      pageCount: 2
+    };
+  },
+
+  components: {
+    edit: __WEBPACK_IMPORTED_MODULE_1__edit_vue___default.a,
+    paginate: __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a
+  },
+  computed: {
+    bankTransactions: function bankTransactions() {
+      this.items = this.$store.getters.bankTransactions;
+      this.pageCount = this.items.last_page ? this.items.last_page : 2;
+      return this.items;
     },
+    debit: function debit() {
+      var total = 0;
 
-    components: {
-        edit: __WEBPACK_IMPORTED_MODULE_1__edit_vue___default.a,
-        paginate: __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a
+      if (typeof this.bankTransactions.data != "undefined") {
+        var trans = this.bankTransactions.data;
+        trans.forEach(function (item) {
+          total += item.debit;
+        });
+      }
+      return total;
     },
-    computed: {
-        bankTransactions: function bankTransactions() {
-            this.items = this.$store.getters.bankTransactions;
-            this.pageCount = this.items.last_page ? this.items.last_page : 2;
-            return this.items;
-        },
-        debit: function debit() {
-            var total = 0;
+    credit: function credit() {
+      var total = 0;
 
-            if (typeof this.bankTransactions.data != 'undefined') {
-                var trans = this.bankTransactions.data;
-                trans.forEach(function (item) {
-                    total += item.debit;
-                });
-            }
-            return total;
-        },
-        credit: function credit() {
-            var total = 0;
-
-            if (typeof this.bankTransactions.data != 'undefined') {
-                var trans = this.bankTransactions.data;
-                trans.forEach(function (item) {
-                    total += item.credit;
-                });
-            }
-            return total;
-        },
-        grandTotal: function grandTotal() {
-            var total = 0;
-
-            if (typeof this.bankTransactions.data != 'undefined') {
-                total += this.debit - this.credit;
-            }
-            return total;
-        }
+      if (typeof this.bankTransactions.data != "undefined") {
+        var trans = this.bankTransactions.data;
+        trans.forEach(function (item) {
+          total += item.credit;
+        });
+      }
+      return total;
     },
-    mounted: function mounted() {
-        this.getItems();
-    },
+    grandTotal: function grandTotal() {
+      var total = 0;
 
-    methods: {
-        getItems: function getItems() {
-            if (this.code != '') {
-                this.$store.dispatch('setBankTransactions', { code: this.code });
-            } else {
-                this.$store.dispatch('setBankTransactions', '');
-            }
-        },
-        deleteItem: function deleteItem(index, id) {
-            var _this = this;
-
-            this.$swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.value) {
-                    _this.$axios.delete('banks/transaction/' + id, _this.$auth.getHeader()).then(function (response) {
-                        _this.items.data.splice(index, 1);
-                        _this.$swal('Deleted!', 'Your Data has been deleted.', 'success');
-                    });
-                }
-            });
-        },
-        fetchMore: function fetchMore(pagenum) {
-            this.page = pagenum;
-            this.$store.dispatch('setBankTransactions', { code: this.code, pagenum: pagenum });
-        }
+      if (typeof this.bankTransactions.data != "undefined") {
+        total += this.debit - this.credit;
+      }
+      return total;
     }
+  },
+  mounted: function mounted() {
+    this.getItems();
+  },
+
+  methods: {
+    getItems: function getItems() {
+      if (this.code != "") {
+        this.$store.dispatch("setBankTransactions", { code: this.code });
+      } else {
+        this.$store.dispatch("setBankTransactions", "");
+      }
+    },
+    deleteItem: function deleteItem(index, id) {
+      var _this = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this.$axios.delete("banks/transaction/" + id, _this.$auth.getHeader()).then(function (response) {
+            _this.items.data.splice(index, 1);
+            _this.$swal("Deleted!", "Your Data has been deleted.", "success");
+          });
+        }
+      });
+    },
+    fetchMore: function fetchMore(pagenum) {
+      this.page = pagenum;
+      this.$store.dispatch("setBankTransactions", {
+        code: this.code,
+        pagenum: pagenum
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -65294,7 +65609,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.edit-p-label{\n    text-align: left;\n    font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.edit-p-label {\n  text-align: left;\n  font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -65363,107 +65678,142 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['code'],
-    components: {
-        errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
+  props: ["code"],
+  components: {
+    errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a
+  },
+  computed: {
+    date: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.date;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("name", value));
+      }
     },
-    computed: {
-        date: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.date;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('name', value));
-            }
-        },
-        debit: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.debit;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('debit', value));
-            }
-        },
-        credit: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.credit;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('credit', value));
-            }
-        },
-        slip_id: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.slip_id;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('slip_id', value));
-            }
-        },
-        description: {
-            get: function get() {
-                return this.$store.getters.bankTransactionEditData.description;
-            },
-            set: function set(value) {
-                this.$store.dispatch('setBankTransactionEditData', this.updateValue('description', value));
-            }
-        },
-        id: function id() {
-            return this.$store.getters.bankTransactionEditData.id;
-        }
+    debit: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.debit;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("debit", value));
+      }
     },
-    methods: {
-        updateValue: function updateValue(elem, value) {
-            var data = {
-                id: this.id,
-                date: this.date,
-                slip_id: this.slip_id,
-                description: this.description
-            };
-            data[elem] = value;
-            return data;
-        },
-        update: function update() {
-            var _this = this;
-
-            this.$store.dispatch('setValidationErrors', '');
-
-            //setting jquery plugins data
-            var date = document.getElementById('date').value;
-            var amount = document.getElementById('amount').value;
-            var account_type = document.getElementById('account_type').value;
-
-            var data = {
-                date: date,
-                slip_id: this.slip_id,
-                description: this.description,
-                amount: amount,
-                account_type: account_type
-            };
-            var id = this.$store.getters.bankTransactionEditData.id;
-
-            this.$axios.patch('banks/transaction/' + id, data, this.$auth.getHeader()).then(function (response) {
-                if (_this.code) {
-                    _this.$store.dispatch('setBankTransactions', { code: _this.code });
-                }
-
-                var inst = $('[data-remodal-id=modal]');
-                $('button.remodal-close', inst).click();
-
-                _this.$swal({
-                    title: 'Success!',
-                    text: response.data.success,
-                    type: 'success',
-                    confirmButtonText: 'Cool'
-                });
-            }).catch(function (error) {
-                _this.$store.dispatch('setValidationErrors', error.response.data.errors);
-            });
-        }
+    credit: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.credit;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("credit", value));
+      }
+    },
+    slip_id: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.slip_id;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("slip_id", value));
+      }
+    },
+    description: {
+      get: function get() {
+        return this.$store.getters.bankTransactionEditData.description;
+      },
+      set: function set(value) {
+        this.$store.dispatch("setBankTransactionEditData", this.updateValue("description", value));
+      }
+    },
+    id: function id() {
+      return this.$store.getters.bankTransactionEditData.id;
     }
+  },
+  methods: {
+    updateValue: function updateValue(elem, value) {
+      var data = {
+        id: this.id,
+        date: this.date,
+        slip_id: this.slip_id,
+        description: this.description
+      };
+      data[elem] = value;
+      return data;
+    },
+    update: function update() {
+      var _this = this;
+
+      this.$store.dispatch("setValidationErrors", "");
+
+      //setting jquery plugins data
+      var date = document.getElementById("date").value;
+      var amount = document.getElementById("amount").value;
+      var account_type = document.getElementById("account_type").value;
+
+      var data = {
+        date: date,
+        slip_id: this.slip_id,
+        description: this.description,
+        amount: amount,
+        account_type: account_type
+      };
+      var id = this.$store.getters.bankTransactionEditData.id;
+
+      this.$axios.patch("banks/transaction/" + id, data, this.$auth.getHeader()).then(function (response) {
+        if (_this.code) {
+          _this.$store.dispatch("setBankTransactions", { code: _this.code });
+        }
+
+        var inst = $("[data-remodal-id=modal]");
+        $("button.remodal-close", inst).click();
+
+        _this.$swal({
+          title: "Success!",
+          text: response.data.success,
+          type: "success",
+          confirmButtonText: "Cool"
+        });
+      }).catch(function (error) {
+        _this.$store.dispatch("setValidationErrors", error.response.data.errors);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -65697,7 +66047,7 @@ var render = function() {
               staticClass: "remodal-cancel",
               attrs: { "data-remodal-action": "cancel" }
             },
-            [_vm._v("Cancel")]
+            [_vm._v("\n        Cancel\n      ")]
           ),
           _vm._v(" "),
           _c(
@@ -65771,13 +66121,19 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _vm._l(_vm.items.data, function(item, index) {
-                  return _c("tr", [
+                  return _c("tr", { key: item.id }, [
                     _c("td", [_vm._v(_vm._s(index + 1))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.date))]),
                     _vm._v(" "),
                     typeof item.bank != "undefined"
-                      ? _c("td", [_vm._v(_vm._s(item.bank.name))])
+                      ? _c("td", [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(item.bank.name) +
+                              "\n            "
+                          )
+                        ])
                       : _vm._e(),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.description))]),
@@ -65792,9 +66148,9 @@ var render = function() {
                       item.debit != 0
                         ? _c("div", [
                             _vm._v(
-                              "\n                           " +
+                              "\n                " +
                                 _vm._s(item.debit) +
-                                "\n                       "
+                                "\n              "
                             )
                           ])
                         : _vm._e(),
@@ -65802,9 +66158,9 @@ var render = function() {
                       item.credit != 0
                         ? _c("div", [
                             _vm._v(
-                              "\n                           " +
+                              "\n                " +
                                 _vm._s(item.credit) +
-                                "\n                       "
+                                "\n              "
                             )
                           ])
                         : _vm._e()
@@ -65826,9 +66182,7 @@ var render = function() {
                         },
                         [_c("i", { staticClass: "icon-edit" })]
                       ),
-                      _vm._v(
-                        "\n                         \n                        "
-                      ),
+                      _vm._v("\n               \n              "),
                       _c(
                         "a",
                         {

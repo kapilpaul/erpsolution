@@ -26,7 +26,7 @@ class Account extends Model
      * Attributes that should be mass-assignable.
      * @var array
      */
-    protected $fillable = ['code', 'name'];
+    protected $fillable = ['code', 'name', 'balance'];
 
     /**
      * @param $date
@@ -48,10 +48,28 @@ class Account extends Model
 
     /**
      * set name attribute as accessor
-     * @param $date
+     * @param $name
      */
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = ucwords($name);
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public static function balanceUpdate($id)
+    {
+        if($account = Account::find($id) ) {
+            $total = Transaction::where('type', 'payment')->where('category', 'office')->where('receiver_id', $account->id)->sum('credit');
+
+            $account->update([
+                'balance' => $total
+            ]);
+            return $account;
+        }
+
+        return false;
     }
 }

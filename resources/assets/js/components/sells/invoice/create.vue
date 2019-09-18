@@ -41,12 +41,10 @@
             <div class="form-group form-float">
               <div class="form-line">
                 <input
-                  type="text"
-                  class="date-time-picker form-control"
-                  data-options="{'timepicker':false, 'format':'d-m-Y'}"
+                  type="date"
+                  class="form-control"
                   id="date"
                 />
-                <label class="form-label">Date</label>
               </div>
             </div>
           </div>

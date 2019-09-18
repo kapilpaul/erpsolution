@@ -66,7 +66,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param $code
      * @return \Illuminate\Http\Response
      */
     public function show($code)
@@ -124,7 +124,11 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ( $customer = Customer::find($id) ) {
+            $customer->delete();
+            return response()->json(['success' => 'Deleted Successfully!'], 200);
+        }
+        return response()->json(['error' => 'Something went wrong'], 404);
     }
 
     /**

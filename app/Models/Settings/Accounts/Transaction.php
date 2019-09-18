@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Settings\Supplier;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Validator;
 use DB;
 
@@ -59,6 +60,7 @@ class Transaction extends Model
     /**
      * get Date attribute formatted as 29 AUG 2018
      * @param $value
+     * @return string
      */
     public function getDateAttribute($value)
     {
@@ -66,19 +68,18 @@ class Transaction extends Model
     }
 
     /**
-     * @param $input
      * @param $request
      * @return bool
      */
     public static function insertion($request)
     {
         $input = $request->except(['amount', 'chequeDetails']);
-        $input['transaction_no'] = str_random(15);
+        $input['transaction_no'] = Str::random(15);
         $bankTransactionData = [];
         $bank = null;
 
         if($request->tmode !== 'cash' && $request->chequeDetails['add_bank_transaction'] == 'yes') {
-            $bank = Bank::whereCode($request->chequeDetails['bank_id'])->first();
+            $bank = Bank::where('code', $request->chequeDetails['bank_id'])->first();
             $bankTransactionData = $request->chequeDetails;
             $bankTransactionData['bank_id'] = $bank->id;
         }
@@ -133,6 +134,9 @@ class Transaction extends Model
         } else if ($category == 'supplier') {
             $supplier = Supplier::balanceUpdate($id);
             return $supplier;
+        } else if ($category == 'office') {
+            $account = Account::balanceUpdate($id);
+            return $account;
         }
     }
 
@@ -145,14 +149,33 @@ class Transaction extends Model
     public static function getReceiverId($category, $value)
     {
         if($category == 'customer') {
-            $customer = Customer::whereCode($value)->first();
+            $customer = Customer::where('code', $value)->first();
             return $customer->id;
         } else if($category == 'supplier') {
-            $supplier = Supplier::whereCode($value)->first();
+            $supplier = Supplier::where('code', $value)->first();
             return $supplier->id;
+        } else if($category == 'office') {
+            $account = Account::where('code', $value)->first();
+            return $account->id;
         }
 
         return false;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
     }
 
 }

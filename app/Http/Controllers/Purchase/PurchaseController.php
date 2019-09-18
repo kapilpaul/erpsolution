@@ -252,6 +252,7 @@ class PurchaseController extends Controller
     {
         $purchases = Purchase::where('invoice_no', 'like', '%'. $value .'%')
                     ->orWhere('purchase_no', 'like', '%'. $value .'%')
+                    ->orWhere('vehicle_no', 'like', '%'. $value .'%')
                     ->orWhere('total_amount', 'like', '%'. $value .'%')
                     ->orderBy('purchase_date', 'desc')
                     ->with('supplier')->paginate(100);

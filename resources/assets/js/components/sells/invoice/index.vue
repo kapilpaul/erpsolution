@@ -15,6 +15,8 @@
                 <th style="width: 10px">#</th>
                 <th>Invoice No</th>
                 <th>Customer Name</th>
+                <th>Vehicle No</th>
+                <th>Destination</th>
                 <th>Date</th>
                 <th>Total Amount</th>
                 <th>Discount</th>
@@ -25,18 +27,24 @@
               <tr v-for="(item, index) in invoices.data" :key="item.id">
                 <td>{{ index + 1 }}</td>
                 <td>
-                  <a :href="invoiceHrefLink + item.invoice_no + '/show'">{{ item.invoice_no }}</a>
+                  <a :href="invoiceHrefLink + item.invoice_no + '/show'">{{
+                    item.invoice_no
+                  }}</a>
                 </td>
                 <td v-if="typeof item.customer != 'undefined'">
                   <a
                     :href="customerHrefLink + item.customer.code + '/details'"
-                  >{{ item.customer.name }}</a>
+                    >{{ item.customer.name }}</a
+                  >
                 </td>
                 <td v-else>
                   <a
                     :href="customerHrefLink + item.customer_code + '/details'"
-                  >{{ item.customer_name }}</a>
+                    >{{ item.customer_name }}</a
+                  >
                 </td>
+                <td>{{ item.vehicle_no }}</td>
+                <td>{{ item.destination }}</td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.total_amount }}</td>
                 <td>{{ item.total_discount }}</td>
@@ -139,5 +147,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

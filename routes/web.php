@@ -156,6 +156,7 @@ Route::middleware(['authcheck'])->group(function () {
         Route::group(['prefix' => 'transactions'], function () {
             Route::get('/', 'TransactionController@index')->name('transaction.index');
             Route::get('/{type}/create', 'TransactionController@create')->name('transaction.create');
+            Route::get('/daily-summary/{date}', 'TransactionController@dailySummary')->name('transaction.dailySummary');
         });
     });
 });

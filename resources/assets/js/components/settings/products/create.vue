@@ -5,7 +5,12 @@
       <form class="form-material" @submit.prevent="add">
         <div class="form-group form-float">
           <div class="form-line">
-            <input type="text" class="form-control" name="name" v-model="product.name" />
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              v-model="product.name"
+            />
             <label class="form-label">Name</label>
           </div>
         </div>
@@ -20,14 +25,24 @@
         </div>
         <div class="form-group form-float">
           <div class="form-line">
-            <input type="text" class="form-control" name="sale_price" v-model="product.sale_price" />
+            <input
+              type="text"
+              class="form-control"
+              name="sale_price"
+              v-model="product.sale_price"
+            />
             <label class="form-label">Sale Price</label>
           </div>
         </div>
         <div class="form-group form-float">
           <div class="form-line">
             <p class="p-label mb-0">Image</p>
-            <input type="file" class="form-control" name="image" @change="imageUpload" />
+            <input
+              type="file"
+              class="form-control"
+              name="image"
+              @change="imageUpload"
+            />
           </div>
         </div>
         <div class="form-group form-float">
@@ -51,6 +66,7 @@
 <script>
 import errors from "../../errors.vue";
 import submitButton from "../../common/submit.vue";
+import axios from "axios";
 
 export default {
   props: ["categories"],
@@ -79,7 +95,7 @@ export default {
         this.product.unit = unit;
       }
 
-      this.$axios
+      axios
         .post("products", this.product, this.$auth.getHeader())
         .then(response => {
           this.product = {

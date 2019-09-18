@@ -18,6 +18,7 @@ use DB;
 class InvoiceController extends Controller
 {
     protected $customerId;
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +26,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->is('api/*')) {
+        if ($request->is('api/*')) {
             $invoices = Invoice::orderBy('date', 'desc')->with('customer')->paginate(100);
             return response()->json(['invoices' => $invoices], 200);
         }
@@ -46,20 +47,20 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        if($validation = $this->customRules($request)) {
+        if ($validation = $this->customRules($request)) {
             return $validation;
         }
 
-        try{
+        try {
             $inputData = $request->except(['products', 'customer']);
             $customer = Customer::whereMobile($request->customer['mobile'])->first();
             //create customer if not exist
-            if(! $customer) {
+            if (!$customer) {
                 $customerData = $request->customer;
                 $customer = Customer::createCustomer($customerData);
             }
@@ -106,10 +107,10 @@ class InvoiceController extends Controller
             //Customer::balanceUpdate($this->customerId);
 
             return response()->json(['success' => 'Added Successfully'], 200);
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             return response()->json(['errors' => $e->getMessage()], 500);
             return response()->json(['errors' => "PDOException Error!"], 500);
-        }catch(QueryException $e){
+        } catch (QueryException $e) {
             return response()->json(['errors' => "QueryException Error!"], 500);
         }
     }
@@ -118,10 +119,13 @@ class InvoiceController extends Controller
      * transaction request for payment and receipt for customer
      * @param $type
      * @param $amount
-     * @param $customer_id
+     * @param $customerCode
      * @param $additional_transaction_no
+     * @param bool $date
+     * @param string $description
+     * @return bool
      */
-    public function transactionRequest($type, $amount, $customerCode, $additional_transaction_no, $date = false)
+    public function transactionRequest($type, $amount, $customerCode, $additional_transaction_no, $date = false, $description = "")
     {
         $request = new \Illuminate\Http\Request();
 
@@ -132,11 +136,11 @@ class InvoiceController extends Controller
             'tmode' => 'cash',
             'other_transaction_no' => $additional_transaction_no,
             'amount' => $amount,
-            'description' => '',
+            'description' => $description,
             'receiver_id' => $customerCode
         ]);
 
-        if(Transaction::insertion($request)){
+        if (Transaction::insertion($request)) {
             return true;
         }
 
@@ -146,7 +150,7 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
@@ -160,20 +164,20 @@ class InvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
     {
-        if($request->is('api/*')) {
+        if ($request->is('api/*')) {
             $invoice = Invoice::whereInvoiceNo($id)->first();
             $pid = $invoice->id;
             $invoice = Invoice::whereInvoiceNo($id)
-                      ->with(['products' => function ($query) use ($pid) {
-                          $query->where('invoice_id', $pid)
-                                ->select('name', 'model', 'stock', 'product_id', 'quantity', 'invoice_products.price',
-                                         'discount', 'total');
-                      }])->first();
+                ->with(['products' => function ($query) use ($pid) {
+                    $query->where('invoice_id', $pid)
+                        ->select('name', 'model', 'stock', 'product_id', 'quantity', 'invoice_products.price',
+                            'discount', 'total');
+                }])->first();
 
             return response()->json(['invoice' => $invoice], 200);
         }
@@ -187,8 +191,8 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -203,16 +207,16 @@ class InvoiceController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
-        if($validator->fails()){
-            return response()->json(['errors'=> $validator->errors()], 500);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 500);
         }
 
-        try{
+        try {
             $inputData = $request->except(['products']);
             $invoice = Invoice::whereInvoiceNo($id)->first();
             $customer = Customer::findOrFail($request->customer_id);
             //return error if customer not exist
-            if(! $customer) {
+            if (!$customer) {
                 return response()->json(['errors' => "Customer Do Not Exist!"], 500);
             }
 
@@ -223,7 +227,7 @@ class InvoiceController extends Controller
 
             //iterate product
             foreach ($request->products as $product) {
-                $total = $product['price'] * $product['quantity'];
+                $total = $product['price'];
                 $invoice->products()->detach($product['product_id']);
 
                 //attaching product to pivot table
@@ -254,9 +258,9 @@ class InvoiceController extends Controller
             Customer::balanceUpdate($this->customerId);
 
             return response()->json(['success' => 'Updated Successfully'], 200);
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             return response()->json(['errors' => "PDOException Error!"], 500);
-        }catch(QueryException $e){
+        } catch (QueryException $e) {
             return response()->json(['errors' => "QueryException Error!"], 500);
         }
     }
@@ -264,7 +268,7 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -282,9 +286,14 @@ class InvoiceController extends Controller
             Product::updateProductStockAndOutQty($item->pivot->product_id);
         }
 
+        DB::table('transactions')
+            ->where('other_transaction_no', $invoice->invoice_no)
+            ->update(['deleted_at' => Carbon::now()]);
+
+        Customer::balanceUpdate($invoice->customer_id);
+
         return response()->json(['success' => 'Deleted Successfully'], 200);
     }
-
 
 
     /**
@@ -304,8 +313,8 @@ class InvoiceController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
-        if($validator->fails()){
-            return response()->json(['errors'=> $validator->errors()], 500);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 500);
         }
     }
 
@@ -317,12 +326,19 @@ class InvoiceController extends Controller
     public function search($value)
     {
         $invoices = DB::table('invoices')
-                    ->join('customers', 'invoices.customer_id', '=', 'customers.id')
-                    ->where('invoices.invoice_no', 'like', '%'. $value .'%')
-                    ->orWhere('customers.name', 'like', '%'. $value .'%')
-                    ->orderBy('date', 'desc')
-                    ->select('invoices.*', 'customers.id as customer_id', 'customers.code as customer_code', 'customers.name as customer_name')
-                    ->paginate(100);
+            ->join('customers', 'invoices.customer_id', '=', 'customers.id')
+            ->whereNull('invoices.deleted_at')
+            ->whereNull('customers.deleted_at')
+            ->where(function($query) use ($value) {
+                $query->where('invoices.invoice_no', 'like', '%' . $value . '%')
+                    ->orWhere('invoices.vehicle_no', 'like', '%' . $value . '%')
+                    ->orWhere('invoices.destination', 'like', '%' . $value . '%')
+                    ->orWhere('customers.name', 'like', '%' . $value . '%');
+            })
+            ->orderBy('date', 'desc')
+            ->select('invoices.*', 'customers.id as customer_id', 'customers.code as customer_code', 'customers.name as customer_name')
+            ->paginate(100);
+
 
         return response()->json(['invoices' => $invoices], 200);
     }
