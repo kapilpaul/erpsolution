@@ -35,7 +35,7 @@ export const bankStore = {
     },
     actions : {
         setBanks : ({ commit }, payload) => {
-            axios.get(process.env.MIX_APP_URL + 'api/banks', Vue.auth.getHeader()).then(response => {
+            axios.get(process.env.MIX_APP_URL + 'banks', Vue.auth.getHeader()).then(response => {
                 commit('setBanks', response.data.banks);
             });
         },
@@ -43,7 +43,7 @@ export const bankStore = {
             commit('setBankEditData', payload);
         },
         setBankTransactions : ({ commit }, payload) => {
-            var url = process.env.MIX_APP_URL + 'api/banks/';
+            var url = process.env.MIX_APP_URL + 'banks/';
 
             if(payload.code && payload.pagenum) {
                 url = url + payload.code + '/show?page=' + payload.pagenum;
@@ -52,7 +52,7 @@ export const bankStore = {
             }  else {
                 url = url + 'transactions';
             }
-            
+
             axios.get(url, Vue.auth.getHeader()).then(response => {
                 commit('setBankTransactions', response.data.bankTransactions);
             });

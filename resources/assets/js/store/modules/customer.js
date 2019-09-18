@@ -21,7 +21,7 @@ export const customerStore = {
     },
     actions : {
         setCustomers : ({ commit }, payload) => {
-            var customerUrl = process.env.MIX_APP_URL + 'api/customer';
+            var customerUrl = process.env.MIX_APP_URL + 'customer';
 
             if(payload == '') {
                 customerUrl = customerUrl;

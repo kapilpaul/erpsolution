@@ -15,7 +15,7 @@
                 <div class="card card-block d-flex" style="height: 252px">
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <div>
-                            <h5 class="card-title mb-0">Supplier Name : <a href="{{ route('suppliers.show', $purchase->supplier->code) }}">{{ $purchase->supplier->name }}</a></h5>
+                            {{--<h5 class="card-title mb-0">Supplier Name : <a href="{{ route('suppliers.show', $purchase->supplier->code) }}">{{ $purchase->supplier->name }}</a></h5>--}}
                             <p class="card-text mb-0">Invoice No : {{ $purchase->invoice_no }}</p>
                             <p class="card-text mb-0">{{ $purchase->details }}</p>
                             <p class="card-text mb-0">{{ $purchase->purchase_date }}</p>

@@ -21,7 +21,7 @@ export const accountStore = {
     },
     actions : {
         setAccounts : ({ commit }, payload) => {
-            axios.get(process.env.MIX_APP_URL + 'api/accounts', Vue.auth.getHeader()).then(response => {
+            axios.get(process.env.MIX_APP_URL + 'accounts', Vue.auth.getHeader()).then(response => {
                 commit('setAccounts', response.data.accounts);
             });
         },

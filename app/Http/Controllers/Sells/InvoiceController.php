@@ -72,7 +72,7 @@ class InvoiceController extends Controller
 
             //iterate product
             foreach ($request->products as $product) {
-                $total = $product['price'] * $product['quantity'];
+                $total = $product['price'];
 
                 //attaching product to pivot table
                 $invoice->products()->attach($product['product_id'], [

@@ -50,7 +50,7 @@ console.log('%c Developed By Kapil Paul', 'background-color:#333;padding:20px 40
 
 Vue.use(auth);
 
-axios.defaults.baseURL = process.env.MIX_APP_URL + 'api/';
+axios.defaults.baseURL = process.env.MIX_APP_URL;
 
 Object.defineProperties(Vue.prototype, {
     $siteurl : {

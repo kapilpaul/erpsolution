@@ -63,7 +63,7 @@ class PurchaseController extends Controller
             $purchase = Purchase::create($inputData);
 
             foreach ($request->products as $product) {
-                $total = $product['price'] * $product['quantity'];
+                $total = $product['price'] = 0;
 
                 //attaching product to pivot table
                 $purchase->products()->attach($product['product_id'], [
@@ -84,10 +84,10 @@ class PurchaseController extends Controller
             }
 
             //updating supplier balance
-            $supplier = Supplier::findOrFail($inputData['supplier_id']);
-            $supplier->update([
-                'balance' => ($supplier->balance + $inputData['total_amount'])
-            ]);
+//            $supplier = Supplier::findOrFail($inputData['supplier_id']);
+//            $supplier->update([
+//                'balance' => ($supplier->balance + $inputData['total_amount'])
+//            ]);
 
             //updating purchase total amount
             $purchase->update(['total_amount' => $inputData['total_amount']]);
@@ -133,7 +133,8 @@ class PurchaseController extends Controller
         }
 
         $suppliers = Supplier::pluck('name', 'id');
-        $productItems = Product::orderBy('name', 'asc')->select(DB::raw('CONCAT(name, " - ", model) AS name'), 'id', 'stock')->get();
+//        $productItems = Product::orderBy('name', 'asc')->select(DB::raw('CONCAT(name, " - ", model) AS name'), 'id', 'stock')->get();
+        $productItems = Product::orderBy('name', 'asc')->get();
         return view('purchase.edit', compact('id', 'suppliers', 'productItems'));
     }
 
@@ -230,7 +231,6 @@ class PurchaseController extends Controller
     public function customRules($request)
     {
         $rules = [
-            'supplier_id' => 'required|numeric',
             'purchase_date' => 'required',
             'products' => 'required|array'
         ];

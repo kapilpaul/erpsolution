@@ -21,7 +21,7 @@ export const purchaseStore = {
     },
     actions : {
         setPurchases : ({ commit }, payload) => {
-            var purchaseUrl = process.env.MIX_APP_URL + 'api/purchase';
+            var purchaseUrl = process.env.MIX_APP_URL + 'purchase';
             if(payload == '') {
                 purchaseUrl = purchaseUrl;
             } else if(payload.search) {
@@ -36,7 +36,7 @@ export const purchaseStore = {
 
         },
         setPurchasesEditData : ({ commit }, payload) => {
-            var purchaseEditUrl = process.env.MIX_APP_URL + 'api/purchase/' + payload + '/edit';
+            var purchaseEditUrl = process.env.MIX_APP_URL + 'purchase/' + payload + '/edit';
             axios.get(purchaseEditUrl, Vue.auth.getHeader()).then(response => {
                 commit('setPurchasesEditData', response.data.purchase);
             });

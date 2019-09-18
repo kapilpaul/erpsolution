@@ -51,7 +51,7 @@ export const stockStore = {
             });
         },
         fetchData ({ commit }, payload) {
-            var StockUrl = process.env.MIX_APP_URL + 'api/reports/' + payload.urlparam;
+            var StockUrl = process.env.MIX_APP_URL + 'reports/' + payload.urlparam;
 
             if(payload.payload == '') {
                 StockUrl = StockUrl;

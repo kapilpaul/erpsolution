@@ -69,7 +69,7 @@ class Login extends Controller
                              'form_params' => [
                                  'grant_type' => 'password',
                                  'client_id' => 2,
-                                 'client_secret' => '1FpF2emSaQKzAihsEPdOxjlmkSyYmDVXzbT9keph',
+                                 'client_secret' => 'lhRa8FMoyVkpTIeOZPgbdbJrMINZlz8nGXi31vPh', //'1FpF2emSaQKzAihsEPdOxjlmkSyYmDVXzbT9keph',
                                  'username' => $request->email,
                                  'password' => $request->password,
                                  'scope' => '',

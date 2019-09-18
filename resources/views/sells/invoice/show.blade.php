@@ -17,6 +17,8 @@
                         <div>
                             <h5 class="card-title mb-0">Customer Name : {{ $invoice->customer->name }}</h5>
                             <p class="card-text mb-0">Invoice No : {{ $invoice->invoice_no }}</p>
+                            <p class="card-text mb-0">Vehicle No : {{ $invoice->vehicle_no }}</p>
+                            <p class="card-text mb-0">Destination : {{ $invoice->destination }}</p>
                             <p class="card-text mb-0">{{ $invoice->details }}</p>
                             <p class="card-text mb-0">{{ $invoice->date }}</p>
                         </div>
@@ -86,9 +88,9 @@
                                 <td>
                                     {{ $item->pivot->price }}
                                 </td>
-                                <td>
-                                    {{ number_format((($item->pivot->discount / $item->pivot->price) * 100), 2, '.', '')
-                                    }} %
+                                <td> {{ $item->pivot->discount }}
+                                    {{--{{ number_format((($item->pivot->discount / $item->pivot->price) * 100), 2, '.', '')--}}
+                                    {{--}} %--}}
                                 </td>
                                 <td>
                                     {{ $item->pivot->total }}

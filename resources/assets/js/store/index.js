@@ -82,7 +82,7 @@ export const store = new Vuex.Store({
             commit('setValidationErrors', payload);
         },
         setCategories : ({ commit }, payload) => {
-            axios.get(process.env.MIX_APP_URL + 'api/category', Vue.auth.getHeader()).then(response => {
+            axios.get(process.env.MIX_APP_URL + 'category', Vue.auth.getHeader()).then(response => {
                 commit('setCategories', response.data.categories);
             });
         },
@@ -90,7 +90,7 @@ export const store = new Vuex.Store({
             commit('setCategoryEditData', payload);
         },
         setSuppliers : ({ commit }, payload) => {
-            axios.get(process.env.MIX_APP_URL + 'api/suppliers', Vue.auth.getHeader()).then(response => {
+            axios.get(process.env.MIX_APP_URL + 'suppliers', Vue.auth.getHeader()).then(response => {
                 commit('setSuppliers', response.data.suppliers);
             });
         },
@@ -98,7 +98,7 @@ export const store = new Vuex.Store({
             commit('setSuppliersEditData', payload);
         },
         setProducts : ({ commit }, payload) => {
-            var productUrl = process.env.MIX_APP_URL + 'api/products';
+            var productUrl = process.env.MIX_APP_URL + 'products';
             if(payload == '') {
                 productUrl = productUrl;
             } else if(payload.search) {

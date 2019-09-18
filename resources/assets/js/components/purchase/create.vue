@@ -20,8 +20,7 @@
           <div class="col-md-6">
             <div class="form-group form-float">
               <div class="form-line">
-                <input type="date" class="date-time-picker form-control" id="purchase_date" />
-                <label class="form-label">Date</label>
+                <input type="date" class="form-control" id="purchase_date" />
               </div>
             </div>
           </div>
@@ -75,7 +74,7 @@
                       </div>
 
                       <div class="d-center" v-else>
-                        <img class="img-responsive" :src="productImageUrl + "s2.png"" />
+                        <img class="img-responsive" :src="productImageUrl + 's2.png'" />
                         {{ option.name }} - {{ option.model }}
                       </div>
                     </template>
@@ -86,7 +85,7 @@
                       </div>
 
                       <div class="selected d-center" v-else>
-                        <img class="img-responsive" :src="productImageUrl + "s2.png"" />
+                        <img class="img-responsive" :src="productImageUrl + 's2.png'" />
                         {{ option.name }} - {{ option.model }}
                       </div>
                     </template>
@@ -219,7 +218,7 @@ export default {
         ]
       },
       productItems: [],
-      productImageUrl: process.env.MIX_APP_URL + "/assets/img/products/",
+      productImageUrl: process.env.MIX_APP_ROOT + "assets/img/products/",
       submitted: false
     };
   },

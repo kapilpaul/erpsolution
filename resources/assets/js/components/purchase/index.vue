@@ -85,8 +85,8 @@ export default {
       items: [],
       page: 1,
       pageCount: 2,
-      purchaseHrefLink: process.env.MIX_APP_URL + "purchase/",
-      supplierHrefLink: process.env.MIX_APP_URL + "suppliers/"
+      purchaseHrefLink: process.env.MIX_APP_ROOT + "/purchase/",
+      supplierHrefLink: process.env.MIX_APP_ROOT + "/suppliers/"
     };
   },
   components: {

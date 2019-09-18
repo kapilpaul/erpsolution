@@ -21,7 +21,7 @@ export const invoiceStore = {
     },
     actions : {
         setInvoices : ({ commit }, payload) => {
-            var url = process.env.MIX_APP_URL + 'api/invoice';
+            var url = process.env.MIX_APP_URL + 'invoice';
             if(payload == '') {
                 url = url;
             } else if(payload.search) {
@@ -38,7 +38,7 @@ export const invoiceStore = {
 
         },
         setInvoiceEditData : ({ commit }, payload) => {
-            var invoiceEditUrl = process.env.MIX_APP_URL + 'api/invoice/' + payload + '/edit';
+            var invoiceEditUrl = process.env.MIX_APP_URL + 'invoice/' + payload + '/edit';
             axios.get(invoiceEditUrl, Vue.auth.getHeader()).then(response => {
                 commit('setInvoiceEditData', response.data.invoice);
             }).catch(error =>  {

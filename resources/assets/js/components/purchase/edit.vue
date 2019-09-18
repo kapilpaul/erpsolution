@@ -87,6 +87,7 @@
                     <option
                       v-for="productItem in productItems"
                       :value="productItem.id"
+                      :key="productItem.id"
                     >{{ productItem.name }}</option>
                   </select>
                 </div>
@@ -197,7 +198,7 @@ export default {
   data() {
     return {
       //purchase : {},
-      productImageUrl: process.env.MIX_APP_URL + "/assets/img/products/"
+      productImageUrl: process.env.MIX_APP_URL + "assets/img/products/"
     };
   },
   components: {

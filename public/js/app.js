@@ -12718,7 +12718,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         setCategories: function setCategories(_ref2, payload) {
             var commit = _ref2.commit;
 
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("http://producterp.localhost/" + 'api/category', __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("http://producterp.localhost/api/" + 'category', __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
                 commit('setCategories', response.data.categories);
             });
         },
@@ -12730,7 +12730,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         setSuppliers: function setSuppliers(_ref4, payload) {
             var commit = _ref4.commit;
 
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("http://producterp.localhost/" + 'api/suppliers', __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get("http://producterp.localhost/api/" + 'suppliers', __WEBPACK_IMPORTED_MODULE_0_vue___default.a.auth.getHeader()).then(function (response) {
                 commit('setSuppliers', response.data.suppliers);
             });
         },
@@ -12742,7 +12742,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         setProducts: function setProducts(_ref6, payload) {
             var commit = _ref6.commit;
 
-            var productUrl = "http://producterp.localhost/" + 'api/products';
+            var productUrl = "http://producterp.localhost/api/" + 'products';
             if (payload == '') {
                 productUrl = productUrl;
             } else if (payload.search) {
@@ -13000,11 +13000,11 @@ console.log('%c Developed By Kapil Paul', 'background-color:#333;padding:20px 40
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_2__auth_js__["a" /* default */]);
 
-__WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.baseURL = "http://producterp.localhost/" + 'api/';
+__WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.baseURL = "http://producterp.localhost/api/";
 
 Object.defineProperties(Vue.prototype, {
     $siteurl: {
-        value: "http://producterp.localhost/"
+        value: "http://producterp.localhost/api/"
     },
     $swal: {
         value: __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default.a
@@ -48178,7 +48178,7 @@ var purchaseStore = {
         setPurchases: function setPurchases(_ref, payload) {
             var commit = _ref.commit;
 
-            var purchaseUrl = "http://producterp.localhost/" + 'api/purchase';
+            var purchaseUrl = "http://producterp.localhost/api/" + 'purchase';
             if (payload == '') {
                 purchaseUrl = purchaseUrl;
             } else if (payload.search) {
@@ -48194,7 +48194,7 @@ var purchaseStore = {
         setPurchasesEditData: function setPurchasesEditData(_ref2, payload) {
             var commit = _ref2.commit;
 
-            var purchaseEditUrl = "http://producterp.localhost/" + 'api/purchase/' + payload + '/edit';
+            var purchaseEditUrl = "http://producterp.localhost/api/" + 'purchase/' + payload + '/edit';
             axios.get(purchaseEditUrl, Vue.auth.getHeader()).then(function (response) {
                 commit('setPurchasesEditData', response.data.purchase);
             });
@@ -48233,7 +48233,7 @@ var customerStore = {
         setCustomers: function setCustomers(_ref, payload) {
             var commit = _ref.commit;
 
-            var customerUrl = "http://producterp.localhost/" + 'api/customer';
+            var customerUrl = "http://producterp.localhost/api/" + 'customer';
 
             if (payload == '') {
                 customerUrl = customerUrl;
@@ -48323,7 +48323,7 @@ var stockStore = {
         fetchData: function fetchData(_ref4, payload) {
             var commit = _ref4.commit;
 
-            var StockUrl = "http://producterp.localhost/" + 'api/reports/' + payload.urlparam;
+            var StockUrl = "http://producterp.localhost/api/" + 'reports/' + payload.urlparam;
 
             if (payload.payload == '') {
                 StockUrl = StockUrl;
@@ -48385,7 +48385,7 @@ var bankStore = {
         setBanks: function setBanks(_ref, payload) {
             var commit = _ref.commit;
 
-            axios.get("http://producterp.localhost/" + 'api/banks', Vue.auth.getHeader()).then(function (response) {
+            axios.get("http://producterp.localhost/api/" + 'banks', Vue.auth.getHeader()).then(function (response) {
                 commit('setBanks', response.data.banks);
             });
         },
@@ -48397,7 +48397,7 @@ var bankStore = {
         setBankTransactions: function setBankTransactions(_ref3, payload) {
             var commit = _ref3.commit;
 
-            var url = "http://producterp.localhost/" + 'api/banks/';
+            var url = "http://producterp.localhost/api/" + 'banks/';
 
             if (payload.code && payload.pagenum) {
                 url = url + payload.code + '/show?page=' + payload.pagenum;
@@ -48450,7 +48450,7 @@ var invoiceStore = {
         setInvoices: function setInvoices(_ref, payload) {
             var commit = _ref.commit;
 
-            var url = "http://producterp.localhost/" + 'api/invoice';
+            var url = "http://producterp.localhost/api/" + 'invoice';
             if (payload == '') {
                 url = url;
             } else if (payload.search) {
@@ -48468,7 +48468,7 @@ var invoiceStore = {
         setInvoiceEditData: function setInvoiceEditData(_ref2, payload) {
             var commit = _ref2.commit;
 
-            var invoiceEditUrl = "http://producterp.localhost/" + 'api/invoice/' + payload + '/edit';
+            var invoiceEditUrl = "http://producterp.localhost/api/" + 'invoice/' + payload + '/edit';
             axios.get(invoiceEditUrl, Vue.auth.getHeader()).then(function (response) {
                 commit('setInvoiceEditData', response.data.invoice);
             }).catch(function (error) {
@@ -48509,7 +48509,7 @@ var accountStore = {
         setAccounts: function setAccounts(_ref, payload) {
             var commit = _ref.commit;
 
-            axios.get("http://producterp.localhost/" + 'api/accounts', Vue.auth.getHeader()).then(function (response) {
+            axios.get("http://producterp.localhost/api/" + 'accounts', Vue.auth.getHeader()).then(function (response) {
                 commit('setAccounts', response.data.accounts);
             });
         },
@@ -49219,7 +49219,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             items: [],
             search: "",
-            url: "http://producterp.localhost/" + 'category/'
+            url: "http://producterp.localhost/api/" + 'category/'
         };
     },
 
@@ -50182,7 +50182,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             items: [],
             search: "",
-            url: "http://producterp.localhost/" + 'accounts/'
+            url: "http://producterp.localhost/api/" + 'accounts/'
         };
     },
 
@@ -51144,7 +51144,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             items: [],
             search: "",
-            url: "http://producterp.localhost/" + 'suppliers/'
+            url: "http://producterp.localhost/api/" + 'suppliers/'
         };
     },
 
@@ -52394,7 +52394,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             items: [],
             page: 1,
             pageCount: 2,
-            productUrl: "http://producterp.localhost/" + 'products/'
+            productUrl: "http://producterp.localhost/api/" + 'products/'
         };
     },
 
@@ -53520,8 +53520,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       items: [],
       page: 1,
       pageCount: 2,
-      purchaseHrefLink: "http://producterp.localhost/" + "purchase/",
-      supplierHrefLink: "http://producterp.localhost/" + "suppliers/"
+      purchaseHrefLink: "http://producterp.localhost" + "/purchase/",
+      supplierHrefLink: "http://producterp.localhost" + "/suppliers/"
     };
   },
 
@@ -54091,7 +54091,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -54113,7 +54112,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }]
       },
       productItems: [],
-      productImageUrl: "http://producterp.localhost/" + "/assets/img/products/",
+      productImageUrl: "http://producterp.localhost" + "assets/img/products/",
       submitted: false
     };
   },
@@ -54427,8 +54426,16 @@ var render = function() {
                                             "div",
                                             { staticClass: "d-center" },
                                             [
+                                              _c("img", {
+                                                staticClass: "img-responsive",
+                                                attrs: {
+                                                  src:
+                                                    _vm.productImageUrl +
+                                                    "s2.png"
+                                                }
+                                              }),
                                               _vm._v(
-                                                '"" />\n                      ' +
+                                                "\n                      " +
                                                   _vm._s(option.name) +
                                                   " - " +
                                                   _vm._s(option.model) +
@@ -54473,8 +54480,16 @@ var render = function() {
                                               staticClass: "selected d-center"
                                             },
                                             [
+                                              _c("img", {
+                                                staticClass: "img-responsive",
+                                                attrs: {
+                                                  src:
+                                                    _vm.productImageUrl +
+                                                    "s2.png"
+                                                }
+                                              }),
                                               _vm._v(
-                                                '"" />\n                      ' +
+                                                "\n                      " +
                                                   _vm._s(option.name) +
                                                   " - " +
                                                   _vm._s(option.model) +
@@ -54610,11 +54625,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "form-group form-float" }, [
         _c("div", { staticClass: "form-line" }, [
           _c("input", {
-            staticClass: "date-time-picker form-control",
+            staticClass: "form-control",
             attrs: { type: "date", id: "purchase_date" }
-          }),
-          _vm._v(" "),
-          _c("label", { staticClass: "form-label" }, [_vm._v("Date")])
+          })
         ])
       ])
     ])
@@ -54969,6 +54982,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -54978,7 +54992,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       //purchase : {},
-      productImageUrl: "http://producterp.localhost/" + "/assets/img/products/"
+      productImageUrl: "http://producterp.localhost/api/" + "assets/img/products/"
     };
   },
 
@@ -55304,7 +55318,10 @@ var render = function() {
                           _vm._l(_vm.productItems, function(productItem) {
                             return _c(
                               "option",
-                              { domProps: { value: productItem.id } },
+                              {
+                                key: productItem.id,
+                                domProps: { value: productItem.id }
+                              },
                               [_vm._v(_vm._s(productItem.name))]
                             )
                           })
@@ -55515,7 +55532,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -55607,67 +55624,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            items: [],
-            page: 1,
-            pageCount: 2,
-            invoiceHrefLink: "http://producterp.localhost/" + 'invoice/',
-            customerHrefLink: "http://producterp.localhost/" + 'customer/'
-        };
-    },
+  data: function data() {
+    return {
+      items: [],
+      page: 1,
+      pageCount: 2,
+      invoiceHrefLink: "http://producterp.localhost" + "/invoice/",
+      customerHrefLink: "http://producterp.localhost" + "/customer/"
+    };
+  },
 
-    components: {
-        paginate: __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a,
-        apiSearch: __WEBPACK_IMPORTED_MODULE_1__search_apiSearch_vue___default.a,
-        noData: __WEBPACK_IMPORTED_MODULE_2__common_nodata_vue___default.a
-    },
-    computed: {
-        invoices: function invoices() {
-            this.items = this.$store.getters.invoices;
-            this.pageCount = this.items.last_page ? this.items.last_page : 2;
-            return this.items;
-        }
-    },
-    mounted: function mounted() {
-        this.getItems();
-    },
-
-    methods: {
-        getItems: function getItems() {
-            this.$store.dispatch('setInvoices', '');
-        },
-        deleteItem: function deleteItem(index, id) {
-            var _this = this;
-
-            this.$swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.value) {
-                    _this.$axios.delete('invoice/' + id, _this.$auth.getHeader()).then(function (response) {
-                        _this.$store.dispatch('setInvoices', '');
-                        _this.$swal('Deleted!', 'Your Data has been deleted.', 'success');
-                    });
-                }
-            });
-        },
-        fetchMore: function fetchMore(pagenum) {
-            this.page = pagenum;
-            this.$store.dispatch('setInvoices', pagenum);
-        }
+  components: {
+    paginate: __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a,
+    apiSearch: __WEBPACK_IMPORTED_MODULE_1__search_apiSearch_vue___default.a,
+    noData: __WEBPACK_IMPORTED_MODULE_2__common_nodata_vue___default.a
+  },
+  computed: {
+    invoices: function invoices() {
+      this.items = this.$store.getters.invoices;
+      this.pageCount = this.items.last_page ? this.items.last_page : 2;
+      return this.items;
     }
+  },
+  mounted: function mounted() {
+    this.getItems();
+  },
+
+  methods: {
+    getItems: function getItems() {
+      this.$store.dispatch("setInvoices", "");
+    },
+    deleteItem: function deleteItem(index, id) {
+      var _this = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this.$axios.delete("invoice/" + id, _this.$auth.getHeader()).then(function (response) {
+            _this.$store.dispatch("setInvoices", "");
+            _this.$swal("Deleted!", "Your Data has been deleted.", "success");
+          });
+        }
+      });
+    },
+    fetchMore: function fetchMore(pagenum) {
+      this.page = pagenum;
+      this.$store.dispatch("setInvoices", pagenum);
+    }
+  }
 });
 
 /***/ }),
@@ -55696,7 +55717,7 @@ var render = function() {
                       _vm._m(1),
                       _vm._v(" "),
                       _vm._l(_vm.invoices.data, function(item, index) {
-                        return _c("tr", [
+                        return _c("tr", { key: item.id }, [
                           _c("td", [_vm._v(_vm._s(index + 1))]),
                           _vm._v(" "),
                           _c("td", [
@@ -55726,12 +55747,7 @@ var render = function() {
                                         "/details"
                                     }
                                   },
-                                  [
-                                    _vm._v(
-                                      _vm._s(item.customer.name) +
-                                        "\n                            "
-                                    )
-                                  ]
+                                  [_vm._v(_vm._s(item.customer.name))]
                                 )
                               ])
                             : _c("td", [
@@ -55745,12 +55761,7 @@ var render = function() {
                                         "/details"
                                     }
                                   },
-                                  [
-                                    _vm._v(
-                                      _vm._s(item.customer_name) +
-                                        "\n                            "
-                                    )
-                                  ]
+                                  [_vm._v(_vm._s(item.customer_name))]
                                 )
                               ]),
                           _vm._v(" "),
@@ -55775,9 +55786,7 @@ var render = function() {
                               },
                               [_c("i", { staticClass: "icon-edit" })]
                             ),
-                            _vm._v(
-                              "\n                             \n                            "
-                            ),
+                            _vm._v("\n                 \n                "),
                             _c(
                               "a",
                               {
@@ -55972,7 +55981,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n.p-label{\n    font-size:12px;\n    font-weight: 400;\n    color: #86939e;\n}\n.select2-container--default .select2-search--dropdown::before {\n    content: \"\";\n}\n.select2-container--default .select2-search--dropdown .select2-search__field {\n    padding: 5px 10px 5px 10px;\n}\n.select2-container--default .select2-selection--single {\n    border: 0px solid #e1e8ee;\n}\n.mb-10{\n    margin-bottom: 10px !important;\n}\n.v-select .dropdown-toggle {\n    border: 0px !important;\n}\n", ""]);
+exports.push([module.i, "\n.p-label {\n  font-size: 12px;\n  font-weight: 400;\n  color: #86939e;\n}\n.select2-container--default .select2-search--dropdown::before {\n  content: \"\";\n}\n.select2-container--default .select2-search--dropdown .select2-search__field {\n  padding: 5px 10px 5px 10px;\n}\n.select2-container--default .select2-selection--single {\n  border: 0px solid #e1e8ee;\n}\n.mb-10 {\n  margin-bottom: 10px !important;\n}\n.v-select .dropdown-toggle {\n  border: 0px !important;\n}\n", ""]);
 
 // exports
 
@@ -56012,7 +56021,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\nimg[data-v-51561323] {\n    height: auto;\n    max-width: 2.5rem;\n    margin-right: 1rem;\n}\n.d-center[data-v-51561323] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.selected img[data-v-51561323] {\n    width: auto;\n    max-height: 23px;\n    margin-right: 0.5rem;\n}\n.v-select .dropdown li[data-v-51561323] {\n    border-bottom: 1px solid rgba(112, 128, 144, 0.1);\n}\n.v-select .dropdown li[data-v-51561323]:last-child {\n    border-bottom: none;\n}\n.v-select .dropdown li a[data-v-51561323] {\n    padding: 10px 20px;\n    width: 100%;\n    font-size: 1.25em;\n    color: #3c3c3c;\n}\n.v-select .dropdown-menu .active > a[data-v-51561323] {\n    color: #fff;\n}\n.mr-10[data-v-51561323] {\n    margin-right: 10px !important;\n}\n", ""]);
+exports.push([module.i, "\nimg[data-v-51561323] {\n  height: auto;\n  max-width: 2.5rem;\n  margin-right: 1rem;\n}\n.d-center[data-v-51561323] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.selected img[data-v-51561323] {\n  width: auto;\n  max-height: 23px;\n  margin-right: 0.5rem;\n}\n.v-select .dropdown li[data-v-51561323] {\n  border-bottom: 1px solid rgba(112, 128, 144, 0.1);\n}\n.v-select .dropdown li[data-v-51561323]:last-child {\n  border-bottom: none;\n}\n.v-select .dropdown li a[data-v-51561323] {\n  padding: 10px 20px;\n  width: 100%;\n  font-size: 1.25em;\n  color: #3c3c3c;\n}\n.v-select .dropdown-menu .active > a[data-v-51561323] {\n  color: #fff;\n}\n.mr-10[data-v-51561323] {\n  margin-right: 10px !important;\n}\n", ""]);
 
 // exports
 
@@ -56257,6 +56266,86 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -56265,176 +56354,182 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            invoice: {
-                customer: {},
-                date: '',
-                details: '',
-                paid_amount: 0,
-                products: [{
-                    product_id: {
-                        sale_price: 0
-                    },
-                    quantity: 0,
-                    price: 0,
-                    discount: 0,
-                    total: 0
-                }]
-            },
-            productItems: [],
-            productImageUrl: "http://producterp.localhost/" + '/assets/img/products/'
-        };
+  data: function data() {
+    return {
+      invoice: {
+        customer: {},
+        vehicle_no: "",
+        destination: "",
+        date: "",
+        details: "",
+        paid_amount: 0,
+        products: [{
+          product_id: {
+            sale_price: 0
+          },
+          quantity: 0,
+          price: 0,
+          discount: 0,
+          total: 0
+        }]
+      },
+      productItems: [],
+      productImageUrl: "http://producterp.localhost" + "/assets/img/products/"
+    };
+  },
+
+  components: {
+    errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a,
+    vSelect: __WEBPACK_IMPORTED_MODULE_2_vue_select___default.a,
+    customerData: __WEBPACK_IMPORTED_MODULE_3__customer_vue___default.a,
+    submitButton: __WEBPACK_IMPORTED_MODULE_4__common_submit_vue___default.a,
+    inputText: __WEBPACK_IMPORTED_MODULE_1__common_form_input_text_vue___default.a
+  },
+  computed: {
+    grandTotal: function grandTotal() {
+      var grandtotal = 0;
+
+      this.invoice["products"].forEach(function (item) {
+        grandtotal += item.total;
+      });
+
+      return Math.round(grandtotal - this.discount);
     },
+    discount: function discount() {
+      var discount = 0;
 
-    components: {
-        errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a,
-        vSelect: __WEBPACK_IMPORTED_MODULE_2_vue_select___default.a,
-        customerData: __WEBPACK_IMPORTED_MODULE_3__customer_vue___default.a,
-        submitButton: __WEBPACK_IMPORTED_MODULE_4__common_submit_vue___default.a,
-        inputText: __WEBPACK_IMPORTED_MODULE_1__common_form_input_text_vue___default.a
-    },
-    computed: {
-        grandTotal: function grandTotal() {
-            var grandtotal = 0;
+      this.invoice["products"].forEach(function (item) {
+        discount += item.discount;
+      });
 
-            this.invoice['products'].forEach(function (item) {
-                grandtotal += item.total;
-            });
-
-            return Math.round(grandtotal - this.discount);
-        },
-        discount: function discount() {
-            var discount = 0;
-
-            this.invoice['products'].forEach(function (item) {
-                discount += item.discount;
-            });
-
-            return parseInt(discount);
-        }
-    },
-    methods: {
-        add: function add() {
-            var _this = this;
-
-            this.$store.dispatch('setSubmitted', true);
-            this.$store.dispatch('setValidationErrors', '');
-
-            //setting jquery plugins data
-            this.invoice.date = document.getElementById('date').value;
-
-            //new variable to store invoicedata
-            var invoiceData = {
-                customer: this.invoice.customer,
-                date: this.invoice.date,
-                details: this.invoice.details,
-                total_amount: 0,
-                total_tax: 0,
-                total_discount: this.discount,
-                grand_total: this.grandTotal,
-                paid_amount: this.invoice.paid_amount,
-                products: []
-            };
-
-            //iterate item and set product id
-            this.invoice['products'].forEach(function (item) {
-                if (typeof item.product_id.id != 'undefined') {
-                    invoiceData['products'].push({
-                        product_id: item.product_id.id,
-                        quantity: parseFloat(item.quantity),
-                        price: item.price,
-                        discount: item.price * (item.discount / 100),
-                        total: item.total
-                    });
-                }
-
-                invoiceData.total_amount += item.total;
-            });
-
-            //sending request
-            this.$axios.post('invoice', invoiceData, this.$auth.getHeader()).then(function (response) {
-                _this.invoice = {
-                    customer: invoiceData.customer,
-                    date: '',
-                    details: '',
-                    products: [{
-                        product_id: {
-                            sale_price: 0
-                        },
-                        quantity: 0,
-                        price: 0,
-                        discount: 0,
-                        total: 0
-                    }]
-                };
-                _this.productItems = [];
-                _this.$store.dispatch('setSubmitted', false);
-
-                _this.$swal({
-                    title: 'Success!',
-                    text: response.data.success,
-                    type: 'success',
-                    confirmButtonText: 'Cool'
-                }).then(function (result) {
-                    if (result.value) {
-                        //window.location = process.env.MIX_APP_URL + 'invoice/create';
-                    }
-                });
-            }).catch(function (error) {
-                _this.$store.dispatch('setSubmitted', false);
-                console.log(error.response.data);
-                _this.$store.dispatch('setValidationErrors', error.response.data.errors);
-            });
-        },
-        addnewProduct: function addnewProduct() {
-            this.invoice['products'].push({
-                product_id: {
-                    sale_price: 0
-                },
-                quantity: 0,
-                price: 0,
-                discount: 0,
-                total: 0
-            });
-        },
-        removeProduct: function removeProduct(index) {
-            var _this2 = this;
-
-            this.$swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (result) {
-                if (result.value) {
-                    _this2.invoice['products'].splice(index, 1);
-                }
-            });
-        },
-        onSearch: function onSearch(search, loading) {
-            loading(true);
-            this.searchProduct(loading, search, this);
-        },
-        searchProduct: function searchProduct(loading, search) {
-            var _this3 = this;
-
-            if (search != '') {
-                this.$axios.get('products/search/' + search, this.$auth.getHeader()).then(function (response) {
-                    _this3.productItems = response.data.products.data;
-                    loading(false);
-                }).catch(function (error) {
-                    _this3.$store.dispatch('setValidationErrors', error.response.data.errors);
-                });
-            }
-        },
-        getCustomer: function getCustomer(payload) {
-            this.invoice.customer = payload;
-        }
+      return parseInt(discount);
     }
+  },
+  methods: {
+    add: function add() {
+      var _this = this;
+
+      this.$store.dispatch("setSubmitted", true);
+      this.$store.dispatch("setValidationErrors", "");
+
+      //setting jquery plugins data
+      this.invoice.date = document.getElementById("date").value;
+
+      //new variable to store invoicedata
+      var invoiceData = {
+        customer: this.invoice.customer,
+        vehicle_no: this.invoice.vehicle_no,
+        destination: this.invoice.destination,
+        date: this.invoice.date,
+        details: this.invoice.details,
+        total_amount: 0,
+        total_tax: 0,
+        total_discount: this.discount,
+        grand_total: this.grandTotal,
+        paid_amount: this.invoice.paid_amount,
+        products: []
+      };
+
+      //iterate item and set product id
+      this.invoice["products"].forEach(function (item) {
+        if (typeof item.product_id.id != "undefined") {
+          invoiceData["products"].push({
+            product_id: item.product_id.id,
+            quantity: parseFloat(item.quantity),
+            price: item.price,
+            discount: item.discount,
+            total: item.total
+          });
+        }
+
+        invoiceData.total_amount += item.total;
+      });
+
+      //sending request
+      this.$axios.post("invoice", invoiceData, this.$auth.getHeader()).then(function (response) {
+        _this.invoice = {
+          customer: invoiceData.customer,
+          vehicle_no: "",
+          destination: "",
+          date: "",
+          details: "",
+          products: [{
+            product_id: {
+              sale_price: 0
+            },
+            quantity: 0,
+            price: 0,
+            discount: 0,
+            total: 0
+          }]
+        };
+        _this.productItems = [];
+        _this.$store.dispatch("setSubmitted", false);
+
+        _this.$swal({
+          title: "Success!",
+          text: response.data.success,
+          type: "success",
+          confirmButtonText: "Cool"
+        }).then(function (result) {
+          if (result.value) {
+            //window.location = process.env.MIX_APP_URL + 'invoice/create';
+          }
+        });
+      }).catch(function (error) {
+        _this.$store.dispatch("setSubmitted", false);
+        console.log(error.response.data);
+        _this.$store.dispatch("setValidationErrors", error.response.data.errors);
+      });
+    },
+    addnewProduct: function addnewProduct() {
+      this.invoice["products"].push({
+        product_id: {
+          sale_price: 0
+        },
+        quantity: 0,
+        price: 0,
+        discount: 0,
+        total: 0
+      });
+    },
+    removeProduct: function removeProduct(index) {
+      var _this2 = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          _this2.invoice["products"].splice(index, 1);
+        }
+      });
+    },
+    onSearch: function onSearch(search, loading) {
+      loading(true);
+      this.searchProduct(loading, search, this);
+    },
+    searchProduct: function searchProduct(loading, search) {
+      var _this3 = this;
+
+      if (search != "") {
+        this.$axios.get("products/search/" + search, this.$auth.getHeader()).then(function (response) {
+          _this3.productItems = response.data.products.data;
+          loading(false);
+        }).catch(function (error) {
+          _this3.$store.dispatch("setValidationErrors", error.response.data.errors);
+        });
+      }
+    },
+    getCustomer: function getCustomer(payload) {
+      this.invoice.customer = payload;
+    }
+  }
 });
 
 /***/ }),
@@ -56889,6 +56984,88 @@ var render = function() {
             _c("customer-data", { on: { customer: _vm.getCustomer } }),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "form-group form-float" }, [
+                  _c("div", { staticClass: "form-line" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.invoice.vehicle_no,
+                          expression: "invoice.vehicle_no"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "details",
+                        id: "vehicle_no"
+                      },
+                      domProps: { value: _vm.invoice.vehicle_no },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.invoice,
+                            "vehicle_no",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-label" }, [
+                      _vm._v("Vehicle No")
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "form-group form-float" }, [
+                  _c("div", { staticClass: "form-line" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.invoice.destination,
+                          expression: "invoice.destination"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "details",
+                        id: "destination"
+                      },
+                      domProps: { value: _vm.invoice.destination },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.invoice,
+                            "destination",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-label" }, [
+                      _vm._v("Destination")
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
               _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-8" }, [
@@ -56976,11 +57153,11 @@ var render = function() {
                                                 }
                                               }),
                                               _vm._v(
-                                                "\n                                            " +
+                                                "\n                      " +
                                                   _vm._s(option.name) +
                                                   " - " +
                                                   _vm._s(option.model) +
-                                                  "\n                                        "
+                                                  "\n                    "
                                               )
                                             ]
                                           )
@@ -56997,11 +57174,11 @@ var render = function() {
                                                 }
                                               }),
                                               _vm._v(
-                                                "\n                                            " +
+                                                "\n                      " +
                                                   _vm._s(option.name) +
                                                   " - " +
                                                   _vm._s(option.model) +
-                                                  "\n                                        "
+                                                  "\n                    "
                                               )
                                             ]
                                           )
@@ -57028,11 +57205,11 @@ var render = function() {
                                                 }
                                               }),
                                               _vm._v(
-                                                "\n                                            " +
+                                                "\n                      " +
                                                   _vm._s(option.name) +
                                                   " - " +
                                                   _vm._s(option.model) +
-                                                  "\n                                        "
+                                                  "\n                    "
                                               )
                                             ]
                                           )
@@ -57051,11 +57228,11 @@ var render = function() {
                                                 }
                                               }),
                                               _vm._v(
-                                                "\n                                            " +
+                                                "\n                      " +
                                                   _vm._s(option.name) +
                                                   " - " +
                                                   _vm._s(option.model) +
-                                                  "\n                                        "
+                                                  "\n                    "
                                               )
                                             ]
                                           )
@@ -57079,9 +57256,7 @@ var render = function() {
                             },
                             [
                               _c("template", { slot: "no-options" }, [
-                                _vm._v(
-                                  "\n                                        Type to search Products..\n                                    "
-                                )
+                                _vm._v("Type to search Products..")
                               ])
                             ],
                             2
@@ -57482,7 +57657,7 @@ var staticRenderFns = [
             staticClass: "date-time-picker form-control",
             attrs: {
               type: "text",
-              "data-options": '{"timepicker":false, "format":"d-m-Y"}',
+              "data-options": "{'timepicker':false, 'format':'d-m-Y'}",
               id: "date"
             }
           }),
@@ -57875,7 +58050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             //invoice : {},
-            productImageUrl: "http://producterp.localhost/" + '/assets/img/products/'
+            productImageUrl: "http://producterp.localhost/api/" + '/assets/img/products/'
         };
     },
 
@@ -59249,7 +59424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             items: [],
             page: 1,
             pageCount: 2,
-            url: "http://producterp.localhost/" + 'customer/'
+            url: "http://producterp.localhost/api/" + 'customer/'
         };
     },
 
@@ -60283,7 +60458,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             search: "",
             page: 1,
             pageCount: 2,
-            productUrl: "http://producterp.localhost/" + 'products/'
+            productUrl: "http://producterp.localhost/api/" + 'products/'
         };
     },
 
@@ -60653,7 +60828,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             search: "",
             page: 1,
             pageCount: 2,
-            productUrl: "http://producterp.localhost/" + 'products/'
+            productUrl: "http://producterp.localhost/api/" + 'products/'
         };
     },
 
@@ -61502,7 +61677,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             items: [],
             search: "",
-            bankDetailsUrl: "http://producterp.localhost/" + 'banks/'
+            bankDetailsUrl: "http://producterp.localhost/api/" + 'banks/'
         };
     },
 
