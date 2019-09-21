@@ -144,16 +144,17 @@ class TransactionController extends Controller
     public function dailySummary(Request $request)
     {
         try {
-            $date = isset($request->date) ? $request->date : Carbon::today();
-
-            $date = date('Y-m-d', strtotime($date));
+            $fromDate = isset($request->from_date) ? $request->from_date : Carbon::today();
+            $toDate = isset($request->to_date) ? $request->to_date : Carbon::today();
+            $fromDate = date('Y-m-d', strtotime($fromDate));
+            $toDate = date('Y-m-d', strtotime($toDate));
 
 //                $salesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'customer')->with(['customer', 'invoice']);
-            $salesQuery = Invoice::whereDate('date', $date)->with('customer', 'products');
+            $salesQuery = Invoice::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->with('customer', 'products');
 
-            $receiptsQuery = Transaction::whereDate('date', $date)->where('type', 'receipt')->where('category', 'customer')->with('customer');
+            $receiptsQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'receipt')->where('category', 'customer')->with('customer');
 
-            $expensesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'office')->with('account');
+            $expensesQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'payment')->where('category', 'office')->with('account');
 
             $totalSales = $salesQuery->sum('grand_total'); //credit
             $totalReceived = $receiptsQuery->sum('debit');

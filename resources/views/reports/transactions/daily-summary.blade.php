@@ -10,15 +10,26 @@
 
 @section('content')
 
-    {!! Form::open(['method' => 'POST', 'route' => 'transaction.dailySummary']) !!}
+    {!! Form::open(['method' => 'POST', 'route' => 'transaction.dailySummary', 'class' => 'mb-20']) !!}
 
-    <div class="input-group mb-20">
-        {!! Form::date('date', null, ['id' =>"date", 'class' =>"form-control"]) !!}
-        <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-search"></i>
+    <div class="row">
+        <div class="col-md-5">
+            {!! Form::label('from_date') !!}
+            <div class="input-group">
+                {!! Form::date('from_date', null, ['id' =>"from_date", 'class' =>"form-control mb-10"]) !!}
+            </div>
+        </div>
+        <div class="col-md-5">
+            {!! Form::label('to_date') !!}
+            <div class="input-group">
+                {!! Form::date('to_date', null, ['id' =>"to_date", 'class' =>"form-control mb-10"]) !!}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary" style="margin-top: 27px;">
+                <i class="fa fa-search"></i> Search
             </button>
-        </span>
+        </div>
     </div>
 
     {!! Form::close() !!}
