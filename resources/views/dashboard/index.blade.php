@@ -30,8 +30,10 @@
                 <h6 class="mb-2">Product</h6>
             </div>
             <div class="col-md-4">
-                @include('dashboard.parts.top_sale_products', ['topSalesProducts' => $topSalesProductsLifetime,
-                'name' => 'Lifetime Top Sales Product'])
+                @include('dashboard.parts.top_sale_products', [
+                    'topSalesProducts' => $topSalesProductsLifetime,
+                    'name' => 'Lifetime Top Sales Product'
+                ])
             </div>
             <div class="col-md-4">
                 @include('dashboard.parts.top_sale_products', ['topSalesProducts' => $topSalesProductsLifetime,

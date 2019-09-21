@@ -156,14 +156,14 @@ Route::middleware(['authcheck'])->group(function () {
         Route::group(['prefix' => 'transactions'], function () {
             Route::get('/', 'TransactionController@index')->name('transaction.index');
             Route::get('/{type}/create', 'TransactionController@create')->name('transaction.create');
-            Route::get('/daily-summary/{date}', 'TransactionController@dailySummary')->name('transaction.dailySummary');
+            Route::any('/daily-summary', 'TransactionController@dailySummary')->name('transaction.dailySummary');
         });
     });
 });
 
 
 
-Route::get('/groupby' , function() {
+//Route::get('/groupby' , function() {
 //    $orders = DB::table('purchases')
 //        ->select('supplier_id', 'purchase_date', DB::raw('SUM(total_amount) as total_amount'))
 //        ->groupBy('supplier_id')
@@ -172,19 +172,19 @@ Route::get('/groupby' , function() {
 //        ->get();
 //
 //    return $orders;
-
-    $date = Carbon\Carbon::parse("2018-09-12")->format("Y-m-d");
-    $lastTransaction = collect(\App\Models\Settings\Accounts\Transaction::whereCategory('customer')
-                                                    ->whereReceiverId(103)
-                                                    ->whereDate('date', '>=', $date)
-                                                    ->whereNotNull('balance')
-                                                    ->orderBy('date', 'asc')
-                                                    ->get());
-
-
-
-    return $lastTransaction->chunk(4);
-});
+//
+//    $date = Carbon\Carbon::parse("2018-09-12")->format("Y-m-d");
+//    $lastTransaction = collect(\App\Models\Settings\Accounts\Transaction::whereCategory('customer')
+//                                                    ->whereReceiverId(103)
+//                                                    ->whereDate('date', '>=', $date)
+//                                                    ->whereNotNull('balance')
+//                                                    ->orderBy('date', 'asc')
+//                                                    ->get());
+//
+//
+//
+//    return $lastTransaction->chunk(4);
+//});
 
 
 

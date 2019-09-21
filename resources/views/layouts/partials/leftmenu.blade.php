@@ -73,6 +73,13 @@
                             Receipt
                         </a>
                     </li>
+
+                    <li class="{{ isActiveRoute('transaction.dailySummary') }}">
+                        <a href="{{ route('transaction.dailySummary') }}">
+                            <i class="icon icon-circle-o"></i>
+                            Daily Reports
+                        </a>
+                    </li>
                 </ul>
             </li>
 

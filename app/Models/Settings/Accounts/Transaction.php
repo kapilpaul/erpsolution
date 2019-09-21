@@ -5,6 +5,7 @@ namespace App\Models\Settings\Accounts;
 use App\Models\Bank\Bank;
 use App\Models\Bank\Transaction as BankTransaction;
 use App\Models\Customer\Customer;
+use App\Models\Sales\Invoice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Settings\Supplier;
@@ -167,7 +168,7 @@ class Transaction extends Model
      */
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class, 'receiver_id', 'id');
     }
 
     /**
@@ -175,7 +176,16 @@ class Transaction extends Model
      */
     public function account()
     {
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(Account::class, 'receiver_id', 'id');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class, 'other_transaction_no', 'invoice_no');
     }
 
 }

@@ -36,9 +36,9 @@ class DashboardController extends Controller
     {
         $topSalesProductQty = Product::orderBy('out_quantity', 'desc')->limit(5)->pluck('out_quantity');
         $topSalesProductNames = Product::orderBy('out_quantity', 'desc')
-                                       ->select(DB::raw('CONCAT(name, " - ", model) AS name'))
-                                       ->limit(5)
-                                       ->pluck('name');
+            ->select('name')
+            ->limit(5)
+            ->pluck('name');
 
         return [
             'topSalesProductQty' => $topSalesProductQty,
@@ -53,28 +53,28 @@ class DashboardController extends Controller
     public function topSalesProductsMonthly($month)
     {
         $topSalesProductQty = DB::table('invoice_products')
-                              ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
-                              ->join('products', 'invoice_products.product_id', '=', 'products.id')
-                              ->whereMonth('date', '=', $month)
-                              ->whereYear('date', '=', date('Y'))
-                              ->whereNull('invoice_products.deleted_at')
-                              ->whereNull('invoices.deleted_at')
-                              ->select('product_id', DB::raw('SUM(quantity) as quantity'), DB::raw('CONCAT(products.name, " ", products.model) AS name'))
-                              ->groupBy('product_id')
-                              ->orderBy('quantity', 'desc')
-                              ->pluck('quantity');
+            ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
+            ->join('products', 'invoice_products.product_id', '=', 'products.id')
+            ->whereMonth('date', '=', $month)
+            ->whereYear('date', '=', date('Y'))
+            ->whereNull('invoice_products.deleted_at')
+            ->whereNull('invoices.deleted_at')
+            ->select('product_id', DB::raw('SUM(quantity) as quantity'), DB::raw('CONCAT(products.name, " ", products.model) AS name'))
+            ->groupBy('product_id')
+            ->orderBy('quantity', 'desc')
+            ->pluck('quantity');
 
         $topSalesProductNames = DB::table('invoice_products')
-                                ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
-                                ->join('products', 'invoice_products.product_id', '=', 'products.id')
-                                ->whereMonth('date', '=', $month)
-                                ->whereYear('date', '=', date('Y'))
-                                ->whereNull('invoice_products.deleted_at')
-                                ->whereNull('invoices.deleted_at')
-                                ->select('product_id', DB::raw('SUM(quantity) as quantity'), DB::raw('CONCAT(products.name, " ", products.model) AS name'))
-                                ->groupBy('product_id')
-                                ->orderBy('quantity', 'desc')
-                                ->pluck('name');
+            ->join('invoices', 'invoice_products.invoice_id', '=', 'invoices.id')
+            ->join('products', 'invoice_products.product_id', '=', 'products.id')
+            ->whereMonth('date', '=', $month)
+            ->whereYear('date', '=', date('Y'))
+            ->whereNull('invoice_products.deleted_at')
+            ->whereNull('invoices.deleted_at')
+            ->select('product_id', DB::raw('SUM(quantity) as quantity'), DB::raw('CONCAT(products.name, " ", products.model) AS name'))
+            ->groupBy('product_id')
+            ->orderBy('quantity', 'desc')
+            ->pluck('name');
 
         return [
             'topSalesProductQty' => $topSalesProductQty,
@@ -89,14 +89,14 @@ class DashboardController extends Controller
     public function topCustomers()
     {
         $topCustomers = DB::table('customers')
-                        ->join('invoices', 'customers.id', '=', 'invoices.customer_id')
-                        ->select('customers.*', DB::raw('SUM(grand_total) as gtotal'))
-                        ->whereNull('invoices.deleted_at')
-                        ->whereNull('customers.deleted_at')
-                        ->groupBy('customers.id')
-                        ->orderBy('gtotal', 'desc')
-                        ->limit(10)
-                        ->get();
+            ->join('invoices', 'customers.id', '=', 'invoices.customer_id')
+            ->select('customers.*', DB::raw('SUM(grand_total) as gtotal'))
+            ->whereNull('invoices.deleted_at')
+            ->whereNull('customers.deleted_at')
+            ->groupBy('customers.id')
+            ->orderBy('gtotal', 'desc')
+            ->limit(10)
+            ->get();
 
         return $topCustomers;
     }

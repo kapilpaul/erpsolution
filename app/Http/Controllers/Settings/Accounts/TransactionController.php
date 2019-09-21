@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Settings\Accounts;
 
 use App\Models\Bank\Bank;
+use App\Models\Sales\Invoice;
 use App\Models\Settings\Accounts\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 use Illuminate\Database\QueryException;
-use PDOException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Illuminate\Session\TokenMismatchException;
 
 class TransactionController extends Controller
 {
@@ -31,7 +33,7 @@ class TransactionController extends Controller
      */
     public function create($type)
     {
-        if($type !== 'receipt' && $type !== 'payment') {
+        if ($type !== 'receipt' && $type !== 'payment') {
             abort(404);
         }
         $banks = Bank::orderBy('name', 'asc')->select('name', 'code')->get();
@@ -41,22 +43,22 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        if($validation = $this->customRules($request)) {
+        if ($validation = $this->customRules($request)) {
             return $validation;
         }
 
-        try{
+        try {
             Transaction::insertion($request);
 
             return response()->json(['success' => 'Added Successfully!'], 200);
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             return response()->json(['errors' => "PDOException Error!"], 500);
-        }catch(QueryException $e){
+        } catch (QueryException $e) {
             return response()->json(['errors' => "QueryException Error!"], 500);
         }
     }
@@ -65,7 +67,7 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -76,7 +78,7 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -87,8 +89,8 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -99,7 +101,7 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -130,31 +132,47 @@ class TransactionController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $customMessages);
 
-        if($validator->fails()){
-            return response()->json(['errors'=> $validator->errors()], 500);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 500);
         }
     }
 
     /**
-     * @param $date
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function dailySummary($date)
+    public function dailySummary(Request $request)
     {
-        $date = date('Y-m-d', strtotime($date));
-        $salesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'customer')->with('customer');
-        $receiptsQuery = Transaction::whereDate('date', $date)->where('type', 'receipt')->where('category', 'customer')->with('customer');
+        try {
+            $date = isset($request->date) ? $request->date : Carbon::today();
 
-        $expensesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'office')->with('account');
+            $date = date('Y-m-d', strtotime($date));
 
-        $totalSales = $salesQuery->sum('credit');
-        $totalReceived = $receiptsQuery->sum('debit');
-        $totalExpenses = $expensesQuery->sum('credit');
+//                $salesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'customer')->with(['customer', 'invoice']);
+            $salesQuery = Invoice::whereDate('date', $date)->with('customer', 'products');
 
-        $sales = $salesQuery->get();
-        $receipts = $receiptsQuery->get();
-        $expenses = $expensesQuery->get();
+            $receiptsQuery = Transaction::whereDate('date', $date)->where('type', 'receipt')->where('category', 'customer')->with('customer');
 
-        dd($totalSales, $totalReceived, $totalExpenses);
+            $expensesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'office')->with('account');
 
+            $totalSales = $salesQuery->sum('grand_total'); //credit
+            $totalReceived = $receiptsQuery->sum('debit');
+            $totalExpenses = $expensesQuery->sum('credit');
+
+            $sales = $salesQuery->get();
+            $receipts = $receiptsQuery->get();
+            $expenses = $expensesQuery->get();
+
+            return view('reports.transactions.daily-summary', compact('totalSales', 'totalReceived', 'totalExpenses', 'sales', 'receipts', 'expenses'));
+
+        } catch (PDOException $e) {
+            return redirect()->back()->with(['error' => "PDOException Error!"]);
+        } catch (QueryException $e) {
+            return redirect()->back()->with(['error' => "QueryException Error!"]);
+        } catch (TokenMismatchException $e) {
+            return redirect()->route('transaction.dailySummary');
+        } catch (MethodNotAllowedHttpException $e) {
+            return redirect()->route('transaction.dailySummary');
+        }
     }
 }

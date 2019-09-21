@@ -14,7 +14,7 @@ class Stock extends Controller
      */
     public function stock(Request $request)
     {
-        if($request->is('api/*')) {
+        if ($request->is('api/*')) {
             $products = Product::paginate(100);
             return response()->json(['stock' => $products], 200);
         }
@@ -28,7 +28,7 @@ class Stock extends Controller
      */
     public function inStock(Request $request)
     {
-        if($request->is('api/*')) {
+        if ($request->is('api/*')) {
             $products = Product::where('stock', '!=', 0)->paginate(100);
             return response()->json(['stock' => $products], 200);
         }
@@ -42,7 +42,7 @@ class Stock extends Controller
      */
     public function outOfStock(Request $request)
     {
-        if($request->is('api/*')) {
+        if ($request->is('api/*')) {
             $products = Product::where('stock', '<=', 5)->paginate(100);
             return response()->json(['stock' => $products], 200);
         }
@@ -57,15 +57,15 @@ class Stock extends Controller
      */
     public function search($stockType, $value)
     {
-        if($stockType === 'instock') {
+        if ($stockType === 'instock') {
             $products = $this->productFilterByStockValue('stock', '!=', 0, $value);
         } elseif ($stockType === 'outofstock') {
             $products = $this->productFilterByStockValue('stock', '<=', 5, $value);
         } else {
             $products = Product::where('name', 'like', '%' . $value . '%')
-                                 ->orWhere('model', 'like', '%' . $value . '%')
-                                 ->orWhere('barcode', 'like', '%' . $value . '%')
-                                 ->paginate(100);
+                ->orWhere('model', 'like', '%' . $value . '%')
+                ->orWhere('barcode', 'like', '%' . $value . '%')
+                ->paginate(100);
         }
 
         return response()->json(['stock' => $products], 200);
@@ -81,12 +81,12 @@ class Stock extends Controller
     public function productFilterByStockValue($column, $operator, $condValue, $value)
     {
         $products = Product::where("$column", "$operator", "$condValue")
-                           ->where(function ($query) use ($value) {
-                                $query->where('name', 'like', '%' . $value . '%')
-                                      ->orWhere('model', 'like', '%' . $value . '%')
-                                      ->orWhere('barcode', 'like', '%' . $value . '%');
-                           })
-                           ->paginate(100);
+            ->where(function ($query) use ($value) {
+                $query->where('name', 'like', '%' . $value . '%')
+                    ->orWhere('model', 'like', '%' . $value . '%')
+                    ->orWhere('barcode', 'like', '%' . $value . '%');
+            })
+            ->paginate(100);
         return $products;
     }
 }
