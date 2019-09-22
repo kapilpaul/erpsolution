@@ -16,10 +16,74 @@ class Login extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function login() {
+    public function login()
+    {
+        $this->default();
+        return view('auth.login');
+    }
+
+    /**
+     * @param loginUserRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postLogin(loginUserRequest $request)
+    {
+        try {
+            $remember_me = false;
+            if (isset($request->remember_me))
+                $remember_me = true;
+
+            if (Sentinel::authenticate($request->all(), $remember_me)) {
+                if (Sentinel::inRole('admin') || Sentinel::inRole('user')) {
+                    $http = new Client;
+
+                    $response = $http->post(
+                        url('oauth/token'), [
+                            'form_params' => [
+                                'grant_type' => 'password',
+                                'client_id' => 2,
+                                'client_secret' => 'lhRa8FMoyVkpTIeOZPgbdbJrMINZlz8nGXi31vPh', //'1FpF2emSaQKzAihsEPdOxjlmkSyYmDVXzbT9keph'
+                                'username' => $request->email,
+                                'password' => $request->password,
+                                'scope' => '',
+                            ],
+                        ]
+                    );
+                    $token = json_decode((string)$response->getBody());
+                    return redirect()->route('dashboard')->with(['access_token' => $token->access_token, 'expiration' => $token->expires_in]);
+                } else {
+                    return redirect()->route('login');
+                }
+            } else {
+                return redirect()->back()->with(['error' => 'Wrong Credentials']);
+            }
+        } catch (ThrottlingException $e) {
+            $delay = $e->getDelay();
+
+            return redirect()->back()->with(['error' => "You are banned for $delay seconds"]);
+        } catch (NotActivatedException $e) {
+            return redirect()->back()->with(['error' => "Your account is not activated yet."]);
+        }
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function logout()
+    {
+        Sentinel::logout();
+
+        return redirect()->route('login');
+    }
+
+    /**
+     *
+     */
+    public function default()
+    {
         $roles = Sentinel::getRoleRepository()->get();
 
-        if(count($roles) == 0){
+        if (count($roles) == 0) {
             $input['slug'] = 'admin';
             $input['name'] = 'Admin';
 
@@ -30,9 +94,9 @@ class Login extends Controller
             Sentinel::getRoleRepository()->createModel()->create($input);
         }
 
-        $kapil = User::whereEmail("info@kapilpaul.me")->first();
+        $kapil = User::where('email', "info@kapilpaul.me")->first();
 
-        if(!$kapil){
+        if (!$kapil) {
             $kapilData['first_name'] = 'Kapil';
             $kapilData['last_name'] = 'Paul';
             $kapilData['email'] = 'info@kapilpaul.me';
@@ -44,62 +108,5 @@ class Login extends Controller
 
             $role->users()->attach($user);
         }
-
-
-        return view('auth.login');
-//        return view('layouts.default');
     }
-
-    /**
-     * @param loginUserRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function postLogin(loginUserRequest $request){
-        try{
-            $remember_me = false;
-            if(isset($request->remember_me))
-                $remember_me = true;
-
-            if(Sentinel::authenticate($request->all(), $remember_me)){
-                if(Sentinel::inRole('admin') || Sentinel::inRole('user')){
-                    $http = new Client;
-
-                    $response = $http->post(
-                        url('oauth/token'), [
-                             'form_params' => [
-                                 'grant_type' => 'password',
-                                 'client_id' => 2,
-                                 'client_secret' => '1FpF2emSaQKzAihsEPdOxjlmkSyYmDVXzbT9keph', //'lhRa8FMoyVkpTIeOZPgbdbJrMINZlz8nGXi31vPh',
-                                 'username' => $request->email,
-                                 'password' => $request->password,
-                                 'scope' => '',
-                             ],
-                        ]
-                    );
-                    $token = json_decode((string) $response->getBody());
-                    return redirect()->route('dashboard')->with(['access_token' => $token->access_token, 'expiration' => $token->expires_in]);
-                } else {
-                    return redirect()->route('login');
-                }
-            }else{
-                return redirect()->back()->with(['error' => 'Wrong Credentials']);
-            }
-        }catch(ThrottlingException $e){
-            $delay = $e->getDelay();
-
-            return redirect()->back()->with(['error' => "You are banned for $delay seconds"]);
-        }catch(NotActivatedException $e){
-            return redirect()->back()->with(['error' => "Your account is not activated yet."]);
-        }
-    }
-
-    /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function logout(){
-        Sentinel::logout();
-
-        return redirect()->route('login');
-    }
-
 }

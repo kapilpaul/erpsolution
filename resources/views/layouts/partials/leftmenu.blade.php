@@ -13,7 +13,7 @@
                         <img class="user_avatar" src="{{ asset('assets/img/dummy/u2.png') }}" alt="User Image">
                     </div>
                     <div class="float-left info">
-                        <h6 class="font-weight-light mt-2 mb-1">Alexander Pierce</h6>
+                        <h6 class="font-weight-light mt-2 mb-1">{{ Sentinel::getUser()->first_name }}</h6>
                         <a href="#"><i class="icon-circle text-primary blink"></i> Online</a>
                     </div>
                 </div>
@@ -22,11 +22,11 @@
                     <div class="list-group mt-3 shadow">
                         <a href="index.html" class="list-group-item list-group-item-action ">
                             <i class="mr-2 icon-umbrella text-blue"></i>Profile
+                            <a href="#" class="list-group-item list-group-item-action"><i
+                                        class="mr-2 icon-security text-purple"></i>Change Password</a>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action"><i
-                                    class="mr-2 icon-cogs text-yellow"></i>Settings</a>
-                        <a href="#" class="list-group-item list-group-item-action"><i
-                                    class="mr-2 icon-security text-purple"></i>Change Password</a>
+                        <a href="{{ route('logout') }}" class="list-group-item list-group-item-action"><i
+                                    class="mr-2 icon-cogs text-yellow"></i>Logout</a>
                     </div>
                 </div>
             </div>
@@ -84,46 +84,46 @@
             </li>
 
             {{--<li class="treeview {{ areActiveRoutes(['category.create', 'category.index']) }}">--}}
-                {{--<a href="#">--}}
-                    {{--<i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Category</span>--}}
-                    {{--<i class="icon icon-angle-left s-18 pull-right"></i>--}}
-                {{--</a>--}}
-                {{--<ul class="treeview-menu">--}}
-                    {{--<li class="{{ isActiveRoute('category.create') }}">--}}
-                        {{--<a href="{{ route('category.create') }}">--}}
-                            {{--<i class="icon icon-folder5"></i>--}}
-                            {{--Add--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="{{ isActiveRoute('category.index') }}">--}}
-                        {{--<a href="{{ route('category.index') }}">--}}
-                            {{--<i class="icon icon-folder5"></i>--}}
-                            {{--View--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
+            {{--<a href="#">--}}
+            {{--<i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Category</span>--}}
+            {{--<i class="icon icon-angle-left s-18 pull-right"></i>--}}
+            {{--</a>--}}
+            {{--<ul class="treeview-menu">--}}
+            {{--<li class="{{ isActiveRoute('category.create') }}">--}}
+            {{--<a href="{{ route('category.create') }}">--}}
+            {{--<i class="icon icon-folder5"></i>--}}
+            {{--Add--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="{{ isActiveRoute('category.index') }}">--}}
+            {{--<a href="{{ route('category.index') }}">--}}
+            {{--<i class="icon icon-folder5"></i>--}}
+            {{--View--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--</ul>--}}
             {{--</li>--}}
 
             {{--<li class="treeview no-b {{ areActiveRoutes(['suppliers.create', 'suppliers.index']) }}">--}}
-                {{--<a href="#">--}}
-                    {{--<i class="icon icon-package light-green-text s-18"></i>--}}
-                    {{--<span>Suppliers</span>--}}
-                    {{--<i class="icon icon-angle-left s-18 pull-right"></i>--}}
-                {{--</a>--}}
-                {{--<ul class="treeview-menu">--}}
-                    {{--<li class="{{ isActiveRoute('suppliers.create') }}">--}}
-                        {{--<a href="{{ route('suppliers.create') }}">--}}
-                            {{--<i class="icon icon-add"></i>--}}
-                            {{--Add--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="{{ isActiveRoute('suppliers.index') }}">--}}
-                        {{--<a href="{{ route('suppliers.index') }}">--}}
-                            {{--<i class="icon icon-circle-o"></i>--}}
-                            {{--View--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
+            {{--<a href="#">--}}
+            {{--<i class="icon icon-package light-green-text s-18"></i>--}}
+            {{--<span>Suppliers</span>--}}
+            {{--<i class="icon icon-angle-left s-18 pull-right"></i>--}}
+            {{--</a>--}}
+            {{--<ul class="treeview-menu">--}}
+            {{--<li class="{{ isActiveRoute('suppliers.create') }}">--}}
+            {{--<a href="{{ route('suppliers.create') }}">--}}
+            {{--<i class="icon icon-add"></i>--}}
+            {{--Add--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="{{ isActiveRoute('suppliers.index') }}">--}}
+            {{--<a href="{{ route('suppliers.index') }}">--}}
+            {{--<i class="icon icon-circle-o"></i>--}}
+            {{--View--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--</ul>--}}
             {{--</li>--}}
 
             <li class="treeview no-b {{ areActiveRoutes(['customer.create', 'customer.index']) }}">

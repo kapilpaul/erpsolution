@@ -157,6 +157,7 @@ Route::middleware(['authcheck'])->group(function () {
             Route::get('/', 'TransactionController@index')->name('transaction.index');
             Route::get('/{type}/create', 'TransactionController@create')->name('transaction.create');
             Route::any('/daily-summary', 'TransactionController@dailySummary')->name('transaction.dailySummary');
+            Route::any('/daily-summary/pdf', 'TransactionController@summaryPdf')->name('transaction.summaryPdf');
         });
     });
 });

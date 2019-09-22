@@ -7,7 +7,7 @@
 
 @section('blank_content')
     <div class="page parallel">
-        <div class="d-flex row">
+        <div class="row align-items-center">
             <div class="col-md-4 dark">
                 <div class="p-5 mt-5"></div>
                 <div class="p-5">

@@ -188,4 +188,39 @@ class Transaction extends Model
         return $this->belongsTo(Invoice::class, 'other_transaction_no', 'invoice_no');
     }
 
+    /**
+     * @param $from_date
+     * @param $to_date
+     * @return array
+     */
+    public static function filterSummary($from_date, $to_date)
+    {
+        $fromDate = date('Y-m-d', strtotime($from_date));
+        $toDate = date('Y-m-d', strtotime($to_date));
+
+//                $salesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'customer')->with(['customer', 'invoice']);
+        $salesQuery = Invoice::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->with('customer', 'products');
+
+        $receiptsQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'receipt')->where('category', 'customer')->with('customer');
+
+        $expensesQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'payment')->where('category', 'office')->with('account');
+
+        $totalSales = $salesQuery->sum('grand_total'); //credit
+        $totalReceived = $receiptsQuery->sum('debit');
+        $totalExpenses = $expensesQuery->sum('credit');
+
+        $sales = $salesQuery->get();
+        $receipts = $receiptsQuery->get();
+        $expenses = $expensesQuery->get();
+
+        return [
+            'totalSales' => $totalSales,
+            'totalReceived' => $totalReceived,
+            'totalExpenses' => $totalExpenses,
+            'sales' => $sales,
+            'receipts' => $receipts,
+            'expenses' => $expenses,
+        ];
+    }
+
 }

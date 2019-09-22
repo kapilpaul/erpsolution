@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Settings\Accounts;
 
 use App\Models\Bank\Bank;
-use App\Models\Sales\Invoice;
 use App\Models\Settings\Accounts\Transaction;
+use PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -146,25 +146,24 @@ class TransactionController extends Controller
         try {
             $fromDate = isset($request->from_date) ? $request->from_date : Carbon::today();
             $toDate = isset($request->to_date) ? $request->to_date : Carbon::today();
-            $fromDate = date('Y-m-d', strtotime($fromDate));
-            $toDate = date('Y-m-d', strtotime($toDate));
 
-//                $salesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'customer')->with(['customer', 'invoice']);
-            $salesQuery = Invoice::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->with('customer', 'products');
+            $summary = Transaction::filterSummary($fromDate, $toDate);
 
-            $receiptsQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'receipt')->where('category', 'customer')->with('customer');
+            $totalSales = $summary['totalSales'];
+            $totalReceived = $summary['totalReceived'];
+            $totalExpenses = $summary['totalExpenses'];
+            $sales = $summary['sales'];
+            $receipts = $summary['receipts'];
+            $expenses = $summary['expenses'];
 
-            $expensesQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'payment')->where('category', 'office')->with('account');
-
-            $totalSales = $salesQuery->sum('grand_total'); //credit
-            $totalReceived = $receiptsQuery->sum('debit');
-            $totalExpenses = $expensesQuery->sum('credit');
-
-            $sales = $salesQuery->get();
-            $receipts = $receiptsQuery->get();
-            $expenses = $expensesQuery->get();
-
-            return view('reports.transactions.daily-summary', compact('totalSales', 'totalReceived', 'totalExpenses', 'sales', 'receipts', 'expenses'));
+            return view('reports.transactions.daily-summary', compact(
+                'totalSales',
+                'totalReceived',
+                'totalExpenses',
+                'sales',
+                'receipts',
+                'expenses'
+            ));
 
         } catch (PDOException $e) {
             return redirect()->back()->with(['error' => "PDOException Error!"]);
@@ -175,5 +174,45 @@ class TransactionController extends Controller
         } catch (MethodNotAllowedHttpException $e) {
             return redirect()->route('transaction.dailySummary');
         }
+    }
+
+    /**
+     * @param bool $request
+     * @return mixed
+     */
+    public function summaryPdf($request = false)
+    {
+        $fromDate = isset($request->from_date) ? $request->from_date : Carbon::today();
+        $toDate = isset($request->to_date) ? $request->to_date : Carbon::today();
+
+        $summary = Transaction::filterSummary($fromDate, $toDate);
+
+        $totalSales = $summary['totalSales'];
+        $totalReceived = $summary['totalReceived'];
+        $totalExpenses = $summary['totalExpenses'];
+        $sales = $summary['sales'];
+        $receipts = $summary['receipts'];
+        $expenses = $summary['expenses'];
+
+        PDF::setOptions([
+            'debugCss' => true,
+            'debugLayout' => true,
+            'debugLayoutLines' => true,
+            'debugLayoutBlocks' => true,
+            'debugLayoutInline' => true,
+            'debugLayoutPaddingBox' => true,
+        ]);
+
+        return $pdf = PDF::loadView('pdf.transaction.summary', compact(
+            'fromDate',
+            'totalSales',
+            'totalReceived',
+            'totalExpenses',
+            'sales',
+            'receipts',
+            'expenses'
+        )); //->stream()
+
+        return $pdf->download("transaction-summary-$fromDate.pdf");
     }
 }
