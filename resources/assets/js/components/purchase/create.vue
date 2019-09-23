@@ -20,7 +20,56 @@
           <div class="col-md-6">
             <div class="form-group form-float">
               <div class="form-line">
-                <input type="date" class="form-control" id="purchase_date" />
+                <input
+                  type="text"
+                  class="date-time-picker form-control"
+                  data-options='{"timepicker":false, "format":"d-m-Y"}'
+                  id="purchase_date"
+                  autocomplete="off"
+                />
+
+                <label class="form-label">Date *</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="purchase.from"
+                />
+                <label class="form-label">From</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="purchase.vehicle_no"
+                />
+                <label class="form-label">Vehicle No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="purchase.driverName"
+                />
+                <label class="form-label">Driver Name</label>
               </div>
             </div>
           </div>
@@ -28,14 +77,12 @@
 
         <div class="form-group form-float">
           <div class="form-line">
-            <input type="text" class="form-control" v-model="purchase.vehicle_no" />
-            <label class="form-label">Vehicle No</label>
-          </div>
-        </div>
-
-        <div class="form-group form-float">
-          <div class="form-line">
-            <textarea name="details" v-model="purchase.details" id="details" class="form-control"></textarea>
+            <textarea
+              name="details"
+              v-model="purchase.details"
+              id="details"
+              class="form-control"
+            ></textarea>
             <label class="form-label">Details</label>
           </div>
         </div>
@@ -52,7 +99,11 @@
           leave-active-class="animated slideOutDown"
           :duration="{ leave: 200 }"
         >
-          <div class="row" v-for="(item, index) in purchase.products" :key="index">
+          <div
+            class="row"
+            v-for="(item, index) in purchase.products"
+            :key="index"
+          >
             <div class="col-md-6">
               <div class="form-group form-float">
                 <div class="form-line">
@@ -65,28 +116,45 @@
                     @search="onSearch"
                     v-model="purchase['products'][index].product_id"
                   >
-                    <template slot="no-options">Type to search Products..</template>
+                    <template slot="no-options"
+                      >Type to search Products..</template
+                    >
 
                     <template slot="option" slot-scope="option">
                       <div class="d-center" v-if="option.photo != null">
-                        <img class="img-responsive" :src="productImageUrl + option.photo.photo" />
+                        <img
+                          class="img-responsive"
+                          :src="productImageUrl + option.photo.photo"
+                        />
                         {{ option.name }} - {{ option.model }}
                       </div>
 
                       <div class="d-center" v-else>
-                        <img class="img-responsive" :src="productImageUrl + 's2.png'" />
+                        <img
+                          class="img-responsive"
+                          :src="productImageUrl + 's2.png'"
+                        />
                         {{ option.name }} - {{ option.model }}
                       </div>
                     </template>
                     <template slot="selected-option" slot-scope="option">
-                      <div class="selected d-center" v-if="option.photo != null">
-                        <img class="img-responsive" :src="productImageUrl + option.photo.photo" />
-                        {{ option.name }} - {{ option.model }}
+                      <div
+                        class="selected d-center"
+                        v-if="option.photo != null"
+                      >
+                        <img
+                          class="img-responsive"
+                          :src="productImageUrl + option.photo.photo"
+                        />
+                        {{ option.name }}
                       </div>
 
                       <div class="selected d-center" v-else>
-                        <img class="img-responsive" :src="productImageUrl + 's2.png'" />
-                        {{ option.name }} - {{ option.model }}
+                        <img
+                          class="img-responsive"
+                          :src="productImageUrl + 's2.png'"
+                        />
+                        {{ option.name }}
                       </div>
                     </template>
                   </v-select>
@@ -111,7 +179,12 @@
               <div class="form-group form-float">
                 <div class="form-line">
                   <p class="p-label mb-0">Quantity</p>
-                  <input type="number" class="form-control" name="quantity" v-model="item.quantity" />
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="quantity"
+                    v-model="item.quantity"
+                  />
                 </div>
               </div>
             </div>
@@ -181,7 +254,9 @@
           v-if="purchase['products'].length > 0 && submitted == false"
           class="btn btn-primary waves-effect"
           type="submit"
-        >SUBMIT</button>
+        >
+          SUBMIT
+        </button>
         <button
           v-else-if="purchase['products'].length > 0 && submitted == true"
           class="btn btn-primary waves-effect"
@@ -206,6 +281,8 @@ export default {
       purchase: {
         invoice_no: "",
         vehicle_no: "",
+        from: "",
+        driverName: "",
         purchase_date: "",
         details: "",
         products: [
@@ -218,7 +295,7 @@ export default {
         ]
       },
       productItems: [],
-      productImageUrl: process.env.MIX_APP_ROOT + "assets/img/products/",
+      productImageUrl: process.env.MIX_APP_ROOT + "/assets/img/products/",
       submitted: false
     };
   },
@@ -251,6 +328,8 @@ export default {
       var purchaseData = {
         invoice_no: this.purchase.invoice_no,
         vehicle_no: this.purchase.vehicle_no,
+        from: this.purchase.from,
+        driver_name: this.purchase.driverName,
         purchase_date: this.purchase.purchase_date,
         details: this.purchase.details,
         total_amount: 0,

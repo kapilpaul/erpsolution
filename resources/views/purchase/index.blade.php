@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Purchase')
+@section('title', 'Stock')
 
 @push('header_top_css')
     <link rel="stylesheet" href="{{ asset('assets/css/remodal.css') }}">
@@ -11,7 +11,7 @@
 
     @parent
 
-    @section('pagetitle', 'Purchase')
+    @section('pagetitle', 'Stock')
 
     @section('content')
         <purchase-index></purchase-index>

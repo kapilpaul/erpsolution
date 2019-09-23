@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Settings\Accounts;
 
 use App\Models\Settings\Accounts\Account;
+use App\Models\Settings\Accounts\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Validator;
 use Illuminate\Database\QueryException;
 use PDOException;
@@ -14,6 +16,7 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -49,7 +52,7 @@ class AccountController extends Controller
 
         try{
             $input = $request->all();
-            $input['code'] = str_random(15);
+            $input['code'] = Str::random(15);
 
             Account::create($input);
 
@@ -59,6 +62,25 @@ class AccountController extends Controller
         }catch(QueryException $e){
             return response()->json(['error' => "QueryException Error!"], 500);
         }
+    }
+
+    /**
+     * @param $code
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($code)
+    {
+        $account = Account::whereCode($code)->firstOrFail();
+
+        $transactions = Transaction::where('category', 'office')
+                        ->where('receiver_id', $account->id)
+                        ->orderBy('created_at', 'desc')
+                        ->orderBy('id', 'desc');
+
+        $totalPayment = $transactions->sum('credit');
+        $transactions = $transactions->get();
+
+        return view('settings.accounts.account.show', compact('totalPayment', 'transactions', 'account'));
     }
 
     /**

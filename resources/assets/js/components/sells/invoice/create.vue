@@ -41,10 +41,14 @@
             <div class="form-group form-float">
               <div class="form-line">
                 <input
-                  type="date"
-                  class="form-control"
+                  type="text"
+                  class="date-time-picker form-control"
+                  data-options='{"timepicker":false, "format":"d-m-Y"}'
                   id="date"
+                  autocomplete="off"
                 />
+
+                <label class="form-label">Date *</label>
               </div>
             </div>
           </div>
@@ -94,12 +98,12 @@
                     <template slot="option" slot-scope="option">
                       <div class="d-center" v-if="option.photo != null">
                         <img class="img-responsive" :src="productImageUrl + option.photo.photo" />
-                        {{ option.name }} - {{ option.model }}
+                        {{ option.name }}
                       </div>
 
                       <div class="d-center" v-else>
                         <img class="img-responsive" :src="productImageUrl + 's2.png'" />
-                        {{ option.name }} - {{ option.model }}
+                        {{ option.name }}
                       </div>
                     </template>
                     <template slot="selected-option" slot-scope="option">

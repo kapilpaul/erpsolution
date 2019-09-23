@@ -173,7 +173,7 @@
             <li class="treeview {{ areActiveRoutes(['purchase.create', 'purchase.index']) }}">
                 <a href="#">
                     <i class="icon icon icon-shopping-cart2 blue-text s-18"></i>
-                    <span>Purchase</span>
+                    <span>Add Stock</span>
                     <i class="icon icon-angle-left s-18 pull-right"></i>
                 </a>
                 <ul class="treeview-menu">

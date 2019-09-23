@@ -6,13 +6,13 @@
 
     @parent
 
-@section('pagetitle', 'Add Purchase')
+@section('pagetitle', 'Add Stock')
 
 @section('content')
     <div class="row">
         <div class="col-md-8">
-            <div class="text-center my-auto">
-                <div class="card card-block d-flex" style="height: 252px">
+            <div class="text-center my-auto mb-20">
+                <div class="card card-block d-flex" style="height: 253px">
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <div>
                             {{--<h5 class="card-title mb-0">Supplier Name : <a href="{{ route('suppliers.show', $purchase->supplier->code) }}">{{ $purchase->supplier->name }}</a></h5>--}}
@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-body p-0">
                     <div class="lighten-2">
-                        <div class="pt-5 pb-2 pl-5 pr-5">
+                        <div class="p-30">
                             <h5 class="font-weight-normal s-14">Total Amount</h5>
                             <span class="s-48 font-weight-lighter text-primary">
                                     <span class="sc-counter">{{ $purchase->total_amount }}</span>

@@ -1,24 +1,21 @@
 @extends('layouts.default')
 
-@section('title', 'Customer')
+@section('title', 'Account')
 
 @section('sidebar')
 
     @parent
 
-@section('pagetitle', 'Customer')
+@section('pagetitle', 'Account')
 
 @section('content')
     <div class="row">
         <div class="col-md-8">
             <div class="text-center my-auto mb-20">
-                <div class="card card-block d-flex" style="height: 253px">
+                <div class="card card-block d-flex" style="height: 157px">
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <div>
-                            <h5 class="card-title mb-0">Customer Name : {{ $customer->name }}</h5>
-                            <p class="card-text mb-0">Mobile No : {{ $customer->mobile }}</p>
-                            <p class="card-text mb-0">Address : {{ $customer->address }}</p>
-                            <p class="card-text mb-0">{{ $customer->details }}</p>
+                            <h5 class="card-title mb-0">Account Name : {{ $account->name }}</h5>
                         </div>
                     </div>
                     <div>
@@ -33,23 +30,8 @@
                         <div class="p-30">
                             <h5 class="font-weight-normal s-14">Balance</h5>
                             <span class="s-48 font-weight-lighter text-primary">
-                                    <span class="sc-counter">{{ $customer->balance }}</span>
+                                    <span class="sc-counter">{{ $totalPayment }}</span>
                                 </span>
-                            <div class="d-flex justify-content-between pt-2">
-                                <div>
-                                    <p class="mb-0">
-                                        <i class="icon-circle-o text-red mr-2"></i>Total Purchase</p>
-                                    <p class="mb-0">
-                                        <i class="icon-circle-o text-green mr-2"></i>Total Paid</p>
-                                    <p class="mb-0">
-                                        <i class="icon-circle-o text-green mr-2"></i>Due</p>
-                                </div>
-                                <div>
-                                    <p class="mb-0">{{ $totalPurchase }}</p>
-                                    <p class="mb-0">{{ $totalPaid }}</p>
-                                    <p class="mb-0">{{ $totalPurchase - $totalPaid }}</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,10 +56,8 @@
                                 <th>Date</th>
                                 <th>Transaction No</th>
                                 <th>Transaction Type</th>
-                                <th>Invoice No</th>
                                 <th>Debit</th>
                                 <th>Credit</th>
-                                <th>Balance</th>
                             </tr>
                             @foreach($transactions as $item)
                             <tr>
@@ -86,16 +66,19 @@
                                 <td>{{ $item->transaction_no }}</td>
 
                                 <td>{{ $item->tmode }}</td>
-                                <td>
-                                    @if($item->other_transaction_no)
-                                    <a href="{{ route('invoice.show', $item->other_transaction_no) }}">{{ $item->other_transaction_no }}</a>
-                                    @endif
-                                </td>
                                 <td>{{ $item->debit }}</td>
                                 <td>{{ $item->credit }}</td>
-                                <td>{{ $item->balance }}</td>
                             </tr>
                             @endforeach
+
+                            <tr class="no-b">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Total Amount</th>
+                                <th>{{ $totalPayment }}</th>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

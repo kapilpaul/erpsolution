@@ -6,7 +6,7 @@
 
     @parent
 
-@section('pagetitle', 'Add Purchase')
+@section('pagetitle', 'Add Stock')
 
 @section('content')
     <div class="card mb-3 shadow no-b r-0">

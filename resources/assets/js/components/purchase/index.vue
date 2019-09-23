@@ -5,7 +5,7 @@
     <div v-if="typeof purchases.data != 'undefined' && purchases.data.length > 0">
       <div class="card mb-3 shadow no-b r-0">
         <div class="card-header white">
-          <h6>Purchases</h6>
+          <h6>Stocks</h6>
         </div>
 
         <div class="table-responsive">
@@ -15,9 +15,9 @@
                 <th style="width: 10px">#</th>
                 <th>Invoice No</th>
                 <th>Vehicle No</th>
-                <th>Purchase ID</th>
+                <th>Stock ID</th>
                 <!-- <th>Supplier Name</th> -->
-                <th>Purchase Date</th>
+                <th>Stock Date</th>
                 <!-- <th>Total Amount</th> -->
                 <th style="width: 50px">Action</th>
               </tr>

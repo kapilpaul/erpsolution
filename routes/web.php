@@ -148,6 +148,7 @@ Route::middleware(['authcheck'])->group(function () {
         Route::group(['prefix' => 'accounts'], function () {
             Route::get('/', 'AccountController@index')->name('accounts.index');
             Route::get('/create', 'AccountController@create')->name('accounts.create');
+            Route::get('/{code}/show', 'AccountController@show')->name('accounts.show');
         });
 
         /*

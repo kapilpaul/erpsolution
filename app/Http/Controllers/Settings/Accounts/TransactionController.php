@@ -211,7 +211,7 @@ class TransactionController extends Controller
             'sales',
             'receipts',
             'expenses'
-        )); //->stream()
+        ));//->stream();
 
         return $pdf->download("transaction-summary-$fromDate.pdf");
     }
