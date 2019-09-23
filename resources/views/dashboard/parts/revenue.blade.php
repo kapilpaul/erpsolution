@@ -23,10 +23,10 @@
                 <div class="tab-pane animated fadeIn show active" id="v-pills-tab1" role="tabpanel"
                      aria-labelledby="v-pills-tab1">
                     <div class="bg-primary text-white lighten-2">
-                        <div class="pt-5 pb-2 pl-5 pr-5">
+                        <div class="pb-30 pl-60 pr-30 pt-60">
                             <h5 class="font-weight-normal s-14">Today's Income</h5>
                             <span class="s-48 font-weight-lighter text-primary">
-                                    <small>$</small>960</span>
+                                    <small>৳</small>{{ $todaysIncome }}</span>
                             <div class="float-right">
                                 <span class="icon icon-money-bag s-48"></span>
                             </div>
@@ -45,10 +45,10 @@
                 <div class="tab-pane animated fadeIn" id="v-pills-tab2" role="tabpanel"
                      aria-labelledby="v-pills-tab2">
                     <div class="bg-primary text-white lighten-2">
-                        <div class="pt-5 pb-2 pl-5 pr-5">
+                        <div class="pb-30 pl-60 pr-30 pt-60">
                             <h5 class="font-weight-normal s-14">Yesterday's Income</h5>
                             <span class="s-48 font-weight-lighter text-primary">
-                                    <small>$</small>1100</span>
+                                    <small>৳</small>{{ $yesterdaysIncome }}</span>
                             <div class="float-right">
                                 <span class="icon icon-money-bag s-48"></span>
                             </div>
@@ -60,7 +60,7 @@
                                     ]">
                         </canvas>
                     </div>
-                    @include('dashboard.parts.invoiceList')
+                    {{--@include('dashboard.parts.invoiceList')--}}
                 </div>
             </div>
         </div>

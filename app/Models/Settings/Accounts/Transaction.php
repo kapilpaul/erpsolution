@@ -223,4 +223,12 @@ class Transaction extends Model
         ];
     }
 
+    /**
+     * @param $date
+     * @return mixed
+     */
+    public static function findIncome($date)
+    {
+        return Transaction::whereDate('date', $date)->where('type', 'receipt')->where('category', 'customer')->sum('debit');
+    }
 }

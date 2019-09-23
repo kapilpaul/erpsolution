@@ -12,7 +12,7 @@
                         <th>In Qnty.</th>
                         <th>Out Qnty.</th>
                         <th>Stock</th>
-                        <th>Stock Sale Price</th>
+                        <!--<th>Stock Sale Price</th>-->
                     </tr>
 
                     <tr v-for="(item, index) in inStock.data">
@@ -22,7 +22,7 @@
                         <td>{{ item.in_quantity }}</td>
                         <td>{{ item.out_quantity }}</td>
                         <td>{{ item.stock }}</td>
-                        <td>{{ Math.round(item.stock * item.sale_price) }}</td>
+                        <!--<td>{{ Math.round(item.stock * item.sale_price) }}</td>-->
                     </tr>
 
                     <tr>
@@ -32,7 +32,7 @@
                         <th></th>
                         <th></th>
                         <th>Grand Total</th>
-                        <th class="text-black">{{ grandTotal }}</th>
+                        <!--<th class="text-black">{{ grandTotal }}</th>-->
                     </tr>
                     </tbody>
                 </table>

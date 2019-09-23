@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Models\Settings\Accounts\Transaction;
 use App\Models\Settings\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
@@ -20,11 +22,16 @@ class DashboardController extends Controller
 
         $topCustomers = $this->topCustomers();
 
+        $todaysIncome = Transaction::findIncome(Carbon::now());
+        $yesterdaysIncome = Transaction::findIncome(Carbon::now()->subDay());
+
         return view('dashboard.index', compact(
             'topSalesProductsLifetime',
             'topSalesProductsMonthly',
             'topSalesProductsPreviousMonth',
-            'topCustomers'
+            'topCustomers',
+            'todaysIncome',
+            'yesterdaysIncome'
         ));
     }
 
@@ -48,6 +55,7 @@ class DashboardController extends Controller
 
     /**
      * monthly top sales product
+     * @param $month
      * @return array
      */
     public function topSalesProductsMonthly($month)
