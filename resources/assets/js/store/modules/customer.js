@@ -1,7 +1,8 @@
 export const customerStore = {
   state: {
     customers: [],
-    customerEditData: []
+    customerEditData: [],
+    totalDue: 0
   },
   getters: {
     customers: state => {
@@ -9,6 +10,9 @@ export const customerStore = {
     },
     customerEditData: state => {
       return state.customerEditData;
+    },
+    totalDue: state => {
+      return state.totalDue;
     }
   },
   mutations: {
@@ -17,6 +21,9 @@ export const customerStore = {
     },
     setCustomerEditData: (state, payload) => {
       state.customerEditData = payload;
+    },
+    setTotalDueData: (state, payload) => {
+      state.totalDue = payload;
     }
   },
   actions: {
@@ -25,6 +32,8 @@ export const customerStore = {
 
       if (payload == "") {
         customerUrl = customerUrl;
+      } else if (payload.url) {
+        customerUrl = customerUrl + payload.url;
       } else if (payload.search) {
         customerUrl = customerUrl + "/search/" + payload.search;
       } else {
@@ -32,6 +41,9 @@ export const customerStore = {
       }
 
       axios.get(customerUrl, Vue.auth.getHeader()).then(response => {
+        if (typeof response.data.totalDue !== "undefined") {
+          commit("setTotalDueData", response.data.totalDue);
+        }
         commit("setCustomers", response.data.customers);
       });
     },

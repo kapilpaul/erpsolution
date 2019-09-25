@@ -109,6 +109,7 @@ Route::middleware(['authcheck'])->group(function () {
         Route::get('/', 'CustomerController@index')->name('customer.index');
         Route::get('/create', 'CustomerController@create')->name('customer.create');
         Route::get('/{id}/details', 'CustomerController@show')->name('customer.show');
+        Route::get('/due-customers', 'CustomerController@dueCustomers')->name('customer.dues');
     });
 
     /*

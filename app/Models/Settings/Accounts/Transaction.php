@@ -199,11 +199,11 @@ class Transaction extends Model
         $toDate = date('Y-m-d', strtotime($to_date));
 
 //                $salesQuery = Transaction::whereDate('date', $date)->where('type', 'payment')->where('category', 'customer')->with(['customer', 'invoice']);
-        $salesQuery = Invoice::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->with('customer', 'products');
+        $salesQuery = Invoice::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->orderBy('date', 'desc')->with('customer', 'products');
 
-        $receiptsQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'receipt')->where('category', 'customer')->with('customer');
+        $receiptsQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'receipt')->where('category', 'customer')->orderBy('date', 'desc')->with('customer');
 
-        $expensesQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'payment')->where('category', 'office')->with('account');
+        $expensesQuery = Transaction::whereDate('date', '>=', $fromDate)->whereDate('date', '<=', $toDate)->where('type', 'payment')->where('category', 'office')->orderBy('date', 'desc')->with('account');
 
         $totalSales = $salesQuery->sum('grand_total'); //credit
         $totalReceived = $receiptsQuery->sum('debit');

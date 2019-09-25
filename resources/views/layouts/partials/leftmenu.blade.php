@@ -36,7 +36,7 @@
 
             <li class="treeview {{ areActiveRoutes(['invoice.create', 'invoice.index']) }}">
                 <a href="#">
-                    <i class="icon icon-invoice-1 light-green-text s-18"></i> <span>Invoice</span>
+                    <i class="icon icon-invoice-1 light-green-text s-18"></i> <span>Invoice (Sell)</span>
                     <i class="icon icon-angle-left s-18 pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
@@ -143,6 +143,12 @@
                         <a href="{{ route('customer.index') }}">
                             <i class="icon icon-circle-o"></i>
                             View
+                        </a>
+                    </li>
+                    <li class="{{ isActiveRoute('customer.dues') }}">
+                        <a href="{{ route('customer.dues') }}">
+                            <i class="icon icon-circle-o"></i>
+                            Dues
                         </a>
                     </li>
                 </ul>

@@ -5,6 +5,7 @@
                 <tbody>
                 <tr>
                     <th style="width: 10px">#</th>
+                    <th>Date</th>
                     <th>Account Name</th>
                     <th>Payment Mode</th>
                     <th>Amount</th>
@@ -12,8 +13,9 @@
                 @foreach($expenses as $expense)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ date('d M Y', strtotime($expense->date)) }}</td>
                         <td>
-                            <a href="{{ route('customer.show', $expense->account->code) }}">
+                            <a href="{{ route('accounts.show', $expense->account->code) }}">
                                 {{ $expense->account->name }}
                             </a>
                         </td>
@@ -24,6 +26,7 @@
 
                 @if(isset($totalReceived))
                     <tr>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th>Grand Total</th>

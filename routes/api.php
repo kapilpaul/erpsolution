@@ -108,6 +108,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/search/{value}', 'CustomerController@search');
         Route::get('/mobile/{value}/show', 'CustomerController@searchByMobile');
         Route::get('/all', 'CustomerController@allCustomers');
+        Route::get('/due-customers', 'CustomerController@dueCustomers');
     });
 
     /*

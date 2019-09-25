@@ -16,13 +16,16 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         if($request->is('api/*')) {
-            $customers = Customer::orderBy('id', 'desc')->paginate(100);
-            return response()->json(['customers' => $customers], 200);
+            $customersQuery = Customer::orderBy('id', 'desc');
+            $customers = $customersQuery->paginate(100);
+            $totalDue = $customersQuery->sum('balance');
+            return response()->json(['customers' => $customers, 'totalDue' => $totalDue], 200);
         }
 
         return view('customer.index');
@@ -165,6 +168,7 @@ class CustomerController extends Controller
         $customers = Customer::where('mobile', 'like', '%'. $value .'%')
                     ->orWhere('email', 'like', '%'. $value .'%')
                     ->orWhere('name', 'like', '%'. $value .'%')
+                    ->orWhere('balance', 'like', '%'. $value .'%')
                     ->paginate(100);
 
         return response()->json(['customers' => $customers], 200);
@@ -190,5 +194,21 @@ class CustomerController extends Controller
     {
         $customers = Customer::orderBy('name', 'asc')->select(DB::raw('CONCAT(name, " - ", mobile) AS name'), 'code')->get();
         return response()->json(['items' => $customers], 200);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function dueCustomers()
+    {
+        if(request()->is('api/*')) {
+            $customersQuery = Customer::where('balance', '>', '0')->orderBy('id', 'desc');
+            $customers = $customersQuery->paginate(100);
+            $totalDue = $customersQuery->sum('balance');
+
+            return response()->json(['customers' => $customers, 'totalDue' => $totalDue], 200);
+        }
+
+        return view('customer.dues');
     }
 }

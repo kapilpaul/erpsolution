@@ -48209,7 +48209,8 @@ var purchaseStore = {
 var customerStore = {
   state: {
     customers: [],
-    customerEditData: []
+    customerEditData: [],
+    totalDue: 0
   },
   getters: {
     customers: function customers(state) {
@@ -48217,6 +48218,9 @@ var customerStore = {
     },
     customerEditData: function customerEditData(state) {
       return state.customerEditData;
+    },
+    totalDue: function totalDue(state) {
+      return state.totalDue;
     }
   },
   mutations: {
@@ -48225,6 +48229,9 @@ var customerStore = {
     },
     setCustomerEditData: function setCustomerEditData(state, payload) {
       state.customerEditData = payload;
+    },
+    setTotalDueData: function setTotalDueData(state, payload) {
+      state.totalDue = payload;
     }
   },
   actions: {
@@ -48235,6 +48242,8 @@ var customerStore = {
 
       if (payload == "") {
         customerUrl = customerUrl;
+      } else if (payload.url) {
+        customerUrl = customerUrl + payload.url;
       } else if (payload.search) {
         customerUrl = customerUrl + "/search/" + payload.search;
       } else {
@@ -48242,6 +48251,9 @@ var customerStore = {
       }
 
       axios.get(customerUrl, Vue.auth.getHeader()).then(function (response) {
+        if (typeof response.data.totalDue !== "undefined") {
+          commit("setTotalDueData", response.data.totalDue);
+        }
         commit("setCustomers", response.data.customers);
       });
     },
@@ -59640,7 +59652,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -59745,6 +59757,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -59752,6 +59774,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    dues: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: function data() {
     return {
       items: [],
@@ -59772,6 +59800,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.items = this.$store.getters.customers;
       this.pageCount = this.items.last_page ? this.items.last_page : 2;
       return this.items;
+    },
+    totalDue: function totalDue() {
+      return this.$store.getters.totalDue;
     }
   },
   mounted: function mounted() {
@@ -59780,7 +59811,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     getItems: function getItems() {
-      this.$store.dispatch("setCustomers", "");
+      if (this.dues) {
+        this.$store.dispatch("setCustomers", { url: "/due-customers" });
+      } else {
+        this.$store.dispatch("setCustomers", "");
+      }
     },
     deleteItem: function deleteItem(index, id) {
       var _this = this;
@@ -60477,7 +60512,23 @@ var render = function() {
                               ])
                             ]
                           )
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th"),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Total Dues")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v(_vm._s(_vm.totalDue))]),
+                          _vm._v(" "),
+                          _c("th")
+                        ])
                       ],
                       2
                     )

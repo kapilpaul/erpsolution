@@ -5,6 +5,7 @@
                 <tbody>
                 <tr>
                     <th style="width: 10px">#</th>
+                    <th>Date</th>
                     <th>Customer Name</th>
                     <th>Invoice No</th>
                     <th>Payment Mode</th>
@@ -14,6 +15,7 @@
                 @foreach($receipts as $receipt)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ date('d M Y', strtotime($receipt->date)) }}</td>
                         <td>
                             <a href="{{ route('customer.show', $receipt->customer->code) }}">
                                 {{ $receipt->customer->name }}
@@ -40,6 +42,7 @@
 
                 @if(isset($totalReceived))
                     <tr>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>

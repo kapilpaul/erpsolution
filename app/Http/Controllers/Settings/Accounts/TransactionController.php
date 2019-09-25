@@ -162,7 +162,9 @@ class TransactionController extends Controller
                 'totalExpenses',
                 'sales',
                 'receipts',
-                'expenses'
+                'expenses',
+                'fromDate',
+                'toDate'
             ));
 
         } catch (PDOException $e) {

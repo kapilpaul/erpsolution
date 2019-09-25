@@ -55,6 +55,16 @@
                   </a>
                 </td>
               </tr>
+
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Total Dues</th>
+                <th>{{ totalDue }}</th>
+                <th></th>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -91,6 +101,12 @@ import apiSearch from "../search/apiSearch.vue";
 import noData from "../common/nodata.vue";
 
 export default {
+  props: {
+    dues: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       items: [],
@@ -110,6 +126,9 @@ export default {
       this.items = this.$store.getters.customers;
       this.pageCount = this.items.last_page ? this.items.last_page : 2;
       return this.items;
+    },
+    totalDue() {
+      return this.$store.getters.totalDue;
     }
   },
   mounted() {
@@ -117,7 +136,11 @@ export default {
   },
   methods: {
     getItems() {
-      this.$store.dispatch("setCustomers", "");
+      if (this.dues) {
+        this.$store.dispatch("setCustomers", { url: "/due-customers" });
+      } else {
+        this.$store.dispatch("setCustomers", "");
+      }
     },
     deleteItem(index, id) {
       this.$swal({

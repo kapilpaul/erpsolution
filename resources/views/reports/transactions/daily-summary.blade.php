@@ -36,6 +36,12 @@
 
 
 
+    <h4 class="mb-20">Showing Summary From
+        <b><i>{{ date('d M Y', strtotime($fromDate)) }}</i></b> TO
+        <b><i>{{ date('d M Y', strtotime($toDate)) }}</i></b>
+    </h4>
+
+
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" aria-selected="true">Sales</a>
@@ -45,6 +51,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" id="expense-tab" data-toggle="tab" href="#expense" role="tab" aria-controls="expense" aria-selected="false">Expenses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="balance-tab" data-toggle="tab" href="#balance" role="tab" aria-controls="balance" aria-selected="false">Balance</a>
         </li>
     </ul>
 
@@ -57,6 +66,9 @@
         </div>
         <div class="tab-pane fade" id="expense" role="tabpanel" aria-labelledby="expense-tab">
             @include('reports.transactions.expenses')
+        </div>
+        <div class="tab-pane fade" id="balance" role="tabpanel" aria-labelledby="balance-tab">
+            @include('reports.transactions.balance')
         </div>
     </div>
 

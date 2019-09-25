@@ -5,6 +5,7 @@
                 <tbody>
                 <tr>
                     <th style="width: 10px">#</th>
+                    <th>Date</th>
                     <th>Customer Name</th>
                     <th>Invoice No</th>
                     <th>Vehicle No</th>
@@ -15,6 +16,7 @@
                 @foreach($sales as $sale)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ date('d M Y', strtotime($sale->date)) }}</td>
                         <td>
                             <a href="{{ route('customer.show', $sale->customer->code) }}">
                                 {{ $sale->customer->name }}
@@ -42,6 +44,7 @@
 
                 @if(isset($totalSales))
                     <tr>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
