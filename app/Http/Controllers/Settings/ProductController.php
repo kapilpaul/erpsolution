@@ -122,9 +122,10 @@ class ProductController extends Controller
                             ->where('purchase_products.product_id', $product->id)
                             ->whereNull('purchase_products.deleted_at')
                             ->join('purchases', 'purchase_products.purchase_id', '=', 'purchases.id')
-                            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+//                            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
                             ->whereNull('purchases.deleted_at')
-                            ->select('purchase_products.*', 'purchases.*', 'suppliers.name as supplier_name', 'suppliers.code as supplier_code')
+//                            ->select('purchase_products.*', 'purchases.*', 'suppliers.name as supplier_name', 'suppliers.code as supplier_code')
+                            ->select('purchase_products.*', 'purchases.*')
                             ->orderBy('purchases.purchase_date', 'desc')
                             ->paginate(100);
 

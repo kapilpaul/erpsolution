@@ -67,7 +67,7 @@
     </div>
 
     {{--purchase ledger--}}
-    <div class="row pt-5">
+    <div class="row pt-5 mt-20">
         <div class="col-md-12">
             <div class="card ">
                 <div class="card-header white">
@@ -84,10 +84,10 @@
                                 <th>Date</th>
                                 <th>Invoice No</th>
                                 <th>Purchase No</th>
-                                <th>Supplier Name</th>
+                                {{--<th>Supplier Name</th>--}}
                                 <th>Qty</th>
-                                <th>Price</th>
-                                <th>Total Amount</th>
+                                {{--<th>Price</th>--}}
+                                {{--<th>Total Amount</th>--}}
                             </tr>
 
                             @foreach($purchaseDetails as $item)
@@ -99,10 +99,10 @@
                                 </td>
 
                                 <td><a href="{{ route('purchase.show', $item->purchase_no) }}">{{ $item->purchase_no }}</a></td>
-                                <td><a href="{{ route('suppliers.show', $item->supplier_code) }}">{{ $item->supplier_name }}</a></td>
+{{--                                <td><a href="{{ route('suppliers.show', $item->supplier_code) }}">{{ $item->supplier_name }}</a></td>--}}
                                 <td>{{ $item->quantity }}</td>
-                                <td>{{ $item->price }}</td>
-                                <td>{{ $item->total }}</td>
+                                {{--<td>{{ $item->price }}</td>--}}
+                                {{--<td>{{ $item->total }}</td>--}}
                             </tr>
                             @endforeach
 
@@ -111,10 +111,9 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th></th>
                                 <th>{{ $product->in_quantity }}</th>
-                                <th>Grand Total</th>
-                                <th>{{ $totalPurchaseAmount }}</th>
+                                {{--<th>Grand Total</th>--}}
+{{--                                <th>{{ $totalPurchaseAmount }}</th>--}}
                             </tr>
 
                             </tbody>
@@ -126,9 +125,9 @@
     </div>
 
     {{--sales ledger --}}
-    <div class="row pt-5">
+    <div class="row pt-5 mt-20">
         <div class="col-md-12">
-            <div class="card ">
+            <div class="card">
                 <div class="card-header white">
                     <i class="icon-clipboard-edit blue-text"></i>
                     <strong>Sales Ledger </strong>

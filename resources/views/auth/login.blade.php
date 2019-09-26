@@ -10,7 +10,7 @@
         <div class="row align-items-center">
             <div class="col-md-4 dark">
                 <div class="p-5 mt-5"></div>
-                <div class="p-5">
+                <div class="p-30">
                     <h3 class="mb-3">Welcome</h3>
 
                     @include('layouts.partials.session-messages')

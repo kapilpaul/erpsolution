@@ -16,11 +16,11 @@
             </div>
         </div>
 
-        <div class="row pt-5">
-            <div class="col-md-7">
-                @include('dashboard.parts.orders')
-            </div>
-            <div class="col-md-5">
+        <div class="row pt-5 mb-30">
+            {{--<div class="col-md-7">--}}
+                {{--@include('dashboard.parts.orders')--}}
+            {{--</div>--}}
+            <div class="col-md-12">
                 @include('dashboard.parts.revenue')
             </div>
         </div>
