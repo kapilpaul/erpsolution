@@ -9,6 +9,7 @@ use App\Models\Settings\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Str;
 use PDOException;
 use Validator;
 use DB;
@@ -57,7 +58,7 @@ class ProductController extends Controller
 
         try{
             $input = $request->except('image');
-            $input['code'] = str_random(15);
+            $input['code'] = Str::random(15);
             $input['name'] = ucwords($request->name);
 
             if($image = $request->image) {
@@ -78,6 +79,11 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(Request $request, $id)
     {
         $product = Product::findOrFail($id);

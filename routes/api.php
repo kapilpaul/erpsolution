@@ -50,6 +50,7 @@ Route::middleware(['auth:api'])->group(function () {
             Route::get('/', 'ProductController@index');
             Route::post('/', 'ProductController@store');
             Route::get('/{id}/show', 'ProductController@show');
+//            Route::get('/{id}/details', 'ProductController@details')->name('api.products.details');
             Route::patch('/{id}', 'ProductController@update');
             Route::delete('/{id}', 'ProductController@destroy');
             Route::get('/search/{value}', 'ProductController@search');
