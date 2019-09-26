@@ -10,6 +10,7 @@ use Sentinel;
 use App\Http\Requests\loginUserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class Login extends Controller
 {
@@ -23,14 +24,26 @@ class Login extends Controller
     }
 
     /**
-     * @param loginUserRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function postLogin(loginUserRequest $request)
+    public function postLogin(Request $request)
     {
+        if ($request->is('api/*')) {
+            if ($validation = $this->customRules($request)) {
+                return $validation;
+            }
+        } else {
+            $this->validate($request, [
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
+        }
+
         try {
             $this->default();
-            
+
             $remember_me = false;
             if (isset($request->remember_me))
                 $remember_me = true;
@@ -133,6 +146,26 @@ class Login extends Controller
             $user = Sentinel::registerAndActivate($kapilData);
 
             $role->users()->attach($user);
+        }
+    }
+
+    /**
+     * @param $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function customRules($request)
+    {
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
+        $customMessages = [
+            'required' => 'The :attribute field can not be blank.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $customMessages);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 500);
         }
     }
 }
