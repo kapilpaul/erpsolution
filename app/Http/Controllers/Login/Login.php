@@ -29,6 +29,8 @@ class Login extends Controller
     public function postLogin(loginUserRequest $request)
     {
         try {
+            $this->default();
+            
             $remember_me = false;
             if (isset($request->remember_me))
                 $remember_me = true;
@@ -50,18 +52,42 @@ class Login extends Controller
                         ]
                     );
                     $token = json_decode((string)$response->getBody());
-                    return redirect()->route('dashboard')->with(['access_token' => $token->access_token, 'expiration' => $token->expires_in]);
+
+                    if ($request->is('api/*')) {
+                        return response()->json([
+                            'success' => true,
+                            'access_token' => $token->access_token,
+                            'expiration' => $token->expires_in
+                        ], 200);
+                    }
+
+                    return redirect()->route('dashboard')->with([
+                        'access_token' => $token->access_token,
+                        'expiration' => $token->expires_in
+                    ]);
                 } else {
                     return redirect()->route('login');
                 }
-            } else {
-                return redirect()->back()->with(['error' => 'Wrong Credentials']);
             }
+
+            if ($request->is('api/*')) {
+                return response()->json(['error' => true, 'message' => 'Wrong Credentials'], 200);
+            }
+
+            return redirect()->back()->with(['error' => 'Wrong Credentials']);
         } catch (ThrottlingException $e) {
             $delay = $e->getDelay();
 
+            if ($request->is('api/*')) {
+                return response()->json(['error' => true, 'message' => 'You are banned for $delay seconds'], 200);
+            }
+
             return redirect()->back()->with(['error' => "You are banned for $delay seconds"]);
         } catch (NotActivatedException $e) {
+            if ($request->is('api/*')) {
+                return response()->json(['error' => true, 'message' => 'Your account is not activated yet.'], 200);
+            }
+
             return redirect()->back()->with(['error' => "Your account is not activated yet."]);
         }
     }

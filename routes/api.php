@@ -153,3 +153,24 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
 });
+
+/*
+ * Public Routes api
+ */
+
+/*
+ * login namespace
+ */
+Route::group(['namespace' => 'Login'], function () {
+    /*
+     * Login Routes
+     */
+    Route::post('/login', 'Login@postLogin')->name('api.postLogin');
+
+    /*
+     * Forgot Password Routes
+     */
+    Route::group(['prefix' => 'forgotpassword'], function () {
+        Route::post('/', 'ForgetPasswordController@postForgotPassword')->name('api.postForgotpassword');
+    });
+});
