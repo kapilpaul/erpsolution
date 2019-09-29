@@ -23,7 +23,7 @@
                 <input
                   type="text"
                   class="date-time-picker form-control"
-                  data-options='{"timepicker":false, "format":"d-m-Y"}'
+                  :data-options="dateFormat"
                   id="purchase_date"
                   autocomplete="off"
                 />
@@ -38,11 +38,7 @@
           <div class="col-md-4">
             <div class="form-group form-float">
               <div class="form-line">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="purchase.from"
-                />
+                <input type="text" class="form-control" v-model="purchase.from" />
                 <label class="form-label">From</label>
               </div>
             </div>
@@ -51,11 +47,7 @@
           <div class="col-md-4">
             <div class="form-group form-float">
               <div class="form-line">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="purchase.vehicle_no"
-                />
+                <input type="text" class="form-control" v-model="purchase.vehicle_no" />
                 <label class="form-label">Vehicle No</label>
               </div>
             </div>
@@ -64,11 +56,7 @@
           <div class="col-md-4">
             <div class="form-group form-float">
               <div class="form-line">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="purchase.driverName"
-                />
+                <input type="text" class="form-control" v-model="purchase.driverName" />
                 <label class="form-label">Driver Name</label>
               </div>
             </div>
@@ -77,12 +65,7 @@
 
         <div class="form-group form-float">
           <div class="form-line">
-            <textarea
-              name="details"
-              v-model="purchase.details"
-              id="details"
-              class="form-control"
-            ></textarea>
+            <textarea name="details" v-model="purchase.details" id="details" class="form-control"></textarea>
             <label class="form-label">Details</label>
           </div>
         </div>
@@ -99,65 +82,58 @@
           leave-active-class="animated slideOutDown"
           :duration="{ leave: 200 }"
         >
-          <div
-            class="row"
-            v-for="(item, index) in purchase.products"
-            :key="index"
-          >
+          <div class="row" v-for="(item, index) in purchase.products" :key="index">
             <div class="col-md-6">
               <div class="form-group form-float">
                 <div class="form-line">
                   <p class="p-label mb-0">Product</p>
 
-                  <v-select
+                  <select
+                    name
+                    id
+                    class="form-control"
+                    v-model="purchase['products'][index].product_id"
+                  >
+                    <option value="-1">Select...</option>
+                    <option
+                      v-for="product in productItems"
+                      :key="product.id"
+                      :value="product"
+                    >{{ product.name }}</option>
+                  </select>
+
+                  <!-- <v-select
                     label="name"
                     :filterable="false"
                     :options="productItems"
                     @search="onSearch"
                     v-model="purchase['products'][index].product_id"
                   >
-                    <template slot="no-options"
-                      >Type to search Products..</template
-                    >
+                    <template slot="no-options">Type to search Products..</template>
 
                     <template slot="option" slot-scope="option">
                       <div class="d-center" v-if="option.photo != null">
-                        <img
-                          class="img-responsive"
-                          :src="productImageUrl + option.photo.photo"
-                        />
+                        <img class="img-responsive" :src="productImageUrl + option.photo.photo" />
                         {{ option.name }} - {{ option.model }}
                       </div>
 
                       <div class="d-center" v-else>
-                        <img
-                          class="img-responsive"
-                          :src="productImageUrl + 's2.png'"
-                        />
+                        <img class="img-responsive" :src="productImageUrl + 's2.png'" />
                         {{ option.name }} - {{ option.model }}
                       </div>
                     </template>
                     <template slot="selected-option" slot-scope="option">
-                      <div
-                        class="selected d-center"
-                        v-if="option.photo != null"
-                      >
-                        <img
-                          class="img-responsive"
-                          :src="productImageUrl + option.photo.photo"
-                        />
+                      <div class="selected d-center" v-if="option.photo != null">
+                        <img class="img-responsive" :src="productImageUrl + option.photo.photo" />
                         {{ option.name }}
                       </div>
 
                       <div class="selected d-center" v-else>
-                        <img
-                          class="img-responsive"
-                          :src="productImageUrl + 's2.png'"
-                        />
+                        <img class="img-responsive" :src="productImageUrl + 's2.png'" />
                         {{ option.name }}
                       </div>
                     </template>
-                  </v-select>
+                  </v-select>-->
                 </div>
               </div>
             </div>
@@ -179,12 +155,7 @@
               <div class="form-group form-float">
                 <div class="form-line">
                   <p class="p-label mb-0">Quantity</p>
-                  <input
-                    type="number"
-                    class="form-control"
-                    name="quantity"
-                    v-model="item.quantity"
-                  />
+                  <input type="number" class="form-control" name="quantity" v-model="item.quantity" />
                 </div>
               </div>
             </div>
@@ -254,9 +225,7 @@
           v-if="purchase['products'].length > 0 && submitted == false"
           class="btn btn-primary waves-effect"
           type="submit"
-        >
-          SUBMIT
-        </button>
+        >SUBMIT</button>
         <button
           v-else-if="purchase['products'].length > 0 && submitted == true"
           class="btn btn-primary waves-effect"
@@ -294,14 +263,17 @@ export default {
           }
         ]
       },
-      productItems: [],
       productImageUrl: process.env.MIX_APP_ROOT + "/assets/img/products/",
-      submitted: false
+      submitted: false,
+      dateFormat: '{ "timepicker": false, "format": "d-m-Y" }'
     };
   },
   components: {
     errors,
     vSelect
+  },
+  mounted() {
+    this.getProducts();
   },
   computed: {
     grandTotal() {
@@ -312,9 +284,16 @@ export default {
       });
 
       return grandtotal;
+    },
+    productItems() {
+      this.items = this.$store.getters.products;
+      return this.items.data;
     }
   },
   methods: {
+    getProducts() {
+      this.$store.dispatch("setProducts", "");
+    },
     add() {
       this.submitted = true;
       this.$store.dispatch("setValidationErrors", "");

@@ -43,11 +43,10 @@
                 <input
                   type="text"
                   class="date-time-picker form-control"
-                  data-options='{"timepicker":false, "format":"d-m-Y"}'
+                  :data-options="dateFormat"
                   id="date"
                   autocomplete="off"
                 />
-
                 <label class="form-label">Date *</label>
               </div>
             </div>
@@ -85,8 +84,21 @@
               <div class="form-group form-float">
                 <div class="form-line">
                   <p class="p-label mb-0">Product</p>
+                  <select
+                    name
+                    id
+                    class="form-control"
+                    v-model="invoice['products'][index].product_id"
+                  >
+                    <option value="-1">Select...</option>
+                    <option
+                      v-for="product in productItems"
+                      :key="product.id"
+                      :value="product"
+                    >{{ product.name }}</option>
+                  </select>
 
-                  <v-select
+                  <!-- <v-select
                     label="name"
                     :filterable="false"
                     :options="productItems"
@@ -109,15 +121,15 @@
                     <template slot="selected-option" slot-scope="option">
                       <div class="selected d-center" v-if="option.photo != null">
                         <img class="img-responsive" :src="productImageUrl + option.photo.photo" />
-                        {{ option.name }} - {{ option.model }}
+                        {{ option.name }}
                       </div>
 
                       <div class="selected d-center" v-else>
                         <img class="img-responsive" :src="productImageUrl + 's2.png'" />
-                        {{ option.name }} - {{ option.model }}
+                        {{ option.name }}
                       </div>
                     </template>
-                  </v-select>
+                  </v-select>-->
                 </div>
               </div>
             </div>
@@ -333,8 +345,8 @@ export default {
           }
         ]
       },
-      productItems: [],
-      productImageUrl: process.env.MIX_APP_ROOT + "/assets/img/products/"
+      productImageUrl: process.env.MIX_APP_ROOT + "/assets/img/products/",
+      dateFormat: '{ "timepicker": false, "format": "d-m-Y" }'
     };
   },
   components: {
@@ -362,9 +374,19 @@ export default {
       });
 
       return parseInt(discount);
+    },
+    productItems() {
+      this.items = this.$store.getters.products;
+      return this.items.data;
     }
   },
+  mounted() {
+    this.getProducts();
+  },
   methods: {
+    getProducts() {
+      this.$store.dispatch("setProducts", "");
+    },
     add() {
       this.$store.dispatch("setSubmitted", true);
       this.$store.dispatch("setValidationErrors", "");

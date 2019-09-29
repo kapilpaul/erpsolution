@@ -8,7 +8,7 @@
         </div>
 
         <div class="table-responsive">
-          <table class="table table-hover ">
+          <table class="table table-hover">
             <tbody>
               <tr v-for="(item, index) in products.data" :key="item.id">
                 <td class="w-10">
@@ -18,40 +18,37 @@
                         :src="
                           $siteurl + 'assets/img/products/' + item.photo.photo
                         "
-                        alt=""
+                        alt
                       />
                     </div>
                   </div>
                   <div v-else>
-                    <img
-                      :src="$siteurl + 'assets/img/demo/shop/s1.png'"
-                      alt=""
-                    />
+                    <img :src="$siteurl + 'assets/img/demo/shop/s1.png'" alt />
                   </div>
                   <!--<img src="assets/img/demo/shop/s1.png" alt="">-->
                 </td>
                 <td>
                   <h6>
-                    <a :href="productUrl + item.code + '/details'"
-                      >{{ item.name }} - {{ item.model }}
-                    </a>
+                    <a :href="productUrl + item.code + '/details'">{{ item.name }}</a>
                   </h6>
                   <small class="text-muted">Barcode: {{ item.barcode }}</small>
                   <br />
                   <small class="text-muted">
-                    <div v-if="item.category">
-                      {{ item.category.name }}
-                    </div>
+                    <div v-if="item.category">{{ item.category.name }}</div>
                   </small>
 
-                  <small class="text-muted"> Unit : {{ item.unit }} </small>
+                  <small class="text-muted">Unit : {{ item.unit }}</small>
                 </td>
                 <td>
-                  <span
-                    ><i class="icon icon-data_usage"></i>
-                    {{ item.sale_price }}</span
-                  ><br />
-                  <span><i class="icon icon-timer"></i> {{ item.price }}</span>
+                  <span>
+                    <i class="icon icon-data_usage"></i>
+                    {{ item.sale_price }}
+                  </span>
+                  <br />
+                  <span>
+                    <i class="icon icon-timer"></i>
+                    {{ item.price }}
+                  </span>
                 </td>
                 <td>
                   <span
@@ -60,9 +57,7 @@
                       'badge-success': item.stock > 0,
                       'badge-danger': item.stock <= 0
                     }"
-                  >
-                    Stock : {{ item.stock }}</span
-                  >
+                  >Stock : {{ item.stock }}</span>
                 </td>
                 <td>
                   <a
