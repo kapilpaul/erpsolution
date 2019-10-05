@@ -56,7 +56,7 @@
               <div class="col-md-6">
                 <input-text
                   name="slip_id"
-                  label="Cheque/Payorder No *"
+                  label="Cheque/Bank Joma No *"
                   v-model="chequeDetails.slip_id"
                 ></input-text>
               </div>
@@ -150,7 +150,7 @@ export default {
       tmodes: [
         { value: "cash", label: "Cash" },
         { value: "cheque", label: "Cheque" },
-        { value: "payorder", label: "Payorder" }
+        { value: "payorder", label: "Bank Joma" }
       ],
       radioOptions: [
         { value: "yes", label: "Yes", selected: true },

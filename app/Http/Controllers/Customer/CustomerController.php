@@ -197,7 +197,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponseyzLqVCUQuYAOYG7KAFfVnMybLSIHWr4p2TlVO8Ij
      */
     public function dueCustomers()
     {

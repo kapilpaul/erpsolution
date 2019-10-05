@@ -52348,7 +52348,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52367,11 +52367,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_apiSearch_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__search_apiSearch_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_nodata_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_nodata_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__common_nodata_vue__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -53213,7 +53208,7 @@ var render = function() {
                 _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "table-responsive" }, [
-                  _c("table", { staticClass: "table table-hover " }, [
+                  _c("table", { staticClass: "table table-hover" }, [
                     _c(
                       "tbody",
                       _vm._l(_vm.products.data, function(item, index) {
@@ -53257,14 +53252,7 @@ var render = function() {
                                       _vm.productUrl + item.code + "/details"
                                   }
                                 },
-                                [
-                                  _vm._v(
-                                    _vm._s(item.name) +
-                                      " - " +
-                                      _vm._s(item.model) +
-                                      "\n                  "
-                                  )
-                                ]
+                                [_vm._v(_vm._s(item.name))]
                               )
                             ]),
                             _vm._v(" "),
@@ -53277,17 +53265,13 @@ var render = function() {
                             _c("small", { staticClass: "text-muted" }, [
                               item.category
                                 ? _c("div", [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(item.category.name) +
-                                        "\n                  "
-                                    )
+                                    _vm._v(_vm._s(item.category.name))
                                   ])
                                 : _vm._e()
                             ]),
                             _vm._v(" "),
                             _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(" Unit : " + _vm._s(item.unit) + " ")
+                              _vm._v("Unit : " + _vm._s(item.unit))
                             ])
                           ]),
                           _vm._v(" "),
@@ -53295,14 +53279,21 @@ var render = function() {
                             _c("span", [
                               _c("i", { staticClass: "icon icon-data_usage" }),
                               _vm._v(
-                                "\n                  " + _vm._s(item.sale_price)
+                                "\n                  " +
+                                  _vm._s(item.sale_price) +
+                                  "\n                "
                               )
                             ]),
+                            _vm._v(" "),
                             _c("br"),
                             _vm._v(" "),
                             _c("span", [
                               _c("i", { staticClass: "icon icon-timer" }),
-                              _vm._v(" " + _vm._s(item.price))
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(item.price) +
+                                  "\n                "
+                              )
                             ])
                           ]),
                           _vm._v(" "),
@@ -53316,12 +53307,7 @@ var render = function() {
                                   "badge-danger": item.stock <= 0
                                 }
                               },
-                              [
-                                _vm._v(
-                                  "\n                  Stock : " +
-                                    _vm._s(item.stock)
-                                )
-                              ]
+                              [_vm._v("Stock : " + _vm._s(item.stock))]
                             )
                           ]),
                           _vm._v(" "),
@@ -54237,37 +54223,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -54290,9 +54245,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           total: 0
         }]
       },
-      productItems: [],
       productImageUrl: "http://producterp.localhost" + "/assets/img/products/",
-      submitted: false
+      submitted: false,
+      dateFormat: '{ "timepicker": false, "format": "d-m-Y" }'
     };
   },
 
@@ -54300,6 +54255,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     errors: __WEBPACK_IMPORTED_MODULE_0__errors_vue___default.a,
     vSelect: __WEBPACK_IMPORTED_MODULE_1_vue_select___default.a
   },
+  mounted: function mounted() {
+    this.getProducts();
+  },
+
   computed: {
     grandTotal: function grandTotal() {
       var grandtotal = 0;
@@ -54309,9 +54268,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
 
       return grandtotal;
+    },
+    productItems: function productItems() {
+      this.items = this.$store.getters.products;
+      return this.items.data;
     }
   },
   methods: {
+    getProducts: function getProducts() {
+      this.$store.dispatch("setProducts", "");
+    },
     add: function add() {
       var _this = this;
 
@@ -54482,7 +54448,25 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "form-group form-float" }, [
+                  _c("div", { staticClass: "form-line" }, [
+                    _c("input", {
+                      staticClass: "date-time-picker form-control",
+                      attrs: {
+                        type: "text",
+                        "data-options": _vm.dateFormat,
+                        id: "purchase_date",
+                        autocomplete: "off"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-label" }, [
+                      _vm._v("Date *")
+                    ])
+                  ])
+                ])
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
@@ -54617,7 +54601,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
             _c(
               "transition-group",
@@ -54633,149 +54617,65 @@ var render = function() {
                 return _c("div", { key: index, staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group form-float" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-line" },
-                        [
-                          _c("p", { staticClass: "p-label mb-0" }, [
-                            _vm._v("Product")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "v-select",
-                            {
-                              attrs: {
-                                label: "name",
-                                filterable: false,
-                                options: _vm.productItems
-                              },
-                              on: { search: _vm.onSearch },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "option",
-                                  fn: function(option) {
-                                    return [
-                                      option.photo != null
-                                        ? _c(
-                                            "div",
-                                            { staticClass: "d-center" },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-responsive",
-                                                attrs: {
-                                                  src:
-                                                    _vm.productImageUrl +
-                                                    option.photo.photo
-                                                }
-                                              }),
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(option.name) +
-                                                  " - " +
-                                                  _vm._s(option.model) +
-                                                  "\n                    "
-                                              )
-                                            ]
-                                          )
-                                        : _c(
-                                            "div",
-                                            { staticClass: "d-center" },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-responsive",
-                                                attrs: {
-                                                  src:
-                                                    _vm.productImageUrl +
-                                                    "s2.png"
-                                                }
-                                              }),
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(option.name) +
-                                                  " - " +
-                                                  _vm._s(option.model) +
-                                                  "\n                    "
-                                              )
-                                            ]
-                                          )
-                                    ]
-                                  }
-                                },
-                                {
-                                  key: "selected-option",
-                                  fn: function(option) {
-                                    return [
-                                      option.photo != null
-                                        ? _c(
-                                            "div",
-                                            {
-                                              staticClass: "selected d-center"
-                                            },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-responsive",
-                                                attrs: {
-                                                  src:
-                                                    _vm.productImageUrl +
-                                                    option.photo.photo
-                                                }
-                                              }),
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(option.name) +
-                                                  "\n                    "
-                                              )
-                                            ]
-                                          )
-                                        : _c(
-                                            "div",
-                                            {
-                                              staticClass: "selected d-center"
-                                            },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-responsive",
-                                                attrs: {
-                                                  src:
-                                                    _vm.productImageUrl +
-                                                    "s2.png"
-                                                }
-                                              }),
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(option.name) +
-                                                  "\n                    "
-                                              )
-                                            ]
-                                          )
-                                    ]
-                                  }
-                                }
-                              ]),
-                              model: {
+                      _c("div", { staticClass: "form-line" }, [
+                        _c("p", { staticClass: "p-label mb-0" }, [
+                          _vm._v("Product")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
                                 value:
                                   _vm.purchase["products"][index].product_id,
-                                callback: function($$v) {
-                                  _vm.$set(
-                                    _vm.purchase["products"][index],
-                                    "product_id",
-                                    $$v
-                                  )
-                                },
                                 expression:
                                   "purchase['products'][index].product_id"
                               }
-                            },
-                            [
-                              _c("template", { slot: "no-options" }, [
-                                _vm._v("Type to search Products..")
-                              ])
                             ],
-                            2
-                          )
-                        ],
-                        1
-                      )
+                            staticClass: "form-control",
+                            attrs: { name: "", id: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.purchase["products"][index],
+                                  "product_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "-1" } }, [
+                              _vm._v("Select...")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.productItems, function(product) {
+                              return _c(
+                                "option",
+                                {
+                                  key: product.id,
+                                  domProps: { value: product }
+                                },
+                                [_vm._v(_vm._s(product.name))]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ])
                     ])
                   ]),
                   _vm._v(" "),
@@ -54844,7 +54744,7 @@ var render = function() {
                     staticClass: "btn btn-primary waves-effect",
                     attrs: { type: "submit" }
                   },
-                  [_vm._v("\n        SUBMIT\n      ")]
+                  [_vm._v("SUBMIT")]
                 )
               : _vm.purchase["products"].length > 0 && _vm.submitted == true
               ? _c(
@@ -54868,28 +54768,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c("div", { staticClass: "form-group form-float" }, [
-        _c("div", { staticClass: "form-line" }, [
-          _c("input", {
-            staticClass: "date-time-picker form-control",
-            attrs: {
-              type: "text",
-              "data-options": '{"timepicker":false, "format":"d-m-Y"}',
-              id: "purchase_date",
-              autocomplete: "off"
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { staticClass: "form-label" }, [_vm._v("Date *")])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -56622,6 +56500,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -56649,8 +56539,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           total: 0
         }]
       },
-      productItems: [],
-      productImageUrl: "http://producterp.localhost" + "/assets/img/products/"
+      productImageUrl: "http://producterp.localhost" + "/assets/img/products/",
+      dateFormat: '{ "timepicker": false, "format": "d-m-Y" }'
     };
   },
 
@@ -56679,9 +56569,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
 
       return parseInt(discount);
+    },
+    productItems: function productItems() {
+      this.items = this.$store.getters.products;
+      return this.items.data;
     }
   },
+  mounted: function mounted() {
+    this.getProducts();
+  },
+
   methods: {
+    getProducts: function getProducts() {
+      this.$store.dispatch("setProducts", "");
+    },
     add: function add() {
       var _this = this;
 
@@ -57361,7 +57262,25 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "col-md-4" }, [
+                _c("div", { staticClass: "form-group form-float" }, [
+                  _c("div", { staticClass: "form-line" }, [
+                    _c("input", {
+                      staticClass: "date-time-picker form-control",
+                      attrs: {
+                        type: "text",
+                        "data-options": _vm.dateFormat,
+                        id: "date",
+                        autocomplete: "off"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-label" }, [
+                      _vm._v("Date *")
+                    ])
+                  ])
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-8" }, [
                 _c("div", { staticClass: "form-group form-float" }, [
@@ -57396,7 +57315,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
             _c(
               "transition-group",
@@ -57412,149 +57331,65 @@ var render = function() {
                 return _c("div", { key: index, staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-4" }, [
                     _c("div", { staticClass: "form-group form-float" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-line" },
-                        [
-                          _c("p", { staticClass: "p-label mb-0" }, [
-                            _vm._v("Product")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "v-select",
-                            {
-                              attrs: {
-                                label: "name",
-                                filterable: false,
-                                options: _vm.productItems
-                              },
-                              on: { search: _vm.onSearch },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "option",
-                                  fn: function(option) {
-                                    return [
-                                      option.photo != null
-                                        ? _c(
-                                            "div",
-                                            { staticClass: "d-center" },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-responsive",
-                                                attrs: {
-                                                  src:
-                                                    _vm.productImageUrl +
-                                                    option.photo.photo
-                                                }
-                                              }),
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(option.name) +
-                                                  "\n                    "
-                                              )
-                                            ]
-                                          )
-                                        : _c(
-                                            "div",
-                                            { staticClass: "d-center" },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-responsive",
-                                                attrs: {
-                                                  src:
-                                                    _vm.productImageUrl +
-                                                    "s2.png"
-                                                }
-                                              }),
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(option.name) +
-                                                  "\n                    "
-                                              )
-                                            ]
-                                          )
-                                    ]
-                                  }
-                                },
-                                {
-                                  key: "selected-option",
-                                  fn: function(option) {
-                                    return [
-                                      option.photo != null
-                                        ? _c(
-                                            "div",
-                                            {
-                                              staticClass: "selected d-center"
-                                            },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-responsive",
-                                                attrs: {
-                                                  src:
-                                                    _vm.productImageUrl +
-                                                    option.photo.photo
-                                                }
-                                              }),
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(option.name) +
-                                                  " - " +
-                                                  _vm._s(option.model) +
-                                                  "\n                    "
-                                              )
-                                            ]
-                                          )
-                                        : _c(
-                                            "div",
-                                            {
-                                              staticClass: "selected d-center"
-                                            },
-                                            [
-                                              _c("img", {
-                                                staticClass: "img-responsive",
-                                                attrs: {
-                                                  src:
-                                                    _vm.productImageUrl +
-                                                    "s2.png"
-                                                }
-                                              }),
-                                              _vm._v(
-                                                "\n                      " +
-                                                  _vm._s(option.name) +
-                                                  " - " +
-                                                  _vm._s(option.model) +
-                                                  "\n                    "
-                                              )
-                                            ]
-                                          )
-                                    ]
-                                  }
-                                }
-                              ]),
-                              model: {
+                      _c("div", { staticClass: "form-line" }, [
+                        _c("p", { staticClass: "p-label mb-0" }, [
+                          _vm._v("Product")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
                                 value:
                                   _vm.invoice["products"][index].product_id,
-                                callback: function($$v) {
-                                  _vm.$set(
-                                    _vm.invoice["products"][index],
-                                    "product_id",
-                                    $$v
-                                  )
-                                },
                                 expression:
                                   "invoice['products'][index].product_id"
                               }
-                            },
-                            [
-                              _c("template", { slot: "no-options" }, [
-                                _vm._v("Type to search Products..")
-                              ])
                             ],
-                            2
-                          )
-                        ],
-                        1
-                      )
+                            staticClass: "form-control",
+                            attrs: { name: "", id: "" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.invoice["products"][index],
+                                  "product_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "-1" } }, [
+                              _vm._v("Select...")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.productItems, function(product) {
+                              return _c(
+                                "option",
+                                {
+                                  key: product.id,
+                                  domProps: { value: product }
+                                },
+                                [_vm._v(_vm._s(product.name))]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ])
                     ])
                   ]),
                   _vm._v(" "),
@@ -57764,7 +57599,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-1" }),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-2" }, [
                 _c("div", { staticClass: "form-group form-float" }, [
@@ -57810,7 +57645,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-1" }),
               _vm._v(" "),
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-2" }, [
                 _c("div", { staticClass: "form-group form-float" }, [
@@ -57856,7 +57691,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-1" }),
               _vm._v(" "),
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "div",
@@ -57892,7 +57727,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-1" }),
               _vm._v(" "),
-              _vm._m(5),
+              _vm._m(4),
               _vm._v(" "),
               _c(
                 "div",
@@ -57937,28 +57772,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "form-group form-float" }, [
-        _c("div", { staticClass: "form-line" }, [
-          _c("input", {
-            staticClass: "date-time-picker form-control",
-            attrs: {
-              type: "text",
-              "data-options": '{"timepicker":false, "format":"d-m-Y"}',
-              id: "date",
-              autocomplete: "off"
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { staticClass: "form-label" }, [_vm._v("Date *")])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

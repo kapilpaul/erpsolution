@@ -33,7 +33,7 @@
                         <div class="p-30">
                             <h5 class="font-weight-normal s-14">Total Amount</h5>
                             <span class="s-48 font-weight-lighter text-primary">
-                                    <span class="sc-counter">{{ $purchase->total_amount }}</span>
+                                    <span class="">{{ $purchase->total_amount }}</span>
                                 </span>
                             <div class="d-flex justify-content-between pt-2">
                                 <div>
@@ -43,9 +43,9 @@
                                         <i class="icon-circle-o text-green mr-2"></i>Total Items</p>
                                 </div>
                                 <div>
-                                    <p class="sc-counter">
+                                    <p class="">
                                         <i class="icon-angle-double-down text-red mr-2"></i>{{ count($purchase->products) }}</p>
-                                    <p class="sc-counter">
+                                    <p class="">
                                         <i class="icon-angle-double-up text-green mr-2"></i>{{ $totalItemQuantity }}</p>
                                 </div>
                             </div>

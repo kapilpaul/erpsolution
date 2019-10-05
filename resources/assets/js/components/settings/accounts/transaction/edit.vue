@@ -26,8 +26,8 @@
               id="account_type"
               @keyup.enter="update"
             >
-              <option value="debit" :selected="debit != 0">Debit (+)</option>
-              <option value="credit" :selected="credit != 0">Credit (-)</option>
+              <option value="debit" :selected="debit !== 0">Debit (+)</option>
+              <option value="credit" :selected="credit !== 0">Credit (-)</option>
             </select>
           </div>
         </div>
@@ -47,7 +47,7 @@
           <div class="form-line">
             <p class="p-label mb-0 edit-p-label">Amount *</p>
             <input
-              v-if="debit != 0"
+              v-if="debit !== 0"
               type="number"
               class="form-control"
               name="amount"
@@ -56,7 +56,7 @@
               id="amount"
             />
             <input
-              v-else-if="credit != 0"
+              v-else-if="credit !== 0"
               type="number"
               class="form-control"
               name="amount"

@@ -33,7 +33,7 @@
                         <div class="pt-5 pb-2 pl-5 pr-5">
                             <h5 class="font-weight-normal s-14">Balance</h5>
                             <span class="s-48 font-weight-lighter text-primary">
-                                    <span class="sc-counter">{{ $supplier->balance }}</span>
+                                    <span class="">{{ $supplier->balance }}</span>
                                 </span>
                             <div class="d-flex justify-content-between pt-2">
                                 <div>

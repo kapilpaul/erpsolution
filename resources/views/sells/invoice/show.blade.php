@@ -35,7 +35,7 @@
                         <div class="pt-5 pb-2 pl-5 pr-5">
                             <h5 class="font-weight-normal s-14">Total Amount</h5>
                             <span class="s-48 font-weight-lighter text-primary">
-                                    <span class="sc-counter">{{ $invoice->grand_total }}</span>
+                                    <span class="">{{ $invoice->grand_total }}</span>
                                 </span>
                             <div class="d-flex justify-content-between pt-2">
                                 <div>
@@ -45,9 +45,9 @@
                                         <i class="icon-circle-o text-green mr-2"></i>Total Items</p>
                                 </div>
                                 <div>
-                                    <p class="sc-counter mb-0">
+                                    <p class=" mb-0">
                                         <i class="icon-angle-double-down text-red mr-2"></i>{{ count($invoice->products) }}</p>
-                                    <p class="sc-counter mb-0">
+                                    <p class=" mb-0">
                                         <i class="icon-angle-double-up text-green mr-2"></i>{{ $totalItemQuantity }}</p>
                                 </div>
                             </div>

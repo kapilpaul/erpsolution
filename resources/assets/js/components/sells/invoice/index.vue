@@ -2,7 +2,7 @@
   <div>
     <api-search :setLocation="'setInvoices'"></api-search>
 
-    <div v-if="typeof invoices.data != 'undefined' && invoices.data.length > 0">
+    <div v-if="typeof invoices.data !== 'undefined' && invoices.data.length > 0">
       <div class="card mb-3 shadow no-b r-0">
         <div class="card-header white">
           <h6>Invoices</h6>
@@ -31,17 +31,15 @@
                     item.invoice_no
                   }}</a>
                 </td>
-                <td v-if="typeof item.customer != 'undefined'">
+                <td v-if="typeof item.customer !== 'undefined'">
                   <a
                     :href="customerHrefLink + item.customer.code + '/details'"
-                    >{{ item.customer.name }}</a
-                  >
+                    >{{ item.customer.name }}</a>
                 </td>
-                <td v-else>
+                <td v-if="typeof item.customer_name !== 'undefined'">
                   <a
                     :href="customerHrefLink + item.customer_code + '/details'"
-                    >{{ item.customer_name }}</a
-                  >
+                    >{{ item.customer_name }}</a>
                 </td>
                 <td>{{ item.vehicle_no }}</td>
                 <td>{{ item.destination }}</td>

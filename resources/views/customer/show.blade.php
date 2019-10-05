@@ -33,7 +33,7 @@
                         <div class="p-30">
                             <h5 class="font-weight-normal s-14">Balance</h5>
                             <span class="s-48 font-weight-lighter text-primary">
-                                    <span class="sc-counter">{{ $customer->balance }}</span>
+                                    <span class="">{{ $customer->balance }}</span>
                                 </span>
                             <div class="d-flex justify-content-between pt-2">
                                 <div>
