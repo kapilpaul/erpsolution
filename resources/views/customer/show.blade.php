@@ -71,29 +71,29 @@
                             <tbody>
                             <tr class="no-b">
                                 <th>Sl.</th>
-                                <th>Date</th>
-                                <th>Transaction No</th>
-                                <th>Transaction Type</th>
-                                <th>Invoice No</th>
-                                <th>Debit</th>
-                                <th>Credit</th>
-                                <th>Balance</th>
+                                <th style="text-align: center">Date</th>
+                                <th style="text-align: center">Transaction No</th>
+                                <th style="text-align: center">Transaction Type</th>
+                                <th style="text-align: center">Invoice No</th>
+                                <th style="text-align: center">Debit (Received)</th>
+                                <th style="text-align: center">Credit (Sell)</th>
+                                <th style="text-align: center">Balance</th>
                             </tr>
                             @foreach($transactions as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->date }}</td>
-                                <td>{{ $item->transaction_no }}</td>
+                                <td style="text-align: center">{{ $item->date }}</td>
+                                <td style="text-align: center">{{ $item->transaction_no }}</td>
 
-                                <td>{{ $item->tmode }}</td>
-                                <td>
+                                <td style="text-align: center">{{ $item->tmode }}</td>
+                                <td style="text-align: center">
                                     @if($item->other_transaction_no)
                                     <a href="{{ route('invoice.show', $item->other_transaction_no) }}">{{ $item->other_transaction_no }}</a>
                                     @endif
                                 </td>
-                                <td>{{ $item->debit }}</td>
-                                <td>{{ $item->credit }}</td>
-                                <td>{{ $item->balance }}</td>
+                                <td style="text-align: center">{{ $item->debit }}</td>
+                                <td style="text-align: center">{{ $item->credit }}</td>
+                                <td style="text-align: center">{{ $item->balance }}</td>
                             </tr>
                             @endforeach
                             </tbody>

@@ -74,11 +74,11 @@ class CustomerController extends Controller
      */
     public function show($code)
     {
-        $customer = Customer::whereCode($code)->firstOrFail();
+        $customer = Customer::where('code', $code)->firstOrFail();
 
-        $transactions = Transaction::whereCategory('customer')
-                                   ->whereReceiverId($customer->id)
-                                   ->orderBy('created_at', 'desc')
+        $transactions = Transaction::where('category', 'customer')
+                                   ->where('receiver_id', $customer->id)
+                                   ->orderBy('date', 'desc')
                                    ->orderBy('id', 'desc')
                                    ->get();
 

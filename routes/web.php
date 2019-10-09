@@ -160,6 +160,7 @@ Route::middleware(['authcheck'])->group(function () {
             Route::get('/{type}/create', 'TransactionController@create')->name('transaction.create');
             Route::any('/daily-summary', 'TransactionController@dailySummary')->name('transaction.dailySummary');
             Route::any('/daily-summary/pdf', 'TransactionController@summaryPdf')->name('transaction.summaryPdf');
+            Route::get('/delete/{id}', 'TransactionController@destroy')->name('transaction.destroy');
         });
     });
 });

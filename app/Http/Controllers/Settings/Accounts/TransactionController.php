@@ -108,7 +108,11 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
         $transaction->delete();
-        return response()->json(['success' => 'Deleted Successfully.'], 200);
+        Transaction::balanceUpdate($transaction->category, $transaction->receiver_id);
+        if(request()->is('api/*')) {
+            return response()->json(['success' => 'Deleted Successfully.'], 200);
+        }
+        return redirect()->back()->with(['success' => 'Deleted Successfully.']);
     }
 
 

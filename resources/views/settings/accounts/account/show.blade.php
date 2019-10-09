@@ -53,31 +53,37 @@
                             <tbody>
                             <tr class="no-b">
                                 <th>Sl.</th>
-                                <th>Date</th>
-                                <th>Transaction No</th>
-                                <th>Transaction Type</th>
-                                <th>Debit</th>
-                                <th>Credit</th>
+                                <th style="text-align: center">Date</th>
+                                <th style="text-align: center">Transaction No</th>
+                                <th style="text-align: center">Transaction Type</th>
+                                <th style="text-align: center">Debit</th>
+                                <th style="text-align: center">Credit</th>
+                                <th style="text-align: center">Action</th>
                             </tr>
                             @foreach($transactions as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->date }}</td>
-                                <td>{{ $item->transaction_no }}</td>
+                                <td style="text-align: center">{{ $item->date }}</td>
+                                <td style="text-align: center">{{ $item->transaction_no }}</td>
 
-                                <td>{{ $item->tmode }}</td>
-                                <td>{{ $item->debit }}</td>
-                                <td>{{ $item->credit }}</td>
+                                <td style="text-align: center">{{ $item->tmode }}</td>
+                                <td style="text-align: center">{{ $item->debit }}</td>
+                                <td style="text-align: center">{{ $item->credit }}</td>
+                                <td style="text-align: center">
+                                    <a href="{{ route('transaction.destroy', $item->id) }}"><i class="icon-close2 text-danger-o text-danger"></i>
+                                    </a>
+                                </td>
                             </tr>
                             @endforeach
 
                             <tr class="no-b">
                                 <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th>Total Amount</th>
-                                <th>{{ $totalPayment }}</th>
+                                <th style="text-align: center"></th>
+                                <th style="text-align: center"></th>
+                                <th style="text-align: center"></th>
+                                <th style="text-align: center">Total Amount</th>
+                                <th style="text-align: center">{{ $totalPayment }}</th>
+                                <th style="text-align: center"></th>
                             </tr>
                             </tbody>
                         </table>

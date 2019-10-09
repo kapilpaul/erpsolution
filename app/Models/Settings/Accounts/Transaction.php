@@ -114,7 +114,7 @@ class Transaction extends Model
 
             $transaction->update([
                 'balance' => $balance
-             ]);
+            ]);
         });
 
 
@@ -230,5 +230,26 @@ class Transaction extends Model
     public static function findIncome($date)
     {
         return Transaction::whereDate('date', $date)->where('type', 'receipt')->where('category', 'customer')->sum('debit');
+    }
+
+    /**
+     * @param $category
+     * @param $receiverId
+     * @return mixed
+     */
+    public static function updateTransactionByCategory($category, $receiverId)
+    {
+        $transactions = Transaction::where('category', $category)->where('receiver_id', $receiverId)->orderBy('date', 'asc')->get();
+
+        $credit = $debit = $balance = 0;
+        foreach ($transactions as $transaction) {
+            $credit += $transaction->credit;
+            $debit += $transaction->debit;
+
+            $balance = $credit - $debit;
+            $transaction->update(['balance' => $balance]);
+        }
+
+        return $balance;
     }
 }
