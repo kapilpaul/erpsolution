@@ -31,15 +31,18 @@
                     item.invoice_no
                   }}</a>
                 </td>
-                <td v-if="typeof item.customer !== 'undefined'">
-                  <a
-                    :href="customerHrefLink + item.customer.code + '/details'"
-                    >{{ item.customer.name }}</a>
-                </td>
-                <td v-if="typeof item.customer_name !== 'undefined'">
-                  <a
-                    :href="customerHrefLink + item.customer_code + '/details'"
+                <td>
+                  <div v-if="item.customer">
+                    <div v-if="typeof item.customer !== 'undefined'">
+                      <a :href="customerHrefLink + item.customer.code + '/details'"
+                      >{{ item.customer.name }}</a>
+                    </div>
+                  </div>
+
+                  <div v-if="typeof item.customer_name !== 'undefined'">
+                    <a :href="customerHrefLink + item.customer_code + '/details'"
                     >{{ item.customer_name }}</a>
+                  </div>
                 </td>
                 <td>{{ item.vehicle_no }}</td>
                 <td>{{ item.destination }}</td>
