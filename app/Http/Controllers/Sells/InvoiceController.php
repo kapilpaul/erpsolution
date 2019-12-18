@@ -260,8 +260,15 @@ class InvoiceController extends Controller
                 'grand_total' => $grand_total
             ]);
 
-            //updating customer balance
-            Customer::balanceUpdate($this->customerId);
+            //first delete the transaction
+            Transaction::where('other_transaction_no', $invoice->invoice_no)->where('date', Carbon::parse($inputData['date']))->delete();
+
+            //adding transaction
+            $this->transactionRequest('payment', $grand_total, $customer->code, $invoice->invoice_no, $inputData['date']);
+
+            if($request->paid_amount != 0) {
+                $this->transactionRequest('receipt', $request->paid_amount, $customer->code, $invoice->invoice_no, $inputData['date']);
+            }
 
             return response()->json(['success' => 'Updated Successfully'], 200);
         } catch (PDOException $e) {
