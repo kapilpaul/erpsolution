@@ -116,7 +116,7 @@ class Transaction extends Model
                 'balance' => $balance
             ]);
         });
-        
+
         return true;
     }
 
