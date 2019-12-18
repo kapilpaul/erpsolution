@@ -98,9 +98,9 @@ class DashboardController extends Controller
     {
         $topCustomers = DB::table('customers')
             ->join('invoices', 'customers.id', '=', 'invoices.customer_id')
-            ->select('customers.*', DB::raw('SUM(grand_total) as gtotal'))
             ->whereNull('invoices.deleted_at')
             ->whereNull('customers.deleted_at')
+            ->select('customers.*', DB::raw('SUM(grand_total) as gtotal'))
             ->groupBy('customers.id')
             ->orderBy('gtotal', 'desc')
             ->limit(10)

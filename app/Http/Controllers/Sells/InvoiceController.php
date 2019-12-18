@@ -59,7 +59,7 @@ class InvoiceController extends Controller
 
         try {
             $inputData = $request->except(['products', 'customer']);
-            $customer = Customer::whereMobile($request->customer['mobile'])->first();
+            $customer = Customer::whereCode($request->customer['code'])->first();
             //create customer if not exist
             if (!$customer) {
                 $customerData = $request->customer;
