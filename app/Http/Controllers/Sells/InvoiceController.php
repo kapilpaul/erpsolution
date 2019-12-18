@@ -22,6 +22,7 @@ class InvoiceController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -164,6 +165,7 @@ class InvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param Request $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -183,7 +185,7 @@ class InvoiceController extends Controller
         }
 
         $customers = Customer::pluck('name', 'id');
-        $productItems = Product::orderBy('name', 'asc')->select(DB::raw('CONCAT(name, " - ", model) AS name'), 'id', 'stock')->get();
+        $productItems = Product::orderBy('name', 'asc')->get();
 
         return view('sells.invoice.edit', compact('id', 'customers', 'productItems'));
     }
@@ -200,6 +202,7 @@ class InvoiceController extends Controller
         $rules = [
             'customer_id' => 'required',
             'date' => 'required',
+            'products' => 'required|array|min:0',
             'products.*.product_id' => 'required'
         ];
         $customMessages = [
@@ -306,6 +309,7 @@ class InvoiceController extends Controller
             'customer.name' => 'required',
             'customer.mobile' => 'required',
             'date' => 'required',
+            'products' => 'required|array|min:0',
             'products.*.product_id' => 'required'
         ];
         $customMessages = [
@@ -329,7 +333,7 @@ class InvoiceController extends Controller
             ->join('customers', 'invoices.customer_id', '=', 'customers.id')
             ->whereNull('invoices.deleted_at')
             ->whereNull('customers.deleted_at')
-            ->where(function($query) use ($value) {
+            ->where(function ($query) use ($value) {
                 $query->where('invoices.invoice_no', 'like', '%' . $value . '%')
                     ->orWhere('invoices.vehicle_no', 'like', '%' . $value . '%')
                     ->orWhere('invoices.destination', 'like', '%' . $value . '%')

@@ -22,9 +22,11 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('invoice.show', $receipt->other_transaction_no) }}">
-                                {{ $receipt->other_transaction_no }}
-                            </a>
+                            @if($receipt->other_transaction_no)
+                                <a href="{{ route('invoice.show', $receipt->other_transaction_no) }}">
+                                    {{ $receipt->other_transaction_no }}
+                                </a>
+                            @endif
                         </td>
                         <td>{{ ucfirst($receipt->tmode) }}</td>
                         <td>{{ $receipt->debit }}</td>

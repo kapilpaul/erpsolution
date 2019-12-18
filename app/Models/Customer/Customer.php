@@ -67,6 +67,8 @@ class Customer extends Model
             'balance' => ($grandTotal - $receiptAmount)
         ]);
 
+        Transaction::updateTransactionByCategory('customer', $customer->id);
+
         return $customer;
     }
 

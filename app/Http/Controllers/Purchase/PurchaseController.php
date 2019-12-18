@@ -18,6 +18,7 @@ class PurchaseController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -103,7 +104,8 @@ class PurchaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
@@ -116,7 +118,8 @@ class PurchaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
@@ -188,8 +191,8 @@ class PurchaseController extends Controller
             $purchase->update(['total_amount' => $inputData['total_amount']]);
 
             //updating supplier balance
-            $supplier = Supplier::findOrFail($inputData['supplier_id']);
-            Supplier::balanceUpdate($supplier->id);
+//            $supplier = Supplier::findOrFail($inputData['supplier_id']);
+//            Supplier::balanceUpdate($supplier->id);
 
             return response()->json(['success' => 'Updated Successfully'], 200);
         }catch(PDOException $e){
@@ -232,7 +235,8 @@ class PurchaseController extends Controller
     {
         $rules = [
             'purchase_date' => 'required',
-            'products' => 'required|array'
+            'products' => 'required|array|min:0',
+            'products.*.product_id' => 'required'
         ];
         $customMessages = [
             'required' => 'The :attribute field can not be blank.',
@@ -251,11 +255,11 @@ class PurchaseController extends Controller
     public function search($value)
     {
         $purchases = Purchase::where('invoice_no', 'like', '%'. $value .'%')
-                    ->orWhere('purchase_no', 'like', '%'. $value .'%')
-                    ->orWhere('vehicle_no', 'like', '%'. $value .'%')
-                    ->orWhere('total_amount', 'like', '%'. $value .'%')
-                    ->orderBy('purchase_date', 'desc')
-                    ->with('supplier')->paginate(100);
+            ->orWhere('purchase_no', 'like', '%'. $value .'%')
+            ->orWhere('vehicle_no', 'like', '%'. $value .'%')
+            ->orWhere('total_amount', 'like', '%'. $value .'%')
+            ->orderBy('purchase_date', 'desc')
+            ->with('supplier')->paginate(100);
 
         return response()->json(['purchases' => $purchases], 200);
     }

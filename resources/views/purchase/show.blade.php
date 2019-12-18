@@ -18,6 +18,7 @@
                             {{--<h5 class="card-title mb-0">Supplier Name : <a href="{{ route('suppliers.show', $purchase->supplier->code) }}">{{ $purchase->supplier->name }}</a></h5>--}}
                             <p class="card-text mb-0">Invoice No : {{ $purchase->invoice_no }}</p>
                             <p class="card-text mb-0">{{ $purchase->details }}</p>
+                            <p class="card-text mb-0">Vehicle No: {{ $purchase->vehicle_no }} ({{ $purchase->driver_name }})</p>
                             <p class="card-text mb-0">{{ $purchase->purchase_date }}</p>
                         </div>
                     </div>
@@ -75,6 +76,8 @@
                                 <th>Price</th>
                                 <th>Total</th>
                             </tr>
+                            @php $totalQty = 0 @endphp
+
                             @foreach($purchase->products as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -82,7 +85,7 @@
                                     <a href="{{ route('products.details', $item->code) }}">{{ $item->name }} - {{ $item->model }}</a>
                                 </td>
                                 <!-- Page size -->
-                                <td>{{ $item->pivot->quantity }}</td>
+                                <td>{{ $totalQty += $item->pivot->quantity }}</td>
                                 <!-- Status -->
                                 <td>
                                     {{ $item->pivot->price }}
@@ -96,8 +99,8 @@
 
                             <tr class="no-b">
                                 <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>Total Qty.</th>
+                                <th>{{ $totalQty }}</th>
                                 <th>Total Amount</th>
                                 <th>{{ $purchase->total_amount }}</th>
                             </tr>

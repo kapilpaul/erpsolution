@@ -61,12 +61,10 @@ class Account extends Model
      */
     public static function balanceUpdate($id)
     {
-        if($account = Account::find($id) ) {
+        if ($account = Account::find($id)) {
             $total = Transaction::where('type', 'payment')->where('category', 'office')->where('receiver_id', $account->id)->sum('credit');
-
-            $account->update([
-                'balance' => $total
-            ]);
+            $account->update(['balance' => $total]);
+            Transaction::updateTransactionByCategory('office', $account->id);
             return $account;
         }
 

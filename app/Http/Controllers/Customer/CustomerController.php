@@ -22,8 +22,8 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         if($request->is('api/*')) {
-            $customersQuery = Customer::orderBy('id', 'desc');
-            $customers = $customersQuery->paginate(100);
+            $customersQuery = Customer::orderBy('name', 'asc');
+            $customers = $customersQuery->paginate(200);
             $totalDue = $customersQuery->sum('balance');
             return response()->json(['customers' => $customers, 'totalDue' => $totalDue], 200);
         }
@@ -77,13 +77,15 @@ class CustomerController extends Controller
         $customer = Customer::where('code', $code)->firstOrFail();
 
         $transactions = Transaction::where('category', 'customer')
-                                   ->where('receiver_id', $customer->id)
-                                   ->orderBy('date', 'desc')
-                                   ->orderBy('id', 'desc')
-                                   ->get();
+            ->where('receiver_id', $customer->id)
+            ->orderBy('date', 'desc')
+            ->orderBy('id', 'desc')
+            ->get();
 
         $totalPurchase = Customer::grandTotal($customer->id);
         $totalPaid = Customer::receiptTotal($customer->id);
+
+        Transaction::updateTransactionByCategory('customer', $customer->id);
 
         return view('customer.show', compact('customer', 'transactions', 'totalPurchase', 'totalPaid'));
     }
@@ -166,10 +168,10 @@ class CustomerController extends Controller
     public function search($value)
     {
         $customers = Customer::where('mobile', 'like', '%'. $value .'%')
-                    ->orWhere('email', 'like', '%'. $value .'%')
-                    ->orWhere('name', 'like', '%'. $value .'%')
-                    ->orWhere('balance', 'like', '%'. $value .'%')
-                    ->paginate(100);
+            ->orWhere('email', 'like', '%'. $value .'%')
+            ->orWhere('name', 'like', '%'. $value .'%')
+            ->orWhere('balance', 'like', '%'. $value .'%')
+            ->paginate(100);
 
         return response()->json(['customers' => $customers], 200);
     }
@@ -197,12 +199,12 @@ class CustomerController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponseyzLqVCUQuYAOYG7KAFfVnMybLSIHWr4p2TlVO8Ij
+     * @return \Illuminate\Http\JsonResponse
      */
     public function dueCustomers()
     {
         if(request()->is('api/*')) {
-            $customersQuery = Customer::where('balance', '>', '0')->orderBy('id', 'desc');
+            $customersQuery = Customer::where('balance', '>', '0')->orderBy('name', 'asc');
             $customers = $customersQuery->paginate(100);
             $totalDue = $customersQuery->sum('balance');
 
