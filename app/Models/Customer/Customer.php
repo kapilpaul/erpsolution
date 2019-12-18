@@ -43,11 +43,12 @@ class Customer extends Model
         $input['code'] = Str::random(15);
         $input['name'] = ucwords($input['name']);
 
-
         if ($customer = Customer::create($input)) {
-            $invoice = new InvoiceController();
-            $invoice->transactionRequest('payment', $input['balance'], $customer->code, null, false, "Previous Balance");
-            return true;
+            if ($input['balance'] != 0) {
+                $invoice = new InvoiceController();
+                $invoice->transactionRequest('payment', $input['balance'], $customer->code, null, false, "Previous Balance");
+                return true;
+            }
         }
         return false;
     }
