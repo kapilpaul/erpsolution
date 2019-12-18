@@ -32,7 +32,7 @@
                         <td>{{ $receipt->debit }}</td>
                         <td>
                             @if($receipt->customer->balance > 0)
-                            <span class="bg-danger mb-0 p-5 pl-15 pr-15" style="color: #000;">
+                                <span class="bg-danger mb-0 p-5 pl-15 pr-15" style="color: #000;">
                                 {{ $receipt->customer->balance }}
                             </span>
                             @else
