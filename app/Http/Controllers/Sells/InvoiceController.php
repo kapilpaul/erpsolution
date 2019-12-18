@@ -102,7 +102,10 @@ class InvoiceController extends Controller
 
             //adding transaction
             $this->transactionRequest('payment', $grand_total, $customer->code, $invoice->invoice_no, $inputData['date']);
-            $this->transactionRequest('receipt', $request->paid_amount, $customer->code, $invoice->invoice_no, $inputData['date']);
+
+            if($request->paid_amount != 0) {
+                $this->transactionRequest('receipt', $request->paid_amount, $customer->code, $invoice->invoice_no, $inputData['date']);
+            }
 
             //updating customer balance
             //Customer::balanceUpdate($this->customerId);

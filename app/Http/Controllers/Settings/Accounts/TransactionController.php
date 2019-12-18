@@ -128,7 +128,7 @@ class TransactionController extends Controller
             'category' => 'required',
             'tmode' => 'required',
             'receiver_id' => 'required',
-            'amount' => 'required|numeric'
+            'amount' => 'required|numeric|min:1'
         ];
 
         $customMessages = [

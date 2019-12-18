@@ -85,8 +85,6 @@ class CustomerController extends Controller
         $totalPurchase = Customer::grandTotal($customer->id);
         $totalPaid = Customer::receiptTotal($customer->id);
 
-        Transaction::updateTransactionByCategory('customer', $customer->id);
-
         return view('customer.show', compact('customer', 'transactions', 'totalPurchase', 'totalPaid'));
     }
 
