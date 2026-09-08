@@ -178,9 +178,9 @@
                         <hr>
                         <div class="row box justify-content-between my-4">
                             <div class="col">
-                                <a href="#">
+                                <a href="{{ route('logout') }}">
                                     <i class="icon-apps purple lighten-2 avatar  r-5"></i>
-                                    <div class="pt-1">Apps</div>
+                                    <div class="pt-1">Logout</div>
                                 </a>
                             </div>
                             <div class="col"><a href="#">
